@@ -3,7 +3,7 @@
 
 Initial idea: Side scrolling shooting game
 
-
+![] (/img.PNG)
 
 Demo of idea: https://www.youtube.com/watch?v=3PYhDgS6Ecg
 
