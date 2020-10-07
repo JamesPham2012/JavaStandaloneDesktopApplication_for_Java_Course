@@ -26,7 +26,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create() {
 		player.create();
 		for(int i=0;i<bullet_arr.size();i++){
-			System.out.println(i);
 			bullet_arr.elementAt(i).create();
 		}
 	}
@@ -40,7 +39,6 @@ public class MyGdxGame extends ApplicationAdapter {
 			create();
 		}
 		for(int i=0;i<bullet_arr.size();i++){
-			System.out.println(i);
 			bullet_arr.elementAt(i).render();
 		}
 	}

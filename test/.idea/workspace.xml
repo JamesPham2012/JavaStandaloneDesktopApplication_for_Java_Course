@@ -22,7 +22,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="952d4df6-3bdd-42b8-9ec4-27f90e54bb5d" name="Default Changelist" comment="Tui chen file vao file cua hao" />
+    <list default="true" id="952d4df6-3bdd-42b8-9ec4-27f90e54bb5d" name="Default Changelist" comment="Tui chen file vao file cua hao">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/MyGdxGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/MyGdxGame.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
