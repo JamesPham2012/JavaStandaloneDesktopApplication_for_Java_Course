@@ -40,7 +40,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 		for(int i=0;i<bullet_arr.size();i++){
 			bullet_arr.elementAt(i).render();
-			if (bullet_arr.elementAt(i).y>640) {
+			if (bullet_arr.elementAt(i).y>480) {
 				bullet_arr.removeElementAt(i);
 			}
 		}
