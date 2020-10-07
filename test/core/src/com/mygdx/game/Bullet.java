@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Bullet {
     private SpriteBatch batch;
     private Texture texture;
-    private int x;
-    private int y;
+    public int x;
+    public int y;
 
 
     public Bullet(int x_c, int y_c){

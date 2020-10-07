@@ -31,7 +31,7 @@ public class Player{
         return y;
     }
     public boolean fire(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             return true;
         }
         else{
