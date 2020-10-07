@@ -18,7 +18,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	SpriteBatch batch;
 	Texture plane;
-
+	// hello hao
 	//	Texture sprite_bullet;
 //	//Input in; // interface class --> abstract class --> we cannot call obj of this class.
 	@Override// we override function create in ApplicationAdapter.
