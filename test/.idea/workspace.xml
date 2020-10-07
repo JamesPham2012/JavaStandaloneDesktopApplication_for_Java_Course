@@ -22,9 +22,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="952d4df6-3bdd-42b8-9ec4-27f90e54bb5d" name="Default Changelist" comment="Tui chen file vao file cua hao">
-      <change beforePath="$PROJECT_DIR$/desktop/src/game/demo/desktop/DesktopLauncher.java" beforeDir="false" />
-    </list>
+    <list default="true" id="952d4df6-3bdd-42b8-9ec4-27f90e54bb5d" name="Default Changelist" comment="Tui chen file vao file cua hao" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -101,6 +99,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Test Hao" />
