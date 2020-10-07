@@ -27,7 +27,7 @@ public class Bullet {
         batch.begin();
         batch.draw(texture, x, y);
         batch.end();
-        y++;
+        y+=3;
     }
 
     public void dispose () {
