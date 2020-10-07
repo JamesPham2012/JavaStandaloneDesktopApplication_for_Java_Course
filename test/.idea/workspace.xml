@@ -22,7 +22,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="952d4df6-3bdd-42b8-9ec4-27f90e54bb5d" name="Default Changelist" comment="Tui chen file vao file cua hao" />
+    <list default="true" id="952d4df6-3bdd-42b8-9ec4-27f90e54bb5d" name="Default Changelist" comment="Tui chen file vao file cua hao">
+      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/OpenWindow.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,6 +34,13 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
