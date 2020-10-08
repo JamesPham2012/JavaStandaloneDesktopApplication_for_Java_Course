@@ -55,7 +55,7 @@ public class Bullet extends GameObj{
     boolean firstRenderFlag=true;
     private int Source; //Source is 1 for Player and -1 for Enemy
     private int Type;   // Type control 3 way bullets move, default is 1
-    private int State=1; // State is alive or dead, default = 1
+    public boolean State=true; // State is alive or dead, default = 1
     public Bullet(int x_in, int y_in, int Sauce, int InType){
         x=x_in;
         y=y_in;
@@ -73,24 +73,48 @@ public class Bullet extends GameObj{
     public void create(){
 
         batch = new SpriteBatch();
-        art = new Texture("AAM.png");
+        if (Source==1){art = new Texture("AAM.png");}
+        else art = new Texture("LSB.png");
+
     }
 
     public void render_bullet(){
+        if (State) {
+            batch.begin();
+            if(firstRenderFlag==true){
+                cali_x= x - art.getWidth()/2;
+                cali_y= S_height-(y +art.getHeight()/2);
+                firstRenderFlag=false;
+            }
+            batch.draw(art, cali_x,cali_y);
+            batch.end();
+            if (Source==1){
+                cali_y+=5;
+                if (cali_y>S_height){
+                    State=false;
+                }
+            }
+            else {
+                cali_y-=5;
+                if (cali_y<0){
+                    State=false;
+                }
+            }
 
-        batch.begin();
-        if(firstRenderFlag==true){
-            cali_x= x -art.getWidth()/2;
-            cali_y= S_height-(y +art.getHeight()/2);
-            firstRenderFlag=false;
         }
-        batch.draw(art, cali_x,cali_y);
-        batch.end();
-        cali_y+=5;
+
     }
 
-    public void dispose () {
-        batch.dispose();
-        art.dispose();
+    public boolean isDed(){
+        return !State;
+    }
+
+
+
+    public void Reallocate(int x,int y, int sauce){
+        this.x=x;
+        this.y=y;
+        this.Source=sauce;
+        this.State=true;
     }
 }

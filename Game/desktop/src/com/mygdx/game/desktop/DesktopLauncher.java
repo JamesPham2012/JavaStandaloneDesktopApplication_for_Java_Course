@@ -13,7 +13,10 @@ public class DesktopLauncher {
 		config.resizable=false;
 		config.width=1200;
 		config.height=720;
+		config.maxNetThreads=16;
+		config.title="Noodle Rocket Launcher";
 
+		config.foregroundFPS=144;
 		new LwjglApplication(new Launcher(), config);
 
 	}

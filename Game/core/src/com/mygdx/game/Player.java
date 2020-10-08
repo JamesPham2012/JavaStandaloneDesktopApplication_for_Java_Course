@@ -8,6 +8,8 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.util.Date;
+import java.util.Calendar;
 /*public class Player {
 
 START----------------------------TRANSFERED TO SUPERCLASS GAMEOBJ-------------------------------------------------------
@@ -67,27 +69,42 @@ END----------------------------------TRANSFERED TO SUPERCLASS GAMEOBJ-----------
 
 }*/
 public class Player extends GameObj {
-
     SpriteBatch batch;
-
+    long timer1=System.currentTimeMillis();
+    private int Loaded=1;
     public void create(){
         batch = new SpriteBatch();
         art =new Texture("logo_noodle-02.png");//169X169
     }
 
+    public boolean Manual_Shoot(){  //reload time 1 sec
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+            if (System.currentTimeMillis()-timer1>100){
+                timer1=System.currentTimeMillis();
+                Loaded=1;
+            }else {Loaded=0;}
 
-
-
-
-    public boolean Shoot(){
-        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-            return true;
+            if (Loaded==1){
+                return true;
+            }
+            else return false;
         }
         else{
             return false;
         }
     }
 
+    public boolean Autoshoot(){  //reload time 0.5 sec
+            if (System.currentTimeMillis()-timer1>1000){
+                timer1=System.currentTimeMillis();
+                Loaded=1;
+            }else {Loaded=0;}
+
+            if (Loaded==1){
+                return true;
+            }
+            else return false;
+    }
 
     public void render_player(){
 
@@ -96,10 +113,7 @@ public class Player extends GameObj {
         batch.draw(art, cali_x,cali_y);
         batch.end();
         input();
-
-
     }
-
 
     public void input(){
         x=Gdx.input.getX();

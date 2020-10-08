@@ -24,7 +24,11 @@ public class GameObj {
     public int getY() {
         return y;
     }
+    public void dispose(){
 
+        art.dispose();
+
+    }
 
 }
 
