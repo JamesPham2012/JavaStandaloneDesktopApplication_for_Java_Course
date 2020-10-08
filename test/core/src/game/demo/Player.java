@@ -17,7 +17,7 @@ public class Player{
     public void create(){
 
         batch = new SpriteBatch();
-        texture = new Texture("plane.png");
+        texture = new Texture("Spacefighter.png");
     }
     public void input(){
         x= Gdx.input.getX();
