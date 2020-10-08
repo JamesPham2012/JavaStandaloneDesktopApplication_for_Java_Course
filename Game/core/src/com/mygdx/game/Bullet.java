@@ -71,7 +71,6 @@ public class Bullet extends GameObj{
     }
 
     public void create(){
-
         batch = new SpriteBatch();
         if (Source==1){art = new Texture("AAM.png");}
         else art = new Texture("LSB.png");
@@ -111,7 +110,7 @@ public class Bullet extends GameObj{
 
 
 
-    public void Reallocate(int x,int y, int sauce){
+    public void Revive(int x,int y, int sauce){
         this.x=x;
         this.y=y;
         this.Source=sauce;

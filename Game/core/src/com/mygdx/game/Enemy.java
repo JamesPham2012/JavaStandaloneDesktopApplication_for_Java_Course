@@ -19,13 +19,13 @@ public class Enemy extends GameObj {
         this.y=y;
     }
     public void create(){
-        batch = new SpriteBatch();
+
         art =new Texture("chow.png");//169X169
     }
 
     public void render_enemy(){
         batch.begin();
-        batch.draw(art, x,y);
+        batch.draw(art,x,720-y);
         batch.end();
 
     }

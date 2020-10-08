@@ -78,20 +78,20 @@ public class Player extends GameObj {
     }
 
     public boolean Manual_Shoot(){  //reload time 1 sec
-        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-            if (System.currentTimeMillis()-timer1>100){
+        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+            if (System.currentTimeMillis()-timer1>10){
                 timer1=System.currentTimeMillis();
                 Loaded=1;
             }else {Loaded=0;}
 
+
             if (Loaded==1){
                 return true;
             }
-            else return false;
-        }
-        else{
             return false;
+
         }
+        return false;
     }
 
     public boolean Autoshoot(){  //reload time 0.5 sec
