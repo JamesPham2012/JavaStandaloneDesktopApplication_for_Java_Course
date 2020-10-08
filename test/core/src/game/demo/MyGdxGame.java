@@ -31,13 +31,13 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 	public void render(){
 
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(255, 0, 0, 255);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		player.render_player();
 		if(player.fire()){
-			bullet_arr.addElement(new Bullet(player.getX()+5,player.getY(),+2,8));
-			bullet_arr.addElement(new Bullet(player.getX()-5,player.getY(),-2,8));
-			bullet_arr.addElement(new Bullet(player.getX(),player.getY(),0,8));
+			bullet_arr.addElement(new Bullet(player.getX(),player.getY()+28,+2,8));
+			bullet_arr.addElement(new Bullet(player.getX()-10,player.getY()+28,-2,8));
+			bullet_arr.addElement(new Bullet(player.getX()-5,player.getY()+28,0,8));
 			create();
 		}
 		for(int i=0;i<bullet_arr.size();i++){

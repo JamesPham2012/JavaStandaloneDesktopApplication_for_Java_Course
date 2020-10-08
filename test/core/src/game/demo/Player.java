@@ -40,7 +40,7 @@ public class Player{
     }
     public void render_player () { // loop
         batch.begin();
-        batch.draw(texture, x, y);
+        batch.draw(texture, x-20, y-28, 40, 56);
         batch.end();
         input();
 
