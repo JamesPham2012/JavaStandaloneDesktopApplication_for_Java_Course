@@ -35,12 +35,17 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		player.render_player();
 		if(player.fire()){
-			bullet_arr.addElement(new Bullet(player.getX(),player.getY()));
+			bullet_arr.addElement(new Bullet(player.getX()+5,player.getY(),+2,8));
+			bullet_arr.addElement(new Bullet(player.getX()-5,player.getY(),-2,8));
+			bullet_arr.addElement(new Bullet(player.getX(),player.getY(),0,8));
 			create();
 		}
 		for(int i=0;i<bullet_arr.size();i++){
 			System.out.println(i);
 			bullet_arr.elementAt(i).render();
+			if (bullet_arr.elementAt(i).y>480) {
+				bullet_arr.removeElementAt(i);
+			}
 		}
 	}
 	public void dispose(){
