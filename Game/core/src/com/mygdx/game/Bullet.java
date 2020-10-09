@@ -52,29 +52,28 @@ public class Bullet {
 
 public class Bullet extends GameObj{
     SpriteBatch batch;
-    boolean firstRenderFlag=true;
-    private int Source; //Source is 1 for Player and -1 for Enemy
+
+    private boolean Source; //Source is true for Player and false for Enemy
     private int Type;   // Type control 3 way bullets move, default is 1
-    public boolean State=true; // State is alive or dead, default = 1
 
 
-    public Bullet(int x_in, int y_in, int Sauce){
+
+    public Bullet(int x_in, int y_in, boolean Sauce){
         x=x_in;
         y=y_in;
         Source=Sauce;
-        Type=1;
     }
-    public Bullet(int x_in, int y_in, int Sauce,boolean State){
+    public Bullet(int x_in, int y_in, boolean Sauce,boolean State){
         x=x_in;
         y=y_in;
         Source=Sauce;
-        State=State;
+        this.State=State;
     }
 
     public void create(){
         batch = new SpriteBatch();
-        if (Source==1){art = new Texture("AAM.png");}
-        else art = new Texture("LSB.png");
+        if (Source){art = new Texture("AAM.png");}
+        else {art = new Texture("AAMR.png");}
 
     }
 
@@ -88,13 +87,13 @@ public class Bullet extends GameObj{
             }
             batch.draw(art, cali_x,cali_y);
             batch.end();
-            if (Source==1){
+            if (Source){
                 cali_y+=5;
                 if (cali_y>S_height-art.getHeight()){
                     State=false;
                 }
             }
-            else {
+            else if(!Source){
                 cali_y-=5;
                 if (cali_y<0){
                     State=false;
@@ -111,7 +110,7 @@ public class Bullet extends GameObj{
 
 
 
-    public boolean Revive(int x,int y, int sauce){
+    public boolean Revive(int x,int y, boolean sauce){
         this.x=x;
         this.y=y;
         this.Source=sauce;

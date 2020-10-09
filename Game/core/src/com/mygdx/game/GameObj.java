@@ -10,6 +10,8 @@ public class GameObj {
     protected int cali_y;
     public int S_width;
     public int S_height;
+    boolean firstRenderFlag=true;
+    public boolean State=true;// State is alive or dead, default = 1
     Texture art;
 
     public void setParam(){
