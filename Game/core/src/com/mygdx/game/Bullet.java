@@ -56,18 +56,19 @@ public class Bullet extends GameObj{
     private int Source; //Source is 1 for Player and -1 for Enemy
     private int Type;   // Type control 3 way bullets move, default is 1
     public boolean State=true; // State is alive or dead, default = 1
-    public Bullet(int x_in, int y_in, int Sauce, int InType){
-        x=x_in;
-        y=y_in;
-        Source=Sauce;
-        Type=InType;
-    }
+
 
     public Bullet(int x_in, int y_in, int Sauce){
         x=x_in;
         y=y_in;
         Source=Sauce;
         Type=1;
+    }
+    public Bullet(int x_in, int y_in, int Sauce,boolean State){
+        x=x_in;
+        y=y_in;
+        Source=Sauce;
+        State=State;
     }
 
     public void create(){
@@ -115,5 +116,6 @@ public class Bullet extends GameObj{
         this.y=y;
         this.Source=sauce;
         this.State=true;
+        this.firstRenderFlag=true;
     }
 }

@@ -77,25 +77,25 @@ public class Player extends GameObj {
         art =new Texture("logo_noodle-02.png");//169X169
     }
 
-    public boolean Manual_Shoot(){  //reload time 1 sec
+        public boolean Autoshoot(){  //reload time 1 sec
         if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-            if (System.currentTimeMillis()-timer1>10){
+            if (System.currentTimeMillis()-timer1>1){
                 timer1=System.currentTimeMillis();
                 Loaded=1;
             }else {Loaded=0;}
 
-
             if (Loaded==1){
                 return true;
             }
-            return false;
-
+            else return false;
         }
-        return false;
+        else{
+            return false;
+        }
     }
 
-    public boolean Autoshoot(){  //reload time 0.5 sec
-            if (System.currentTimeMillis()-timer1>1000){
+    public boolean Manual_Shoot(){  //reload time 0.5 sec
+            if (System.currentTimeMillis()-timer1>1){
                 timer1=System.currentTimeMillis();
                 Loaded=1;
             }else {Loaded=0;}
@@ -109,7 +109,6 @@ public class Player extends GameObj {
     public void render_player(){
 
         batch.begin();
-
         batch.draw(art, cali_x,cali_y);
         batch.end();
         input();

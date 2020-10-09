@@ -28,8 +28,10 @@ public class Launcher extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		player.setParam();
 		player.create();
-		for(int i=0;i<bullet_arr.size();i++){
-			bullet_arr.elementAt(i).create();
+
+		if (bullet_arr.size()==0){
+			bullet_arr.addElement(new Bullet(122,-1,1,false));
+			bullet_arr.firstElement().create();
 		}
 
 
@@ -43,48 +45,46 @@ public class Launcher extends ApplicationAdapter {
 		player.render_player();
 		int BulletGen=0;
 		if(player.Manual_Shoot())
-		   while (BulletGen==0){
-			   {// need change to replace DED value with ALIVE value in order for the vector not to be too long, waste of memory
-				   if ((bullet_arr.size()==0)){//there is no element in array
-					   bullet_arr.addElement(new Bullet(player.getX(),player.getY(),1));
-					   bullet_arr.lastElement().setParam();
-					   create();}
-				   else
-				   {
-					   for(int i=0;i<bullet_arr.size();i++)
-					   {                                                                           //there exists at least an element in the array
-						   if(bullet_arr.elementAt(i).isDed()){                                    // there is 1 dead bullet
-							   bullet_arr.elementAt(i).Revive(player.getX(),player.getY(),1);//revive it as a new bullet
-							   //param is not deleted so no need to reassign
-							   break;
-						   }
-					   }
-				   }
-			   }// if the code get here, there is NO dead bullet in the array
-			   bullet_arr.addElement(new Bullet(player.getX(),player.getY(),1));
-			   bullet_arr.lastElement().setParam();
-			   bullet_arr.lastElement().create();
-			   BulletGen=1;
-		   }
+	loop:	while (BulletGen==0){
+				// need change to replace DED value with ALIVE value in order for the vector not to be too long, waste of memory
+
+
+		 		for(int i=0;i<bullet_arr.size();i++)
+		 		{                                                                           //there exists at least an element in the array
+		 			if(bullet_arr.elementAt(i).isDed()){                                    // there is 1 dead bullet
+		 				bullet_arr.elementAt(i).Revive(player.getX(),player.getY(),1);//revive it as a new bullet
+						BulletGen=1;
+						continue loop;
+		 			}
+		 		}
+				// if the code get here, there is NO dead bullet in the array
+
+				bullet_arr.addElement(new Bullet(player.getX(),player.getY(),1));
+				bullet_arr.lastElement().setParam();
+				bullet_arr.lastElement().create();
+				BulletGen=1;
+
+			}
 
 
 
 
 			/*bullet_arr.addElement(new Bullet(player.getX(),player.getY(),1));
 			bullet_arr.lastElement().setParam();*/
-			// create MUST be in here to allow the data deletion to continue
-
+		// create MUST be in here to allow the data deletion to continue
+		int counter=0;
 		for(int i=0;i<bullet_arr.size();i++){
-			if(bullet_arr.elementAt(i).isDed()) { // skip all dead elements
+			if(bullet_arr.elementAt(i).isDed()) {
+				counter++;
 				continue;
 			}
-			else bullet_arr.elementAt(i).render_bullet();
+			else bullet_arr.elementAt(i).render_bullet(); // skip all dead elements
 		}
 
 
-		Gdx.app.log("Capacity", Integer.toString(bullet_arr.capacity()));
+
 		Gdx.app.log("Size", Integer.toString(bullet_arr.size()));
-		Gdx.app.log("Frame", String.valueOf(Gdx.graphics.getFramesPerSecond()));
+		Gdx.app.log("Dead", Integer.toString(counter));
 
 	}
 	@Override
