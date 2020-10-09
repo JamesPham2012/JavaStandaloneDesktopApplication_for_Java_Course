@@ -90,7 +90,7 @@ public class Bullet extends GameObj{
             batch.end();
             if (Source==1){
                 cali_y+=5;
-                if (cali_y>S_height){
+                if (cali_y>S_height-art.getHeight()){
                     State=false;
                 }
             }
@@ -111,11 +111,12 @@ public class Bullet extends GameObj{
 
 
 
-    public void Revive(int x,int y, int sauce){
+    public boolean Revive(int x,int y, int sauce){
         this.x=x;
         this.y=y;
         this.Source=sauce;
         this.State=true;
         this.firstRenderFlag=true;
+        return true;
     }
 }

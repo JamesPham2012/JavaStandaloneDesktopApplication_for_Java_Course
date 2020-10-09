@@ -77,7 +77,7 @@ public class Player extends GameObj {
         art =new Texture("logo_noodle-02.png");//169X169
     }
 
-        public boolean Autoshoot(){  //reload time 1 sec
+        public boolean Manual_Shoot(){  //reload time 1 sec
         if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
             if (System.currentTimeMillis()-timer1>1){
                 timer1=System.currentTimeMillis();
@@ -94,8 +94,8 @@ public class Player extends GameObj {
         }
     }
 
-    public boolean Manual_Shoot(){  //reload time 0.5 sec
-            if (System.currentTimeMillis()-timer1>1){
+    public boolean Autoshoot(){  //reload time 0.5 sec
+            if (System.currentTimeMillis()-timer1>100){
                 timer1=System.currentTimeMillis();
                 Loaded=1;
             }else {Loaded=0;}

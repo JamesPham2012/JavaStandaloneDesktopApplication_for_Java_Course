@@ -31,8 +31,10 @@ public class Launcher extends ApplicationAdapter {
 
 		if (bullet_arr.size()==0){
 			bullet_arr.addElement(new Bullet(122,-1,1,false));
+			bullet_arr.firstElement().setParam();
 			bullet_arr.firstElement().create();
 		}
+
 
 
 
@@ -47,13 +49,12 @@ public class Launcher extends ApplicationAdapter {
 		if(player.Manual_Shoot())
 	loop:	while (BulletGen==0){
 				// need change to replace DED value with ALIVE value in order for the vector not to be too long, waste of memory
-
-
 		 		for(int i=0;i<bullet_arr.size();i++)
 		 		{                                                                           //there exists at least an element in the array
 		 			if(bullet_arr.elementAt(i).isDed()){                                    // there is 1 dead bullet
-		 				bullet_arr.elementAt(i).Revive(player.getX(),player.getY(),1);//revive it as a new bullet
+		 				boolean res = bullet_arr.elementAt(i).Revive(player.getX(),player.getY(),1);//revive it as a new bullet
 						BulletGen=1;
+						Gdx.app.log("Log", "Bullet number "+i+" revived");
 						continue loop;
 		 			}
 		 		}
@@ -63,12 +64,9 @@ public class Launcher extends ApplicationAdapter {
 				bullet_arr.lastElement().setParam();
 				bullet_arr.lastElement().create();
 				BulletGen=1;
+				Gdx.app.log("Log", "Bullet number "+bullet_arr.size()+" created");
 
 			}
-
-
-
-
 			/*bullet_arr.addElement(new Bullet(player.getX(),player.getY(),1));
 			bullet_arr.lastElement().setParam();*/
 		// create MUST be in here to allow the data deletion to continue
@@ -78,13 +76,13 @@ public class Launcher extends ApplicationAdapter {
 				counter++;
 				continue;
 			}
-			else bullet_arr.elementAt(i).render_bullet(); // skip all dead elements
-		}
+			else {bullet_arr.elementAt(i).render_bullet(); // skip all dead elements
+		}}
 
 
 
-		Gdx.app.log("Size", Integer.toString(bullet_arr.size()));
-		Gdx.app.log("Dead", Integer.toString(counter));
+/*		Gdx.app.log("Size", Integer.toString(bullet_arr.size()));
+		Gdx.app.log("Dead", Integer.toString(counter));*/
 
 	}
 	@Override
