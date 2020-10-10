@@ -18,11 +18,9 @@ public class Launcher extends ApplicationAdapter {
 
 	//Graphics
 	SpriteBatch batch;
-//	Texture background;
 	Texture[] background;
 
 	//Background movement
-//	private float backgroundOffset = 0;
 	private float[] backgroundOffset = {0,0,0,0};
 	private float speed;
 
@@ -33,7 +31,6 @@ public class Launcher extends ApplicationAdapter {
 	@Override 
 	public void create () {
 		background = new Texture[4];
-//		background = new Texture("Texture/Background/Background.png");
 		camera = new OrthographicCamera();
 		viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
