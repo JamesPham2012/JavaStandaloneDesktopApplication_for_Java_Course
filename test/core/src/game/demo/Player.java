@@ -6,41 +6,41 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-public class Player{
+
+import java.util.Vector;
+
+public class Player extends GameObj{
     private SpriteBatch batch;
     private Texture texture;
-    private int x;
-    private int y;
-
+    Vector<Bullet> bullet_arr= new Vector<>();
 
 
     public void create(){
 
         batch = new SpriteBatch();
-        texture = new Texture("Spacefighter.png");
+        texture = new Texture("Plane.png");
     }
     public void input(){
         x= Gdx.input.getX();
         y= 480 - Gdx.input.getY();
 
     }
-    public int getX(){
+    public float getX(){
         return x;
     }
-    public int getY(){
+    public float getY(){
         return y;
     }
     public boolean fire(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return Gdx.input.isKeyJustPressed(Input.Keys.SPACE);
+    }
+    public void Bullet_Call() {
+        bullet_arr.addElement(new Bullet(getX(),getY(),-5,28));
+
     }
     public void render_player () { // loop
         batch.begin();
-        batch.draw(texture, x-20, y-28, 40, 56);
+        batch.draw(texture, x-15, y-28, 40, 56);
         batch.end();
         input();
 
