@@ -14,17 +14,35 @@ public class Bullet {
     public int y;
     private int x_var;
     private int y_var;
+    private int x_b;
+    private int y_b;
 
 
-    public Bullet(int x_c, int y_c, int x_v, int y_v){
-        x=x_c; x_var=x_v;
-        y=y_c; y_var=y_v;
+
+//    public Bullet(int x_c, int y_c, int xfromhost, int yfromhost){
+//        x=x_c+xfromhost; x_b=x_c-5;
+//        y=y_c+yfromhost; y_b=y_c;
+//    }
+
+    public Bullet(int x_c, int y_c){
+        x=x_c; x_b=x_c;
+        y=y_c; y_b=y_c;
     }
+
+    public void setX_var(int x_var) {
+        this.x_var = x_var;
+    }
+
+    public void setY_var(int y_var) {
+        this.y_var = y_var;
+    }
+
     public void create(){
 
         batch = new SpriteBatch();
         texture = new Texture("Bullet_plane.png");
     }
+
     public void render () { // loop
         batch.begin();
         batch.draw(texture, x, y);
