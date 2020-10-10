@@ -27,53 +27,19 @@
       <option name="url" value="https://oss.sonatype.org/content/repositories/snapshots/" />
     </remote-repository>
     <remote-repository>
-<<<<<<< HEAD
-<<<<<<< HEAD
       <option name="id" value="MavenLocal" />
       <option name="name" value="MavenLocal" />
-      <option name="url" value="file:/$MAVEN_REPOSITORY$" />
+      <option name="url" value="file:/C:/Users/Latiude%207480/.m2/repository/" />
     </remote-repository>
     <remote-repository>
-=======
->>>>>>> e7706aadf378110c1585ad4e4afdc8704103b9a8
-=======
->>>>>>> d53190c1c91fe19e8276dfc8581fb19cc6bf3ea2
       <option name="id" value="BintrayJCenter" />
       <option name="name" value="BintrayJCenter" />
       <option name="url" value="https://jcenter.bintray.com/" />
     </remote-repository>
     <remote-repository>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> d53190c1c91fe19e8276dfc8581fb19cc6bf3ea2
-      <option name="id" value="MavenLocal" />
-      <option name="name" value="MavenLocal" />
-      <option name="url" value="file:/$MAVEN_REPOSITORY$" />
-    </remote-repository>
-    <remote-repository>
-<<<<<<< HEAD
->>>>>>> e7706aadf378110c1585ad4e4afdc8704103b9a8
-=======
->>>>>>> d53190c1c91fe19e8276dfc8581fb19cc6bf3ea2
       <option name="id" value="Google" />
       <option name="name" value="Google" />
       <option name="url" value="https://dl.google.com/dl/android/maven2/" />
     </remote-repository>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> d53190c1c91fe19e8276dfc8581fb19cc6bf3ea2
-    <remote-repository>
-      <option name="id" value="MavenLocal" />
-      <option name="name" value="MavenLocal" />
-      <option name="url" value="file:/C:/Users/Latiude%207480/.m2/repository/" />
-    </remote-repository>
-<<<<<<< HEAD
->>>>>>> e7706aadf378110c1585ad4e4afdc8704103b9a8
-=======
->>>>>>> d53190c1c91fe19e8276dfc8581fb19cc6bf3ea2
   </component>
 </project>

@@ -7,31 +7,28 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Bullet {
-    private SpriteBatch batch;
-    private Texture texture;
-    public int x;
-    public int y;
+public class Bullet extends MyObject {
+    MyObject Obj;
+    public Bullet(MyObject Obj){
+        exist = true;
+        this.Obj = Obj;
 
+        xObject=Obj.getX();
+        yObject=Obj.getY();
 
-    public Bullet(int x_c, int y_c){
-        x=x_c;
-        y=y_c;
+        xDraw= (int)(xObject- (widthObject/2)) ;
+        yDraw= (int)(yObject+ (Obj.heightObject/2) - (heightObject));
     }
+
     public void create(){
-
         batch = new SpriteBatch();
-        texture = new Texture("Bullet_plane.png");
-    }
-    public void render () { // loop
-        batch.begin();
-        batch.draw(texture, x, y);
-        batch.end();
-        y+=3;
+        texture = new Texture("Bullet.png");
     }
 
-    public void dispose () {
-        batch.dispose();
-        texture.dispose();
+    public void render_bullet () { // loop
+        render();
+        setY(3);
     }
+
+
 }

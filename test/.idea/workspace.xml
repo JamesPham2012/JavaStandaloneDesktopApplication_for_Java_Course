@@ -22,18 +22,31 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="952d4df6-3bdd-42b8-9ec4-27f90e54bb5d" name="Default Changelist" comment="Tui chen file vao file cua hao">
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/OpenWindow.java" afterDir="false" />
-    </list>
+    <list default="true" id="952d4df6-3bdd-42b8-9ec4-27f90e54bb5d" name="Default Changelist" comment="finalization" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="2" />
+  </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -64,7 +77,7 @@
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="DesktopLauncher" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mygdx.game.desktop.DesktopLauncher" />
       <module name="test.desktop.main" />
       <method v="2">
@@ -116,34 +129,54 @@
     <option name="LAST_COMMIT_MESSAGE" value="Tui chen file vao file cua hao" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602055474151">
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602302273483">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1602055474151" />
-    <state x="371" y="130" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1602055462992">
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1602302273483" />
+    <state x="371" y="130" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1602070066969">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="371" y="130" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.680@0.0.1280.680" timestamp="1602055462992" />
-    <state x="371" y="88" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602055860010">
+    <state x="371" y="130" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.680@0.0.1280.680" timestamp="1602070066969" />
+    <state x="371" y="88" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602151730043">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="371" y="88" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.680@0.0.1280.680" timestamp="1602055860010" />
-    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1602065863000">
+    <state x="371" y="88" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.680@0.0.1280.680" timestamp="1602151730043" />
+    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1602222304623">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1602065863000" />
-    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1602065863000">
+    <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1602222304623" />
+    <state width="1237" height="146" key="GridCell.Tab.0.bottom" timestamp="1602337702545">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1602065863000" />
-    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1602065863000">
+    <state width="1237" height="146" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1602337702545" />
+    <state width="1237" height="146" key="GridCell.Tab.0.center" timestamp="1602337702545">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1602065863000" />
-    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1602065863000">
+    <state width="1237" height="146" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1602337702545" />
+    <state width="1237" height="146" key="GridCell.Tab.0.left" timestamp="1602337702545">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1602065863000" />
+    <state width="1237" height="146" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1602337702545" />
+    <state width="1237" height="146" key="GridCell.Tab.0.right" timestamp="1602337702545">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="146" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1602337702545" />
+    <state width="1237" height="204" key="GridCell.Tab.1.bottom" timestamp="1602152059325">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1602152059325" />
+    <state width="1237" height="204" key="GridCell.Tab.1.center" timestamp="1602152059325">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1602152059325" />
+    <state width="1237" height="204" key="GridCell.Tab.1.left" timestamp="1602152059325">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1602152059325" />
+    <state width="1237" height="204" key="GridCell.Tab.1.right" timestamp="1602152059325">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1602152059325" />
     <state x="213" y="74" key="Vcs.Push.Dialog.v2" timestamp="1602056027524">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -152,5 +185,9 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="458" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1602055946394" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/test$Unnamed.ic" NAME="Unnamed Coverage Results" MODIFIED="1602151834655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/test$DesktopLauncher.ic" NAME="DesktopLauncher Coverage Results" MODIFIED="1602221969241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

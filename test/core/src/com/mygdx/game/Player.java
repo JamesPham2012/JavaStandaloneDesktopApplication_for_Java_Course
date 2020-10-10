@@ -6,30 +6,23 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-public class Player{
-    private SpriteBatch batch;
-    private Texture texture;
-    private int x;
-    private int y;
 
-
-
+public class Player extends MyObject{
     public void create(){
-
+        exist = true;
         batch = new SpriteBatch();
-        texture = new Texture("plane.png");
+        texture = new Texture("Spacefighter.png");
+        widthObject = texture.getWidth()*scaleObject;
+        heightObject = texture.getHeight()*scaleObject;
     }
     public void input(){
-        x= Gdx.input.getX();
-        y= 480 - Gdx.input.getY();
+        xObject= (Gdx.input.getX()) ;
+        yObject= (480 - Gdx.input.getY());
 
+        xDraw= (int)(xObject- (widthObject/2)) ;
+        yDraw= (int)(yObject- (heightObject/2));
     }
-    public int getX(){
-        return x;
-    }
-    public int getY(){
-        return y;
-    }
+
     public boolean fire(){
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             return true;
@@ -39,14 +32,8 @@ public class Player{
         }
     }
     public void render_player () { // loop
-        batch.begin();
-        batch.draw(texture, x, y);
-        batch.end();
+        render();
         input();
+    }
 
-    }
-    public void dispose () {
-        batch.dispose();
-        texture.dispose();
-    }
 }
