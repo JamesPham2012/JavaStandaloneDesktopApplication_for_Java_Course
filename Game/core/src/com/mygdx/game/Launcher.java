@@ -24,9 +24,9 @@ public class Launcher extends ApplicationAdapter {
 	private float[] backgroundOffset = {0,0,0,0};
 	private float speed;
 
-	//World parameters
-	private final int WORLD_WIDTH = 72;
-	private final int WORLD_HEIGHT = 128;
+	//World parameters (Based on the game resolution)
+	private final int WORLD_WIDTH = 780;
+	private final int WORLD_HEIGHT = 1280;
 
 	@Override 
 	public void create () {
@@ -46,7 +46,7 @@ public class Launcher extends ApplicationAdapter {
 	}
 	@Override
 	public void render () {
-		float deltaTime = Gdx.graphics.getDeltaTime();
+		float deltaTime = Gdx.graphics.getDeltaTime(); //Time between frames
 
 		batch.begin();
 
