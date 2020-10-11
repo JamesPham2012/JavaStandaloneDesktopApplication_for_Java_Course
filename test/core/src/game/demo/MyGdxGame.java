@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.lang.Math;
 import java.util.Vector;
+import game.demo.Bullet;
 
 public class MyGdxGame extends ApplicationAdapter {
 
@@ -15,10 +16,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	// In later we have to player = new Player() in somewhere--> but not remove new Player()
 	Player player = new Player();
 	Vector<Bullet> bullet_arr = new Vector<>();
-	float X;
-	float Y;
-	double D;
-
+	Bullet ba=new Bullet(-1,-1,0);
 	SpriteBatch batch;
 	Texture plane;
 
@@ -38,24 +36,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		player.render_player();
 		if(player.fire()){
-			bullet_arr.addElement(new Bullet(player.getX(), player.getY(),0,50));
-			bullet_arr.addElement(new Bullet(player.getX(),player.getY(),50,0));
-			bullet_arr.addElement(new Bullet(player.getX(), player.getY(),0,-50));
-			bullet_arr.addElement(new Bullet(player.getX(),player.getY(),-50,0));
+			player.Bullet_Call(bullet_arr);
 			create();
 		}
-		for(int i=0;i<bullet_arr.size();i++){
-			System.out.println(i);
-			X=bullet_arr.elementAt(i).x-bullet_arr.elementAt(i).x_b;
-			Y=bullet_arr.elementAt(i).y-bullet_arr.elementAt(i).y_b;
-			D=Math.sqrt((double)X*(double)X+(double)Y*(double)Y);
-			bullet_arr.elementAt(i).setX_var((Y*100/(float)D/(float)Math.sqrt(D)));
-			bullet_arr.elementAt(i).setY_var((-X*100/(float)D/(float)Math.sqrt(D)));
-			bullet_arr.elementAt(i).render();
-			if (bullet_arr.elementAt(i).y>480) {
-				bullet_arr.removeElementAt(i);
-			}
-		}
+		Bullet.render(bullet_arr);
 	}
 	public void dispose(){
 		player.dispose();

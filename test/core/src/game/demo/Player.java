@@ -12,18 +12,20 @@ import java.util.Vector;
 public class Player extends GameObj{
     private SpriteBatch batch;
     private Texture texture;
-    Vector<Bullet> bullet_arr= new Vector<>();
-
 
     public void create(){
 
         batch = new SpriteBatch();
         texture = new Texture("Plane.png");
+        setId(1);
     }
     public void input(){
         x= Gdx.input.getX();
         y= 480 - Gdx.input.getY();
 
+    }
+    public void setId(int id){
+        this.id=id;
     }
     public float getX(){
         return x;
@@ -34,9 +36,26 @@ public class Player extends GameObj{
     public boolean fire(){
         return Gdx.input.isKeyJustPressed(Input.Keys.SPACE);
     }
-    public void Bullet_Call() {
-        bullet_arr.addElement(new Bullet(getX(),getY(),-5,28));
-
+    public void Bullet_Call(Vector<Bullet> bullet_arr) {                        //Furthermore edit here
+        switch (id) {
+            case 0:
+                bullet_arr.addElement(new Bullet(getX(), getY(), 0, 30, 0));
+                bullet_arr.addElement(new Bullet(getX(), getY(), 0, -30, 0));
+                bullet_arr.addElement(new Bullet(getX(), getY(), 30, 0, 0));
+                bullet_arr.addElement(new Bullet(getX(), getY(), -30, 0, 0));
+                break;
+            case 1:
+                bullet_arr.addElement(new Bullet(getX(), getY(), 0, 30, 1));
+                bullet_arr.addElement(new Bullet(getX(), getY(), -5, 29, 1));
+                bullet_arr.addElement(new Bullet(getX(), getY(), 5, 29, 1));
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    bullet_arr.addElement(new Bullet(getX(), getY(), 0, 30, 0));
+                    bullet_arr.addElement(new Bullet(getX(), getY(), 0, -30, 0));
+                    bullet_arr.addElement(new Bullet(getX(), getY(), 30, 0, 0));
+                    bullet_arr.addElement(new Bullet(getX(), getY(), -30, 0, 0));
+                }
+                break;
+        }
     }
     public void render_player () { // loop
         batch.begin();

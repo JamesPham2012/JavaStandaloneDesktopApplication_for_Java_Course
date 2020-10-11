@@ -11,6 +11,8 @@ public class GameObj {
     public int S_width;
     public int S_height;
     Texture art;
+    protected int id;
+
 
     public void setParam(){
         this.S_width=Gdx.graphics.getWidth();
