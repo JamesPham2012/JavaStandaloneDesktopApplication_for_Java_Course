@@ -11,7 +11,8 @@ public class GameObj {
     public int S_width;
     public int S_height;
     Texture art;
-    protected int id;
+    protected int id; //2 for player, -2 for enemy
+    boolean State;
 
 
     public void setParam(){

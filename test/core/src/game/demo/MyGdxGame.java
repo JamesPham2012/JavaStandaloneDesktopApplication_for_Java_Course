@@ -16,7 +16,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	// In later we have to player = new Player() in somewhere--> but not remove new Player()
 	Player player = new Player();
 	Vector<Bullet> bullet_arr = new Vector<>();
-	Bullet ba=new Bullet(-1,-1,0);
 	SpriteBatch batch;
 	Texture plane;
 
@@ -26,7 +25,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create() {
 		player.create();
 		for(int i=0;i<bullet_arr.size();i++){
-			System.out.println(i);
 			bullet_arr.elementAt(i).create();
 		}
 	}
@@ -37,9 +35,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		player.render_player();
 		if(player.fire()){
 			player.Bullet_Call(bullet_arr);
-			create();
 		}
 		Bullet.render(bullet_arr);
+		Gdx.app.log("FPS", Integer.toString(Gdx.graphics.getFramesPerSecond()));
 	}
 	public void dispose(){
 		player.dispose();
