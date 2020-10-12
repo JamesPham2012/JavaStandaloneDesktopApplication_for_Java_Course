@@ -16,6 +16,10 @@ public class Bullet extends MyObject {
         xObject=Obj.getX();
         yObject=Obj.getY();
 
+    }
+
+    @Override
+    public void updateDraw() {
         xDraw= (int)(xObject- (widthObject/2)) ;
         yDraw= (int)(yObject+ (Obj.heightObject/2) - (heightObject));
     }
@@ -27,8 +31,9 @@ public class Bullet extends MyObject {
 
     public void render_bullet () { // loop
         render();
-        setY(3);
+        incrementY(3);
     }
+
 
 
 }

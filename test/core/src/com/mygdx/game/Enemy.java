@@ -29,8 +29,7 @@ public class Enemy extends MyObject{
         xObject+= rand.nextInt(2)-1 *multiply;
         yObject+= rand.nextInt(2)-1 *multiply;
 
-        xDraw= (int)(xObject- (widthObject/2)) ;
-        yDraw= (int)(yObject- (heightObject/2));
+        updateDraw();
 
         previous = multiply;
     }

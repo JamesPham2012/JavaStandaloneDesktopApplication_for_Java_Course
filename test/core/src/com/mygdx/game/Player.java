@@ -15,12 +15,11 @@ public class Player extends MyObject{
         widthObject = texture.getWidth()*scaleObject;
         heightObject = texture.getHeight()*scaleObject;
     }
-    public void input(){
+    public void update(){
         xObject= (Gdx.input.getX()) ;
-        yObject= (480 - Gdx.input.getY());
+        yObject= (720 - Gdx.input.getY());
 
-        xDraw= (int)(xObject- (widthObject/2)) ;
-        yDraw= (int)(yObject- (heightObject/2));
+        updateDraw();
     }
 
     public boolean fire(){
@@ -33,7 +32,7 @@ public class Player extends MyObject{
     }
     public void render_player () { // loop
         render();
-        input();
+        update();
     }
 
 }

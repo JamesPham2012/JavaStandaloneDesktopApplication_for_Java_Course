@@ -26,14 +26,21 @@ public class MyObject {
         this.scaleObject = scaleObject;
     }
 
-    protected void setX(int offset){ xObject+=offset; }
-    protected void setY(int offset){ yObject+=offset;  yDraw+=offset; }
+    protected void incrementX(int offset){ xObject+=offset; }
+    protected void incrementY(int offset){ yObject+=offset;  yDraw+=offset; }
 
     public int getX(){
         return xObject;
     }
     public int getY(){
         return yObject;
+    }
+
+    protected void setX(int xObject){
+        this.xObject = xObject;
+    }
+    protected void setY(int xObject){
+        this.yObject = yObject;
     }
 
     public float getWidth(){
@@ -47,6 +54,10 @@ public class MyObject {
         exist = false;
     }
 
+    public void updateDraw(){
+        xDraw= (int)(xObject- (widthObject/2)) ;
+        yDraw= (int)(yObject- (heightObject/2));
+    }
     public boolean getExist(){
         return exist;
     }
@@ -75,6 +86,13 @@ public class MyObject {
             batch.draw(texture, xDraw,yDraw,texture.getWidth()*scaleObject,texture.getHeight()*scaleObject);
         }
         batch.end();
+    }
+    public void revise(int xObject, int yObject){
+        this.xObject = xObject;
+        this.yObject = yObject;
+
+        updateDraw();
+        exist = true;
     }
 
     public void dispose(){

@@ -8,7 +8,13 @@ import com.mygdx.giaodien.testWindow;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		//new LwjglApplication(new testWindow(),config);
+		config.resizable=false;
+		config.width=1280;
+		config.height=720;
+		config.maxNetThreads=16;
+		config.title="Noodle Rocket Launcher";
+
+		config.foregroundFPS=144;
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }
