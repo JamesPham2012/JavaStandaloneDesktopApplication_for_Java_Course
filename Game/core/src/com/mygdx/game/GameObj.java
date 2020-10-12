@@ -10,13 +10,15 @@ public class GameObj {
     protected int cali_y;
     public int S_width;
     public int S_height;
+    boolean firstRenderFlag=true;
+    public boolean State=true;// State is alive or dead, default = 1
     Texture art;
 
     public void setParam(){
         this.S_width=Gdx.graphics.getWidth();
         this.S_height=Gdx.graphics.getHeight();
     }
-
+    public void ModelChange(boolean Is){};
     public int getX() {
         return x;
     }
