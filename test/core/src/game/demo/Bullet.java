@@ -20,6 +20,7 @@ public class Bullet extends GameObj {
     private float X;
     private float Y;
     private double D;
+    private long t=0l;
 
 
     public Bullet(float x_c, float y_c, float xfromhost, float yfromhost, int Id) {
@@ -29,6 +30,7 @@ public class Bullet extends GameObj {
         y_b = y_c;
         id = Id;
         State=true;
+        t=System.currentTimeMillis();
     }
 
     public Bullet(float x_c, float y_c, int Id) {
@@ -53,8 +55,10 @@ public class Bullet extends GameObj {
         D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
         switch (id) {
             case 0:
-                setX_var((Y * 100 / (float) D / (float) Math.sqrt(D)));
-                setY_var((-X * 100 / (float) Math.sqrt(D)));
+                setX_var(((Y*15-X*2)/(float)D));
+                setY_var(((-X*15-Y*2)/(float)D));
+                x_b=Gdx.input.getX();
+                y_b=480-Gdx.input.getY();
                 break;
             case 1:
                 setX_var(10 * X / (float) D);
@@ -75,15 +79,15 @@ public class Bullet extends GameObj {
         batch.end();
         y += y_var;
         x += x_var;
+        if (System.currentTimeMillis()-t>1000){
+            State=false;
+        }
     }
 
     public static void render(Vector<Bullet> bullet_arr) {
         for (int i = 0; i < bullet_arr.size(); i++) {
             bullet_arr.elementAt(i).setVary();
-            bullet_arr.elementAt(i).render();
-            if (bullet_arr.elementAt(i).y > 480) {
-                bullet_arr.elementAt(i).State=false;
-            }
+            if (bullet_arr.elementAt(i).State) bullet_arr.elementAt(i).render();
         }
     }
 
@@ -124,6 +128,7 @@ public class Bullet extends GameObj {
         this.y=y_c+y_offset;
         this.id=id;
         this.State=true;
+        t=System.currentTimeMillis();
     }
 
 }

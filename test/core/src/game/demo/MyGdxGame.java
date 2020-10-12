@@ -24,9 +24,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override// we override function create in ApplicationAdapter.
 	public void create() {
 		player.create();
-		for(int i=0;i<bullet_arr.size();i++){
-			bullet_arr.elementAt(i).create();
-		}
+
 	}
 	public void render(){
 

@@ -40,10 +40,10 @@ public class Player extends GameObj{
         switch (id) {
             case 0:
             {
-                bullet_arr.addElement(new Bullet(getX(), getY(), 0, 30, 0));
-                bullet_arr.addElement(new Bullet(getX(), getY(), 0, -30, 0));
-                bullet_arr.addElement(new Bullet(getX(), getY(), 30, 0, 0));
-                bullet_arr.addElement(new Bullet(getX(), getY(), -30, 0, 0));
+                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, 0);
+                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, -30, 0);
+                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 30, 0, 0);
+                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -30, 0, 0);
                 break;
             }
             case 1:
