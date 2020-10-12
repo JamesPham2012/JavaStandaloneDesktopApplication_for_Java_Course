@@ -11,7 +11,7 @@ public class GameObj {
     protected int cali_y;
     public int S_width;
     public int S_height;
-    protected float scale = 2f;
+    protected float scale = .5f;
     protected SpriteBatch batch;
     protected Texture texture;
     protected int id; //2 for player, -2 for enemy

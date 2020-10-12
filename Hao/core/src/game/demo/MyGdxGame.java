@@ -18,11 +18,14 @@ public class MyGdxGame extends ApplicationAdapter {
 	Vector<Bullet> bullet_arr = new Vector<>();
 	SpriteBatch batch;
 	Texture plane;
+	Background background = new Background();
 
 	//	Texture sprite_bullet;
 //	//Input in; // interface class --> abstract class --> we cannot call obj of this class.
 	@Override// we override function create in ApplicationAdapter.
 	public void create() {
+		background.create();
+		background.resize(1080,720);
 		player.create();
 		for(int i=0;i<bullet_arr.size();i++){
 			bullet_arr.elementAt(i).create();
@@ -32,6 +35,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		Gdx.gl.glClearColor(0, 0, 0, 255);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		background.render();
 		player.render_player();
 		if(player.fire()){
 			player.Bullet_Call(bullet_arr);
