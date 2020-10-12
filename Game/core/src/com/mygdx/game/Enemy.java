@@ -12,6 +12,7 @@ public class Enemy extends GameObj {
     public int S_height;
     Texture art;*/
     SpriteBatch batch;
+
     long timer1=0l;
     public int Loaded=1;
     public  Enemy(int x,int y){

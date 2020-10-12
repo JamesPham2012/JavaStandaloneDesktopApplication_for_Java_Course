@@ -52,11 +52,16 @@ public class Bullet {
 
 public class Bullet extends GameObj{
     SpriteBatch batch;
+     static Texture art1;
+     static Texture art2;
 
     private boolean Source; //Source is true for Player and false for Enemy
     private int Type;   // Type control 3 way bullets move, default is 1
 
-
+    public void modelGenerator(){
+        art1 = new Texture("AAM.png");
+        art2 = new Texture("AAMR.png");
+    }
 
     public Bullet(int x_in, int y_in, boolean Sauce){
         x=x_in;
@@ -71,9 +76,9 @@ public class Bullet extends GameObj{
     }
 
     public void create(){
-        batch = new SpriteBatch();
-        if (Source){art = new Texture("AAM.png");}
-        else {art = new Texture("AAMR.png");}
+        batch= new SpriteBatch();
+        if (this.Source){art = art1;}
+        else {art = art2;}
 
     }
 
@@ -87,21 +92,22 @@ public class Bullet extends GameObj{
             }
             batch.draw(art, cali_x,cali_y);
             batch.end();
+
             if (Source){
                 cali_y+=5;
                 if (cali_y>S_height-art.getHeight()){
                     State=false;
+                    batch.dispose();
                 }
             }
             else if(!Source){
                 cali_y-=5;
                 if (cali_y<0){
                     State=false;
+                    batch.dispose();
                 }
             }
-
         }
-
     }
 
     public boolean isDed(){

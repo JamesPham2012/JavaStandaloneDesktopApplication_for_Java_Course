@@ -18,7 +18,7 @@ public class GameObj {
         this.S_width=Gdx.graphics.getWidth();
         this.S_height=Gdx.graphics.getHeight();
     }
-
+    public void ModelChange(boolean Is){};
     public int getX() {
         return x;
     }

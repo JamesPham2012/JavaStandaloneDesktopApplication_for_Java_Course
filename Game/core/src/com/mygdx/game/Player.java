@@ -70,7 +70,7 @@ END----------------------------------TRANSFERED TO SUPERCLASS GAMEOBJ-----------
 }*/
 public class Player extends GameObj {
     SpriteBatch batch;
-    long timer1=System.currentTimeMillis();
+    long timer1=System.currentTimeMillis()-1000;
     private int Loaded=1;
     public void create(){
         batch = new SpriteBatch();
@@ -79,7 +79,7 @@ public class Player extends GameObj {
 
         public boolean Autoshoot(){  //reload time 1 sec
         if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-            if (System.currentTimeMillis()-timer1>1){
+            if (System.currentTimeMillis()-timer1>200){
                 timer1=System.currentTimeMillis();
                 Loaded=1;
             }else {Loaded=0;}
@@ -95,7 +95,7 @@ public class Player extends GameObj {
     }
 
     public boolean Manual_Shoot(){  //reload time 0.5 sec
-            if (System.currentTimeMillis()-timer1>500){
+            if (System.currentTimeMillis()-timer1>200){
                 timer1=System.currentTimeMillis();
                 Loaded=1;
             }else {Loaded=0;}
@@ -112,6 +112,7 @@ public class Player extends GameObj {
         batch.draw(art, cali_x,cali_y);
         batch.end();
         input();
+
     }
 
     public void input(){
