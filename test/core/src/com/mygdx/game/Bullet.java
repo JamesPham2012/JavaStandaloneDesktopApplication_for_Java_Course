@@ -12,10 +12,9 @@ public class Bullet extends MyObject {
     public Bullet(MyObject Obj){
         exist = true;
         this.Obj = Obj;
-
         xObject=Obj.getX();
         yObject=Obj.getY();
-
+        System.out.println(xObject);
     }
 
     @Override
@@ -27,6 +26,7 @@ public class Bullet extends MyObject {
     public void create(){
         batch = new SpriteBatch();
         texture = new Texture("Bullet.png");
+        updateDraw();
     }
 
     public void render_bullet () { // loop

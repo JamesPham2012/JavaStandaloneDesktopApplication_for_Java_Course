@@ -23,13 +23,15 @@ public class MyGdxGame extends ApplicationAdapter {
 		//
 		player.create();
 		enemy.create();
+		bullet_arr.addElement(new Bullet(player));
+		bullet_arr.firstElement().exist=false;
+		bullet_arr.firstElement().create();
 	}
 	public void render(){
 
 		Gdx.gl.glClearColor(0, 0, 10, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		player.render_player();
-
 		enemy.render_enemy();
 
 		if(player.RectangleCollision(enemy)){
@@ -41,14 +43,15 @@ public class MyGdxGame extends ApplicationAdapter {
 	loop:		while(flag==0){
 				for (int i = 0; i < bullet_arr.size(); i++) {
 					if (bullet_arr.elementAt(i).getExist() == false) {
-						System.out.println(player.getX() + player.getY());
 						bullet_arr.elementAt(i).revise(player.getX(), player.getY());
-
+						Gdx.app.log("TEST", "revived bullet at " + i);
 						break loop;
 					}
 				}
 				bullet_arr.addElement(new Bullet(player));
+				//System.out.println(player.getX());
 				bullet_arr.lastElement().create();
+				Gdx.app.log("TEST", "Created bullet new bullet");
 				flag=1;
 			}
 
@@ -58,12 +61,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		
 		for(int i=0;i<bullet_arr.size();i++){
-			bullet_arr.elementAt(i).render_bullet();
 
 			if (bullet_arr.elementAt(i).yObject>720) {
 				bullet_arr.elementAt(i).existFalse();
 			}
-
+			if (bullet_arr.elementAt(i).getExist()) bullet_arr.elementAt(i).render_bullet();
 			if(bullet_arr.elementAt(i).RectangleCollision(enemy)){
 				enemy.existFalse();
 				bullet_arr.elementAt(i).existFalse();

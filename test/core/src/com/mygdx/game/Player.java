@@ -23,7 +23,7 @@ public class Player extends MyObject{
     }
 
     public boolean fire(){
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
             return true;
         }
         else{

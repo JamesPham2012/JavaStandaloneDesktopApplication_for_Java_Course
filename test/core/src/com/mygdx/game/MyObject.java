@@ -90,7 +90,6 @@ public class MyObject {
     public void revise(int xObject, int yObject){
         this.xObject = xObject;
         this.yObject = yObject;
-
         updateDraw();
         exist = true;
     }
