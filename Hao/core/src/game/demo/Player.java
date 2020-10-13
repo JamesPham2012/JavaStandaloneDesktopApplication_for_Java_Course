@@ -23,7 +23,7 @@ public class Player extends GameObj{
     }
     public void input(){
         x= Gdx.input.getX();
-        y= 720 - Gdx.input.getY();
+        y= Gdx.graphics.getHeight() - Gdx.input.getY();
 
     }
     public int getHeight(){

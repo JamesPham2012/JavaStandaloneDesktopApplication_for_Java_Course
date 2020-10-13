@@ -64,7 +64,7 @@ public class Bullet extends GameObj {
                 setX_var(((Y*15-X*2)/(float)D));
                 setY_var(((-X*15-Y*2)/(float)D));
                 x_b=Gdx.input.getX();
-                y_b=720-Gdx.input.getY();
+                y_b=Gdx.graphics.getHeight()-Gdx.input.getY();
                 break;
         }
     }
