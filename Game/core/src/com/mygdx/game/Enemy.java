@@ -33,7 +33,7 @@ public class Enemy extends GameObj {
     }
 
     public boolean Autoshoot(){  //reload time 0.5 sec
-        if (System.currentTimeMillis()-timer1>1000){
+        if (System.currentTimeMillis()-timer1>10){
             timer1=System.currentTimeMillis();
             Loaded=1;
         }else {Loaded=0;}

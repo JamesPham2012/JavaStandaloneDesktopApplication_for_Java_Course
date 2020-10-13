@@ -70,7 +70,7 @@ END----------------------------------TRANSFERED TO SUPERCLASS GAMEOBJ-----------
 }*/
 public class Player extends GameObj {
     SpriteBatch batch;
-    long timer1=System.currentTimeMillis()-1000;
+    long timer1=System.currentTimeMillis()-10;
     private int Loaded=1;
     public void create(){
         batch = new SpriteBatch();

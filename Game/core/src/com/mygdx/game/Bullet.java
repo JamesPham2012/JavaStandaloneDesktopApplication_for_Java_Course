@@ -77,8 +77,8 @@ public class Bullet extends GameObj{
 
     public void create(){
         batch= new SpriteBatch();
-        if (this.Source){art = art1;}
-        else {art = art2;}
+        if (this.Source){art = new Texture("AAM.png");;}
+        else {art =  art2 = new Texture("AAMR.png");;}
 
     }
 

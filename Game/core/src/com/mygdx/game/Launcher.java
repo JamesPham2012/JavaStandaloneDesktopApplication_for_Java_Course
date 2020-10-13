@@ -107,7 +107,6 @@ public class Launcher extends ApplicationAdapter {
 					// if the code get here, there is NO dead bullet in the array
 
 					bullet_arr.addElement(new Bullet(Enemy_arr.elementAt(j).getX(),Enemy_arr.elementAt(j).getY(),false));
-					bullet_arr.lastElement().modelGenerator();
 					bullet_arr.lastElement().setParam();
 					bullet_arr.lastElement().create();
 					BulletGen2=1;
