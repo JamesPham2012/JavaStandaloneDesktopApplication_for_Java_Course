@@ -72,10 +72,6 @@ public class Player extends GameObj {
     SpriteBatch batch;
     long timer1=System.currentTimeMillis()-10;
     private int Loaded=1;
-    public void create(){
-        batch = new SpriteBatch();
-        art =new Texture("logo_noodle-02.png");//169X169
-    }
 
         public boolean Autoshoot(){  //reload time 1 sec
         if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
@@ -106,16 +102,13 @@ public class Player extends GameObj {
             else return false;
     }
 
-    public void render_player(){
-
-        batch.begin();
+    public void render_player(Texture art,SpriteBatch batch){
         batch.draw(art, cali_x,cali_y);
-        batch.end();
-        input();
+        input(art);
 
     }
 
-    public void input(){
+    public void input(Texture art){
         x=Gdx.input.getX();
         y=Gdx.input.getY();
         cali_x= x -art.getWidth()/2;

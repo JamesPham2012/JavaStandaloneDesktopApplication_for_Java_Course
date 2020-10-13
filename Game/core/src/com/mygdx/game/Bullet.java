@@ -75,36 +75,34 @@ public class Bullet extends GameObj{
         this.State=State;
     }
 
-    public void create(){
-        batch= new SpriteBatch();
-        if (this.Source){art = new Texture("AAM.png");;}
-        else {art =  art2 = new Texture("AAMR.png");;}
 
-    }
-
-    public void render_bullet(){
+    public void render_bullet(Texture art1,Texture art2,SpriteBatch batch){
         if (State) {
-            batch.begin();
-            if(firstRenderFlag==true){
-                cali_x= x - art.getWidth()/2;
-                cali_y= S_height-(y +art.getHeight()/2);
+
+            if((firstRenderFlag==true)&&(Source)) {
+                cali_x= x - art1.getWidth()/2;
+                cali_y= S_height-(y +art1.getHeight()/2);
                 firstRenderFlag=false;
             }
-            batch.draw(art, cali_x,cali_y);
-            batch.end();
+            if (Source) batch.draw(art1, cali_x,cali_y);
+
+            if((firstRenderFlag==true)&&(!Source)) {
+                cali_x= x - art2.getWidth()/2;
+                cali_y= S_height-(y +art2.getHeight()/2);
+                firstRenderFlag=false;
+            }
+            if (!Source) batch.draw(art2, cali_x,cali_y);
 
             if (Source){
                 cali_y+=5;
-                if (cali_y>S_height-art.getHeight()){
+                if (cali_y>S_height-art1.getHeight()){
                     State=false;
-                    batch.dispose();
                 }
             }
             else if(!Source){
                 cali_y-=5;
                 if (cali_y<0){
                     State=false;
-                    batch.dispose();
                 }
             }
         }

@@ -12,7 +12,6 @@ public class GameObj {
     public int S_height;
     boolean firstRenderFlag=true;
     public boolean State=true;// State is alive or dead, default = 1
-    Texture art;
 
     public void setParam(){
         this.S_width=Gdx.graphics.getWidth();
@@ -26,11 +25,7 @@ public class GameObj {
     public int getY() {
         return y;
     }
-    public void dispose(){
 
-        art.dispose();
-
-    }
 
 }
 

@@ -19,17 +19,14 @@ public class Enemy extends GameObj {
         this.x=x;
         this.y=y;
     }
-    public void create(){
-        art =new Texture("chow.png");//169X169
-    }
 
-    public void render_enemy(){
-        batch=new SpriteBatch();
+    public void render_enemy(Texture art,SpriteBatch batch){
+
         cali_x= x - art.getWidth()/2;
         cali_y= S_height-(y +art.getHeight()/2);
-        batch.begin();
+
         batch.draw(art,cali_x,cali_y);
-        batch.end();
+
     }
 
     public boolean Autoshoot(){  //reload time 0.5 sec
