@@ -4,15 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class GameObj {
-    public float x;
-    public float y;
+    protected float x;
+    protected float y;
     protected int cali_x;
     protected int cali_y;
     public int S_width;
     public int S_height;
     Texture art;
-    protected int id; //2 for player, -2 for enemy
-    boolean State;
+    protected int id; //negative for player, positive for enemy
+    protected boolean State;
+    protected int value;
 
 
     public void setParam(){

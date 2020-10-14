@@ -13,14 +13,15 @@ import java.lang.Math;
 public class Bullet extends GameObj {
     private SpriteBatch batch;
     private static Texture texture;
-    public float x_b;
-    public float y_b;
+    private float x_b;
+    private float y_b;
     private float x_var;
     private float y_var;
     private float X;
     private float Y;
     private double D;
     private long t=0l;
+    private static Bullet fakebase=new Bullet(0,0,0);
 
 
     public Bullet(float x_c, float y_c, float xfromhost, float yfromhost, int Id) {
@@ -41,6 +42,11 @@ public class Bullet extends GameObj {
         id = Id;
     }
 
+    public static void resetfakebase(){
+        fakebase.x_b=MyGdxGame.player.getX();
+        fakebase.y_b=MyGdxGame.player.getY();
+    }
+
     public void setX_var(float x_var) {
         this.x_var = x_var;
     }
@@ -49,21 +55,33 @@ public class Bullet extends GameObj {
         this.y_var = y_var;
     }
 
-    public void setVary() {                  //Furthermore edit here
+    public void setVary() {                  //Furthermore edit bullet orbit here
         X = x - x_b;
         Y = y - y_b;
         D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
         switch (id) {
-            case 0:
-                setX_var(((Y*15-X*2)/(float)D));
-                setY_var(((-X*15-Y*2)/(float)D));
-                x_b=Gdx.input.getX();
-                y_b=480-Gdx.input.getY();
+            case 0://spin and spread
+                setX_var((Y*5+X)/(float)D);
+                setY_var((-X*5+Y)/(float)D);
                 break;
-            case 1:
+            case 1://straight
                 setX_var(10 * X / (float) D);
                 setY_var(10 * Y / (float) D);
                 break;
+            case 2://spin around host
+                setX_var(((Y*15-X*10)*5/(float)D));
+                setY_var(((-X*15-Y*10)*5/(float)D));
+                x_b=Gdx.input.getX();
+                y_b=480-Gdx.input.getY();
+                if (System.currentTimeMillis()-t>500){
+                    t=System.currentTimeMillis();
+                    id=0;
+                }
+                break;
+            case 3:
+                x_b=fakebase.x_b;
+                y_b=fakebase.y_b;
+                id=1;
         }
     }
 
@@ -79,15 +97,17 @@ public class Bullet extends GameObj {
         batch.end();
         y += y_var;
         x += x_var;
-        if (System.currentTimeMillis()-t>1000){
+        if (System.currentTimeMillis()-t>10000){
             State=false;
         }
     }
 
     public static void render(Vector<Bullet> bullet_arr) {
         for (int i = 0; i < bullet_arr.size(); i++) {
-            bullet_arr.elementAt(i).setVary();
-            if (bullet_arr.elementAt(i).State) bullet_arr.elementAt(i).render();
+            if (bullet_arr.elementAt(i).State) {
+                bullet_arr.elementAt(i).setVary();
+                bullet_arr.elementAt(i).render();
+            }
         }
     }
 

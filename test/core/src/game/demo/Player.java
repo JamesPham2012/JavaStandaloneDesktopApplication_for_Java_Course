@@ -12,6 +12,9 @@ import java.util.Vector;
 public class Player extends GameObj{
     private SpriteBatch batch;
     private Texture texture;
+    private int loaded=0;
+    private long t=System.currentTimeMillis()-200;
+    private float varyDistance;
 
     public void create(){
 
@@ -20,9 +23,20 @@ public class Player extends GameObj{
         setId(1);
     }
     public void input(){
-        x= Gdx.input.getX();
-        y= 480 - Gdx.input.getY();
-
+        switch (id) {
+            case 1:
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) varyDistance=3;
+                else varyDistance=5;
+                break;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x-=varyDistance;
+        if (x<0) x=0;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x+=varyDistance;
+        if (x>640) x=640;
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) y+=varyDistance;
+        if (y>480) y=480;
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) y-=varyDistance;
+        if (y<0) y=0;
     }
     public void setId(int id){
         this.id=id;
@@ -34,7 +48,20 @@ public class Player extends GameObj{
         return y;
     }
     public boolean fire(){
-        return true;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) Bullet.resetfakebase();
+        if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+            if (System.currentTimeMillis() - t > 100) {
+                t = System.currentTimeMillis();
+                loaded = 1;
+            } else {
+                loaded = 0;
+            }
+            if (loaded==1) return true;
+            else return false;
+
+        }
+        else return false;
+
     }
     public void Bullet_Call(Vector<Bullet> bullet_arr) {                        //Furthermore edit here
         switch (id) {
@@ -49,20 +76,21 @@ public class Player extends GameObj{
             case 1:
            /*     bullet_arr.addElement(new Bullet(getX(), getY(), 0, 30, 1));*/
             {
-                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, 1);
-                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -5, 29, 1);
-                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 5, 29, 1);
-                /*bullet_arr.addElement(new Bullet(getX(), getY(), -5, 29, 1));
-                bullet_arr.addElement(new Bullet(getX(), getY(), 5, 29, 1));*/
-                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, 0);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, -30, 0);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 30, 0, 0);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -30, 0, 0);
-                    /*bullet_arr.addElement(new Bullet(getX(), getY(), 0, 30, 0));
-                    bullet_arr.addElement(new Bullet(getX(), getY(), 0, -30, 0));
-                    bullet_arr.addElement(new Bullet(getX(), getY(), 30, 0, 0));
-                    bullet_arr.addElement(new Bullet(getX(), getY(), -30, 0, 0));*/
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, 3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -5, 29, 3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 5, 29, 3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 25, 3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -10, 28, 3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 10, 28, 3);
+                }
+                else {
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, 1);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -5, 29, 1);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 5, 29, 1);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 25, 1);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -10, 28, 1);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 10, 28, 1);
                 }
             }
                 break;

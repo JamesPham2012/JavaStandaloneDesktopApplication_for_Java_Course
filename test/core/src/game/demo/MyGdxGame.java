@@ -14,7 +14,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	//Player player; // null obj which not consist any method. --> it just save a variable __> different from c++.
 	// In later we have to player = new Player() in somewhere--> but not remove new Player()
-	Player player = new Player();
+	static Player player = new Player();
 	Vector<Bullet> bullet_arr = new Vector<>();
 	SpriteBatch batch;
 	Texture plane;
