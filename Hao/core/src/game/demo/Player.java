@@ -18,7 +18,6 @@ public class Player extends GameObj{
     public void create(){
 
         batch = new SpriteBatch();
-        texture = new Texture("Plane.png");
         setId(1);
     }
     public void input(){
@@ -27,7 +26,7 @@ public class Player extends GameObj{
 
     }
     public int getHeight(){
-        return texture.getHeight();
+        return Assets.texture_plane.getHeight();
     }
     public void setId(int id){
         this.id=id;
@@ -90,14 +89,14 @@ public class Player extends GameObj{
     }
     public void render_player () { // loop
         batch.begin();
-        batch.draw(texture, (int)(x- (texture.getWidth()*scale/2)),(int)(y- (texture.getHeight()*scale/2)),texture.getWidth()*scale,texture.getHeight()*scale);
+        batch.draw(Assets.texture_plane, (int)(x- (Assets.texture_plane.getWidth()*scale/2)),(int)(y- (Assets.texture_plane.getHeight()*scale/2)),Assets.texture_plane.getWidth()*scale,Assets.texture_plane.getHeight()*scale);
         batch.end();
         input();
 
     }
     public void dispose () {
         batch.dispose();
-        texture.dispose();
+
     }
 }
 

@@ -21,6 +21,7 @@ public class Bullet extends GameObj {
     private double D;
     private long t=0l;
 
+
     public Bullet(float x_c, float y_c, float xfromhost, float yfromhost, int Id) {
         x = x_c + xfromhost;
         x_b = x_c;
@@ -37,6 +38,7 @@ public class Bullet extends GameObj {
         y = y_c;
         y_b = y_c;
         id = Id;
+        State = false;
     }
 
     public void setX_var(float x_var) {
@@ -66,22 +68,24 @@ public class Bullet extends GameObj {
                 x_b=Gdx.input.getX();
                 y_b=Gdx.graphics.getHeight()-Gdx.input.getY();
                 break;
+
+
         }
     }
 
     public void create() {
 
         batch = new SpriteBatch();
-        texture = new Texture("Bullet_plane.png");
+
     }
 
     public void render() { // loop
         batch.begin();
-        batch.draw(texture, (int)(x- (texture.getWidth()*scale/2)),(int)(y- (texture.getHeight()*scale/2)),texture.getWidth()*scale,texture.getHeight()*scale);
+        batch.draw(Assets.texture_bullet, (int)(x- (Assets.texture_bullet.getWidth()*scale/2)),(int)(y- (Assets.texture_bullet.getHeight()*scale/2)),Assets.texture_bullet.getWidth()*scale,Assets.texture_bullet.getHeight()*scale);
         batch.end();
         y += y_var;
         x += x_var;
-        if (System.currentTimeMillis()-t>1000){
+        if ((y>S_height)||(y<0)){
             State=false;}
     }
 
@@ -95,7 +99,7 @@ public class Bullet extends GameObj {
 
     public void dispose() {
         batch.dispose();
-        texture.dispose();
+        Assets.texture_bullet.dispose();
     }
 
     public static void Bullet_Reallo(Vector<Bullet> bullet_arr, float x_c, float y_c, float x_offset, float y_offset,int id) {
