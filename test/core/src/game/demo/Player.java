@@ -15,6 +15,7 @@ public class Player extends GameObj{
     private int loaded=0;
     private long t=System.currentTimeMillis()-200;
     private float varyDistance;
+    private long rapidity;
 
     public void create(){
 
@@ -25,8 +26,14 @@ public class Player extends GameObj{
     public void input(){
         switch (id) {
             case 1:
-                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) varyDistance=3;
-                else varyDistance=5;
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    varyDistance=1;
+                    rapidity=10;
+                }
+                else {
+                    varyDistance=5;
+                    rapidity=100;
+                }
                 break;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x-=varyDistance;
@@ -50,7 +57,7 @@ public class Player extends GameObj{
     public boolean fire(){
         if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) Bullet.resetfakebase();
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
-            if (System.currentTimeMillis() - t > 100) {
+            if (System.currentTimeMillis() - t > rapidity) {
                 t = System.currentTimeMillis();
                 loaded = 1;
             } else {
@@ -63,7 +70,7 @@ public class Player extends GameObj{
         else return false;
 
     }
-    public void Bullet_Call(Vector<Bullet> bullet_arr) {                        //Furthermore edit here
+    public void Bullet_Call(Vector<Bullet> bullet_arr) {              //Furthermore edit here
         switch (id) {
             case 0:
             {

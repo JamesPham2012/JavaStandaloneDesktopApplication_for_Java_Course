@@ -8,6 +8,13 @@ public class GameObj {
     protected float y;
     protected int cali_x;
     protected int cali_y;
+    protected float x_b;
+    protected float y_b;
+    protected float x_move;
+    protected float y_move;
+    protected float X;
+    protected float Y;
+    protected double D;
     public int S_width;
     public int S_height;
     Texture art;

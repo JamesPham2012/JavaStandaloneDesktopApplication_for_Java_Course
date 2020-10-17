@@ -16,6 +16,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	// In later we have to player = new Player() in somewhere--> but not remove new Player()
 	static Player player = new Player();
 	Vector<Bullet> bullet_arr = new Vector<>();
+	Vector<Enemy> enemy_arr = new Vector<>();
+	Waves waves=new Waves();
+	int Wave=0;
 	SpriteBatch batch;
 	Texture plane;
 
@@ -34,6 +37,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		if(player.fire()){
 			player.Bullet_Call(bullet_arr);
 		}
+		if(waves.Wave_Come()){
+			waves.Wave_Call(enemy_arr,bullet_arr,Wave);
+		}
+		Enemy.render(enemy_arr);
+		Enemy.fire(enemy_arr,bullet_arr);
 		Bullet.render(bullet_arr);
 		Gdx.app.log("FPS", Integer.toString(Gdx.graphics.getFramesPerSecond()));
 	}
