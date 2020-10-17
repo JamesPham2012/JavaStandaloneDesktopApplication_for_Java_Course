@@ -11,15 +11,9 @@ import java.util.Vector;
 import java.lang.Math;
 
 public class Bullet extends GameObj {
-
-    public float x_b;
-    public float y_b;
-    private float x_var;
-    private float y_var;
-    private float X;
-    private float Y;
-    private double D;
+    private SpriteBatch batch;
     private long t=0l;
+    private static Bullet fakebase=new Bullet(0,0,0);
 
 
     public Bullet(float x_c, float y_c, float xfromhost, float yfromhost, int Id) {
@@ -38,68 +32,76 @@ public class Bullet extends GameObj {
         y = y_c;
         y_b = y_c;
         id = Id;
-        State = false;
     }
 
-    public void setX_var(float x_var) {
-        this.x_var = x_var;
+    public static void resetfakebase(){
+        fakebase.x_b=MyGdxGame.player.getX();
+        fakebase.y_b=MyGdxGame.player.getY();
     }
 
-    public void setY_var(float y_var) {
-        this.y_var = y_var;
+    public void setX_move(float x_move) { this.x_move = x_move; }
+
+    public void setY_move(float y_move) {
+        this.y_move = y_move;
     }
 
-    public void setVary() {                  //Furthermore edit here
+    public void setMove() {                  //Furthermore edit bullet orbit here
         X = x - x_b;
         Y = y - y_b;
         D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
-        switch (id) {
-            case 0:
-                setX_var((Y * 100 / (float) D / (float) Math.sqrt(D)));
-                setY_var((-X * 100 / (float)D/(float) Math.sqrt(D)));
+        switch (Math.abs(id)) {
+            case 0://spin and spread
+                setX_move((Y*5+X)/(float)D);
+                setY_move((-X*5+Y)/(float)D);
                 break;
-            case 1:
-                setX_var(10 * X / (float) D);
-                setY_var(10 * Y / (float) D);
+            case 1://straight
+                setX_move(10 * X / (float) D);
+                setY_move(10 * Y / (float) D);
                 break;
-            case 2:
-                setX_var(((Y*15-X*2)/(float)D));
-                setY_var(((-X*15-Y*2)/(float)D));
+            case 2://spin around host
+                setX_move(((Y*15-X*10)*5/(float)D));
+                setY_move(((-X*15-Y*10)*5/(float)D));
                 x_b=Gdx.input.getX();
-                y_b=Gdx.graphics.getHeight()-Gdx.input.getY();
+                y_b=480-Gdx.input.getY();
+                if (System.currentTimeMillis()-t>500){
+                    t=System.currentTimeMillis();
+                    id=0;
+                }
                 break;
-
-
+            case 3:
+                x_b=fakebase.x_b;
+                y_b=fakebase.y_b;
+                id=1;
         }
     }
 
     public void create() {
 
         batch = new SpriteBatch();
-
     }
 
     public void render() { // loop
         batch.begin();
         batch.draw(Assets.texture_bullet, (int)(x- (Assets.texture_bullet.getWidth()*scale/2)),(int)(y- (Assets.texture_bullet.getHeight()*scale/2)),Assets.texture_bullet.getWidth()*scale,Assets.texture_bullet.getHeight()*scale);
         batch.end();
-        y += y_var;
-        x += x_var;
-        if ((y>S_height)||(y<0)){
-            State=false;}
+        y += y_move;
+        x += x_move;
+        if (System.currentTimeMillis()-t>10000){
+            State=false;
+        }
     }
 
-    public static void render_bullet(Vector<Bullet> bullet_arr) {
+    public static void render(Vector<Bullet> bullet_arr) {
         for (int i = 0; i < bullet_arr.size(); i++) {
-            bullet_arr.elementAt(i).setVary();
-            if (bullet_arr.elementAt(i).State) bullet_arr.elementAt(i).render();
-
+            if (bullet_arr.elementAt(i).State) {
+                bullet_arr.elementAt(i).setMove();
+                bullet_arr.elementAt(i).render();
+            }
         }
     }
 
     public void dispose() {
         batch.dispose();
-        Assets.texture_bullet.dispose();
     }
 
     public static void Bullet_Reallo(Vector<Bullet> bullet_arr, float x_c, float y_c, float x_offset, float y_offset,int id) {
@@ -135,7 +137,6 @@ public class Bullet extends GameObj {
         this.id=id;
         this.State=true;
         t=System.currentTimeMillis();
-
     }
 
 }
