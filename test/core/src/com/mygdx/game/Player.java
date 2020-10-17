@@ -31,6 +31,7 @@ public class Player extends MyObject{
         }
     }
     public void render_player () { // loop
+
         render();
         update();
     }

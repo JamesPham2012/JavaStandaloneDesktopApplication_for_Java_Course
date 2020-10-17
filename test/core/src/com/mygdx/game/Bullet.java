@@ -31,7 +31,8 @@ public class Bullet extends MyObject {
 
     public void render_bullet () { // loop
         render();
-        incrementY(3);
+        yObject++;
+        updateDraw();
     }
 
 

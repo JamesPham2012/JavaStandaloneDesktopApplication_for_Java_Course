@@ -5,11 +5,12 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class MyObject {
+public class MyObject extends Actor {
     protected boolean exist;
-    protected int xObject;
-    protected int yObject;
+    protected float xObject;
+    protected float yObject;
 
     protected int xDraw;
     protected int yDraw;
@@ -29,10 +30,11 @@ public class MyObject {
     protected void incrementX(int offset){ xObject+=offset; }
     protected void incrementY(int offset){ yObject+=offset;  yDraw+=offset; }
 
-    public int getX(){
+    @Override
+    public float getX(){
         return xObject;
     }
-    public int getY(){
+    public float getY(){
         return yObject;
     }
 
@@ -87,7 +89,7 @@ public class MyObject {
         }
         batch.end();
     }
-    public void revise(int xObject, int yObject){
+    public void revise(float xObject, float yObject){
         this.xObject = xObject;
         this.yObject = yObject;
         updateDraw();
