@@ -1,0 +1,48 @@
+
+ButtonPack.png
+size: 2048,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ExitButtonDown
+  rotate: false
+  xy: 598, 2
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+ExitButtonHover
+  rotate: false
+  xy: 300, 2
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+ExitButtonUp
+  rotate: false
+  xy: 2, 2
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+PlayButtonDown
+  rotate: false
+  xy: 1194, 2
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+PlayButtonHover
+  rotate: false
+  xy: 1492, 2
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+PlayButtonUp
+  rotate: false
+  xy: 896, 2
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
