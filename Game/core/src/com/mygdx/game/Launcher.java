@@ -13,15 +13,18 @@ import com.badlogic.gdx.ApplicationAdapter;
 public class Launcher extends ApplicationAdapter {
 
 	Background BG = new Background();
-
+	MainMenu mainMenu = new mainMenu();
+	
 	@Override 
 	public void create () {
 		BG.create();
+		mainMenu.create();
 	}
 
 	@Override
 	public void render () {
 		BG.render();
+		mainMenu.render();
 	}
 
 	@Override
@@ -32,5 +35,6 @@ public class Launcher extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		BG.dispose();
+		mainMenu.dispose();
 	}
 }
