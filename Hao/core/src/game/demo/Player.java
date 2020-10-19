@@ -17,7 +17,7 @@ public class Player extends GameObj{
     private long rapidity;
 
     public void create(){
-
+        scale = 0.4f;
         batch = new SpriteBatch();
         setId(1);
     }

@@ -23,6 +23,7 @@ public class Bullet extends GameObj {
         y_b = y_c;
         id = Id;
         State=true;
+        scale = 0.7f;
         t=System.currentTimeMillis();
     }
 
@@ -31,6 +32,7 @@ public class Bullet extends GameObj {
         x_b = x_c;
         y = y_c;
         y_b = y_c;
+        scale = 0.7f;
         id = Id;
     }
 
