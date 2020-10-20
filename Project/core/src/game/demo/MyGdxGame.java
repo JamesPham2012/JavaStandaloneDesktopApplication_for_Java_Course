@@ -21,8 +21,7 @@ public class MyGdxGame implements Screen {
 	Vector<Bullet> bullet_arr = new Vector<>();
 	Vector<Enemy> enemy_arr = new Vector<>();
 	Background background = new Background();
-	Waves waves=new Waves();
-	int Wave=0;
+	static int Wave=0;
 
 	boolean pauseGame = false;
 	MainClass mainClass;
@@ -52,16 +51,23 @@ public class MyGdxGame implements Screen {
 			if(player.fire()){
 				player.Bullet_Call(bullet_arr);
 			}
-			if(waves.Wave_Come()){
-				waves.Wave_Call(enemy_arr,bullet_arr,Wave);
+			if(Waves.Wave_Come()){
+				Waves.Wave_Call(enemy_arr,Wave);
 			}
 			Enemy.render(enemy_arr);
 			Enemy.fire(enemy_arr,bullet_arr);
 			Bullet.render(bullet_arr);
+			player.checkCollision(bullet_arr);
+			Enemy.checkCollision(enemy_arr,bullet_arr);
 			Gdx.app.log("FPS", Integer.toString(Gdx.graphics.getFramesPerSecond()));
 
 			if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
 				mainClass.setMenuScreen();
+			}
+			if(!player.State){
+				mainClass.setMenuScreen();
+				Waves.reset();
+				Wave=0;
 			}
 		}
 

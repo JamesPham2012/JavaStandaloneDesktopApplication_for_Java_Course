@@ -22,6 +22,7 @@ public class Bullet extends GameObj {
         y = y_c + yfromhost;
         y_b = y_c;
         id = Id;
+        moveId = Id;
         State=true;
         scale = 0.7f;
         t=System.currentTimeMillis();
@@ -33,6 +34,7 @@ public class Bullet extends GameObj {
         y = y_c;
         y_b = y_c;
         scale = 0.7f;
+        moveId = Id;
         id = Id;
     }
 
@@ -47,44 +49,62 @@ public class Bullet extends GameObj {
         this.y_move = y_move;
     }
 
+    public void setHitboxRadius() {
+        switch (id){
+            case -1:
+            case -2:
+            case -3:
+            case 1:
+                hitboxRadius=5;
+                break;
+        }
+    }
+
+    public void setValue(){
+        value=1;
+    }
+
     public void setMove() {                  //Furthermore edit bullet orbit here
         X = x - x_b;
         Y = y - y_b;
         D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
-        switch (Math.abs(id)) {
-            case 0://spin and spread
-                setX_move((Y*5+X)/(float)D);
-                setY_move((-X*5+Y)/(float)D);
-                break;
-            case 1://straight
+        switch (moveId) {
+            case -1://straight
                 setX_move(10 * X / (float) D);
                 setY_move(10 * Y / (float) D);
                 break;
-            case 2://spin around host
+            case -2://spin around host
                 setX_move(((Y*15-X*10)*5/(float)D));
                 setY_move(((-X*15-Y*10)*5/(float)D));
-                x_b=Gdx.input.getX();
-                y_b=480-Gdx.input.getY();
+                x_b=MyGdxGame.player.getX();
+                y_b=MyGdxGame.player.getY();
                 if (System.currentTimeMillis()-t>500){
                     t=System.currentTimeMillis();
-                    id=0;
+                    moveId=-1;
                 }
                 break;
-            case 3:
+            case -3:
                 x_b=fakebase.x_b;
                 y_b=fakebase.y_b;
-                id=1;
+                moveId=-1;
+                break;
+            case 1:
+                setX_move(3 * X / (float) D);
+                setY_move(3 * Y / (float) D);
+                break;
         }
     }
 
     public void create() {
 
         batch = new SpriteBatch();
+        setParam();
+        setScale(0.005f,0.01f);
     }
 
     public void render() { // loop
         batch.begin();
-        batch.draw(Assets.texture_bullet, (int)(x- (Assets.texture_bullet.getWidth()*scale/2)),(int)(y- (Assets.texture_bullet.getHeight()*scale/2)),Assets.texture_bullet.getWidth()*scale,Assets.texture_bullet.getHeight()*scale);
+        batch.draw(Assets.texture_bullet, (int) (x - (scaleWidth*S_width / 2)), (int) (y - (scaleHeight*S_height / 2)), scaleWidth*S_width, scaleHeight*S_height);
         batch.end();
         y += y_move;
         x += x_move;
@@ -137,8 +157,15 @@ public class Bullet extends GameObj {
         this.x=x_c+x_offset;
         this.y=y_c+y_offset;
         this.id=id;
+        this.moveId=id;
         this.State=true;
+        setHitboxRadius();
+        setValue();
         t=System.currentTimeMillis();
     }
 
+    public void Execute(){
+        State=false;
+        id=0;
+    }
 }

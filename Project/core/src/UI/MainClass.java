@@ -3,7 +3,6 @@ package UI;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import game.demo.MyGdxGame;
-import sun.rmi.rmic.Main;
 
 public class MainClass extends Game implements ApplicationListener {
 

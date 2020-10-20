@@ -25,8 +25,8 @@ public class Background {
     private float speed;
 
     //World parameters (Based on the game resolution)
-    private final int WORLD_WIDTH = 720;
-    private final int WORLD_HEIGHT = 1280;
+    private final int WORLD_WIDTH = 1280;
+    private final int WORLD_HEIGHT = 720;
 
 
     public void create () {

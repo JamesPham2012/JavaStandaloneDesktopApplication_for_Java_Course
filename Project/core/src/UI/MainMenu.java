@@ -1,21 +1,19 @@
 package UI;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import UI.MainClass;
 import game.demo.Background;
+
 
 public class MainMenu implements Screen {
     private SpriteBatch batch;
@@ -25,9 +23,15 @@ public class MainMenu implements Screen {
     private MainClass mainClass;
     private Table table;
     private Background background;
+    private Label label;
 
     BitmapFont font;
     GlyphLayout layout;
+    TextField textfield;
+    float widthTextField;
+    float xTextField;
+
+    FileHandle file;
 
     private Stage stage;
 
@@ -35,28 +39,36 @@ public class MainMenu implements Screen {
         this.mainClass = mainClass;
         batch = new SpriteBatch();
 
+        file = Gdx.files.external("database.txt");
+
         background = new Background();
         background.create();
         background.resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-        skin = new Skin(Gdx.files.internal("skin/ButtonPack.json"));
-        font = new BitmapFont(Gdx.files.internal("skin/minecraft.fnt"));
-
-        layout = new GlyphLayout();
-        layout.setText(font, "SPACESHOOTER");
-
         stage = new Stage(new ScreenViewport());
 
+        skin = new Skin(Gdx.files.internal("skin/Textfield.json"));
+        label = new Label("SPACESHOOTER",skin);
+        label.setFontScale(1.5f);
+
+        textfield = new TextField("Input your name here:",skin);
+
+        resizeTextField();
+
+
+        // table will be affected by size of stage.
         table = new Table();
         table.setWidth(stage.getWidth());
         table.align(Align.center|Align.top);
-        table.setPosition(0, Gdx.graphics.getHeight()/2);
+
 
         PlayButton = new ImageButton(skin, "Play");
         PlayButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.log("Start Game", "BEEP");
+                file.writeString("\n"+textfield.getText(),true);
+                System.out.println(Gdx.files.getLocalStoragePath()+file.path());
                 mainClass.setNewGameScreen();
             }
         });
@@ -69,13 +81,42 @@ public class MainMenu implements Screen {
                 Gdx.app.exit();
             }
         });
+        textfield.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y){
+                Gdx.app.log("Text Field", "BEEP");
+                textfield.setText("");
+                resizeTextField();
+            }
+        });
 
-        table.pad(30);
+        //table.pad(30);
+        table.add(label);
+        table.row();
+        table.add(textfield);
+        table.row();
         table.add(PlayButton);
         table.row();
         table.add(ExitButton);
+        table.setPosition(0, Gdx.graphics.getHeight()/2+table.getMinHeight()/2);
+
 
         stage.addActor(table);
+    }
+    public void resizeTextField(){ // phan biet giua them space va giam bot spacce.
+        widthTextField = textfield.getText().length()*20;
+
+        xTextField = Gdx.graphics.getWidth()/2 - widthTextField/2;
+
+        if(widthTextField==0){
+            textfield.setX(xTextField);
+            textfield.setSize(20,40);
+        }
+        else{
+            textfield.setX(xTextField);
+            textfield.setSize(widthTextField,40);
+        }
+
+
     }
     @Override
     public void show() {
@@ -84,22 +125,22 @@ public class MainMenu implements Screen {
 
     public void render (float delta) {
         background.render();
-        float width = layout.width;
-        float height = layout.height;
 
         stage.act();
         stage.draw();
+        file.readString();
 
-        batch.begin();
-        font.draw(batch, layout, Gdx.graphics.getWidth()/2 - width/2, Gdx.graphics.getHeight()/2 + height/2);
-        batch.end();
+        resizeTextField();
     }
 
 
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true); // this line is important. update size of stage = current screen size.
+        table.setWidth(stage.getWidth());
+        table.align(Align.center|Align.top);
+        table.setPosition(0, Gdx.graphics.getHeight()/2+table.getMinHeight()/2);
     }
 
     @Override

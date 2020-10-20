@@ -17,16 +17,19 @@ public class Player extends GameObj{
     private long rapidity;
 
     public void create(){
-        scale = 0.4f;
         batch = new SpriteBatch();
+        hitboxRadius=10;
+        State=true;
+        setParam();
+        setScale(0.07f,0.125f);
         setId(1);
     }
     public void input(){
         switch (id) {
-            case 1:
+            case -1:
                 if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
                     varyDistance=1;
-                    rapidity=10;
+                    rapidity=50;
                 }
                 else {
                     varyDistance=5;
@@ -44,7 +47,7 @@ public class Player extends GameObj{
         if (y<0) y=0;
     }
     public void setId(int id){
-        this.id=id;
+        this.id=-id;
     }
     public float getX(){
         return x;
@@ -69,7 +72,7 @@ public class Player extends GameObj{
 
     }
     public void Bullet_Call(Vector<Bullet> bullet_arr) {              //Furthermore edit here
-        switch (id) {
+        switch (Math.abs(id)) {
             case 0:
             {
                 Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, 0);
@@ -82,33 +85,50 @@ public class Player extends GameObj{
                 /*     bullet_arr.addElement(new Bullet(getX(), getY(), 0, 30, 1));*/
             {
                 if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, 3);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -5, 29, 3);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 5, 29, 3);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 25, 3);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -10, 28, 3);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 10, 28, 3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, -3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -5, 29, -3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 5, 29, -3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 25, -3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -10, 28, -3);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 10, 28, -3);
                 }
                 else {
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, 1);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -5, 29, 1);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 5, 29, 1);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 25, 1);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -10, 28, 1);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 10, 28, 1);
+                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, -1);
+                    Bullet.Bullet_Reallo(bullet_arr,getX()-3, getY(), -2, 29, -1);
+                    Bullet.Bullet_Reallo(bullet_arr,getX()+3, getY(), 2, 29, -1);
+                    Bullet.Bullet_Reallo(bullet_arr,getX()-5, getY(), -5, 28, -1);
+                    Bullet.Bullet_Reallo(bullet_arr,getX()+5, getY(), 5, 28, -1);
                 }
             }
             break;
         }
     }
     public void render_player () { // loop
-        batch.begin();
-        batch.draw(Assets.texture_plane, (int)(x- (Assets.texture_plane.getWidth()*scale/2)),(int)(y- (Assets.texture_plane.getHeight()*scale/2)),Assets.texture_plane.getWidth()*scale,Assets.texture_plane.getHeight()*scale);
-        batch.end();
+        if (State) {
+            batch.begin();
+            batch.draw(Assets.texture_plane, (int) (x - (scaleWidth*S_width / 2)), (int) (y - (scaleHeight*S_height / 2)), scaleWidth*S_width, scaleHeight*S_height);
+            batch.end();
+        }
         input();
 
     }
     public void dispose () {
         batch.dispose();
+    }
+
+    public static void checkCollision(Vector<Bullet> bullet_arr){
+        for (int i=0;i<bullet_arr.size();i++) {
+            if ((!bullet_arr.elementAt(i).isDed())&&
+                    (bullet_arr.elementAt(i).id*MyGdxGame.player.id<0)&&
+                    (Math.sqrt(Math.pow((double)bullet_arr.elementAt(i).getX()-MyGdxGame.player.x,2.0)+
+                            Math.pow((double)bullet_arr.elementAt(i).getY()-MyGdxGame.player.y,2.0))<
+                            (double)bullet_arr.elementAt(i).hitboxRadius+MyGdxGame.player.hitboxRadius)){
+                MyGdxGame.player.Execute();
+            }
+        }
+    }
+
+    public void Execute(){
+        State=false;
     }
 }

@@ -3,12 +3,15 @@ package game.demo;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Random;
 import java.util.Vector;
 
 public class Enemy extends GameObj {
     private SpriteBatch batch;
     private long t=0;
     private long point;
+    private long Wave;
+    private Random randPara= new Random();
 
     public Enemy(float x_c, float y_c, int Id, int Wave) {
         x = x_c;
@@ -17,11 +20,15 @@ public class Enemy extends GameObj {
         y_b = y_c;
         id = Id;
         setPoint();
-        setValue(Wave);
+        setValue();
+        setHitboxRadius();
     }
 
     public void create() {
+        setParam();
+        setScale(0.07f,0.125f);
         batch = new SpriteBatch();
+        State=true;
     }
 
     public static void render(Vector<Enemy> enemy_arr) {
@@ -42,9 +49,10 @@ public class Enemy extends GameObj {
     }
     //set enemy point base on id
 
-    public void setValue(int Wave){
+    public void setValue(){
         switch (id) {
             case 1:
+                value=100+Wave*5;
                 break;
         }
     }
@@ -56,11 +64,24 @@ public class Enemy extends GameObj {
         D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
         switch (id) {
             case 1:
+                x_move=3*randPara.nextFloat();
+                y_move=3*randPara.nextFloat();
+                if (randPara.nextFloat()<0.5) x_move=-x_move;
+                if (randPara.nextFloat()<0.5) y_move=-y_move;
+                if ((x+x_move<480)||(x+x_move>800)) x_move=-x_move;
+                if ((y+y_move<480)||(y+y_move>720)) y_move=-y_move;
                 break;
         }
     }
     //Furthermore edit enemy move here
 
+    public void setHitboxRadius(){
+        switch (id){
+            case 1:
+                hitboxRadius=20;
+                break;
+        }
+    }
     public boolean isDed() {
         return !State;
     }
@@ -75,24 +96,31 @@ public class Enemy extends GameObj {
 
     public void render() { // loop
         batch.begin();
-        batch.draw(Assets.texture_enemy, (int)(x- (Assets.texture_enemy.getWidth()*scale/2)),(int)(y- (Assets.texture_enemy.getHeight()*scale/2)),Assets.texture_enemy.getWidth()*scale,Assets.texture_enemy.getHeight()*scale);
+        batch.draw(Assets.texture_enemy, (int) (x - (scaleWidth*S_width / 2)), (int) (y - (scaleHeight*S_height / 2)), scaleWidth*S_width, scaleHeight*S_height);
         batch.end();
         y += y_move;
         x += x_move;
-        if (System.currentTimeMillis()-t>10000){ //replace with another condition
-            State=false;
-        }
     }
 
     public static void fire(Vector<Enemy> enemy_arr, Vector<Bullet> bullet_arr){
         for (int i=0; i<enemy_arr.size(); i++){
-            enemy_arr.elementAt(i).Bullet_Call(bullet_arr);
+            if (enemy_arr.elementAt(i).State)
+                enemy_arr.elementAt(i).Bullet_Call(bullet_arr);
         }
     }
 
     public void Bullet_Call(Vector<Bullet> bullet_arr) {              //Furthermore edit here
+        X=x-MyGdxGame.player.x;
+        Y=y-MyGdxGame.player.y;
+        D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
         switch (id) {
             case 1:
+                if ((System.currentTimeMillis()-t)>1000-Wave*10){
+                    Bullet.Bullet_Reallo(bullet_arr,x,y,-X/(float) D,-Y/(float) D,1);
+                    Bullet.Bullet_Reallo(bullet_arr,x-10,y,-X/(float) D,-Y/(float) D,1);
+                    Bullet.Bullet_Reallo(bullet_arr,x+10,y,-X/(float) D,-Y/(float) D,1);
+                    t=System.currentTimeMillis();
+                }
                 break;
         }
     }
@@ -123,9 +151,36 @@ public class Enemy extends GameObj {
         this.x=x_c;
         this.y=y_c;
         this.id=id;
+        this.moveId=id;
         this.State=true;
+        this.Wave=Wave;
         setPoint();
-        setValue(Wave);
+        setValue();
         t=System.currentTimeMillis();
+    }
+
+    public static void checkCollision(Vector<Enemy> enemy_arr, Vector<Bullet> bullet_arr){
+        for (int i=0;i<enemy_arr.size();i++) {
+            enemy_arr.elementAt(i).checkCollision(bullet_arr);
+            if (enemy_arr.elementAt(i).value<0) enemy_arr.elementAt(i).Execute();
+        }
+    }
+
+    private void Execute(){
+        State=false;
+        id=0;
+    }
+
+    public void checkCollision(Vector<Bullet> bullet_arr){
+        for (int i=0;i<bullet_arr.size();i++) {
+            if ((!bullet_arr.elementAt(i).isDed())&&
+                    (bullet_arr.elementAt(i).id*id<0)&&
+                    (Math.sqrt(Math.pow((double)bullet_arr.elementAt(i).getX()-x,2.0)+
+                            Math.pow((double)bullet_arr.elementAt(i).getY()-y,2.0))<
+                            (double)bullet_arr.elementAt(i).hitboxRadius+hitboxRadius)){
+                value-=bullet_arr.elementAt(i).getValue();
+                bullet_arr.elementAt(i).Execute();
+            }
+        }
     }
 }
