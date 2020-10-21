@@ -9,7 +9,7 @@ import java.util.Vector;
 public class Enemy extends GameObj {
     private SpriteBatch batch;
     private long t=0;
-    private long point;
+    //private long point;
     private long Wave;
     private Random randPara= new Random();
 
@@ -179,6 +179,7 @@ public class Enemy extends GameObj {
                             Math.pow((double)bullet_arr.elementAt(i).getY()-y,2.0))<
                             (double)bullet_arr.elementAt(i).hitboxRadius+hitboxRadius)){
                 value-=bullet_arr.elementAt(i).getValue();
+                MyGdxGame.point++;
                 bullet_arr.elementAt(i).Execute();
             }
         }

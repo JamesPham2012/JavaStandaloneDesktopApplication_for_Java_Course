@@ -32,6 +32,7 @@ public class MainMenu implements Screen {
     float xTextField;
 
     FileHandle file;
+    public static String namePlayer;
 
     private Stage stage;
 
@@ -39,7 +40,7 @@ public class MainMenu implements Screen {
         this.mainClass = mainClass;
         batch = new SpriteBatch();
 
-        file = Gdx.files.external("database.txt");
+        file = Gdx.files.external("database.json"); // C:/Users/.../database.json
 
         background = new Background();
         background.create();
@@ -67,7 +68,8 @@ public class MainMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.log("Start Game", "BEEP");
-                file.writeString("\n"+textfield.getText(),true);
+                System.out.println(textfield.getText());
+                file.writeString('\n'+textfield.getText(),true);
                 System.out.println(Gdx.files.getLocalStoragePath()+file.path());
                 mainClass.setNewGameScreen();
             }
@@ -128,7 +130,6 @@ public class MainMenu implements Screen {
 
         stage.act();
         stage.draw();
-        file.readString();
 
         resizeTextField();
     }
