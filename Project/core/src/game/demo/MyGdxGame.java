@@ -74,9 +74,7 @@ public class MyGdxGame implements Screen {
 			if(player.fire()){
 				player.Bullet_Call(bullet_arr);
 			}
-			if(Waves.Wave_Come()){
-				Waves.Wave_Call(enemy_arr,Wave);
-			}
+			Waves.Wave_Come(enemy_arr);
 			Enemy.render(enemy_arr);
 			Enemy.fire(enemy_arr,bullet_arr);
 			Bullet.render(bullet_arr);
