@@ -48,52 +48,6 @@ public class Bullet extends GameObj {
         this.y_move = y_move;
     }
 
-    public void setHitboxRadius() {
-        switch (id){
-            case -1:
-            case -2:
-            case -3:
-            case 1:
-                hitboxRadius=5;
-                break;
-        }
-    }
-
-    public void setValue(){
-        value=1;
-    }
-
-    public void setMove() {                  //Furthermore edit bullet orbit here
-        X = x - x_b;
-        Y = y - y_b;
-        D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
-        switch (moveId) {
-            case -1://straight
-                setX_move(10 * X / (float) D);
-                setY_move(10 * Y / (float) D);
-                break;
-            case -2://spin around host
-                setX_move(((Y*15-X*10)*5/(float)D));
-                setY_move(((-X*15-Y*10)*5/(float)D));
-                x_b=MyGdxGame.player.getX();
-                y_b=MyGdxGame.player.getY();
-                if (System.currentTimeMillis()-t>500){
-                    t=System.currentTimeMillis();
-                    moveId=-1;
-                }
-                break;
-            case -3:
-                x_b=fakebase.x_b;
-                y_b=fakebase.y_b;
-                moveId=-1;
-                break;
-            case 1:
-                setX_move(3 * X / (float) D);
-                setY_move(3 * Y / (float) D);
-                break;
-        }
-    }
-
     public void create() {
 
         batch = new SpriteBatch();
@@ -161,9 +115,62 @@ public class Bullet extends GameObj {
         setValue();
         t=System.currentTimeMillis();
     }
+
     public void Execute(){
         State=false;
         id=0;
     }
 
+    /* ----------------------------------------------------------------------
+     * ----------------------------------------------------------------------
+     * --------------------------Edit - add more-----------------------------
+     * -------------------Bullets' hitbox, value, orbit----------------------
+     * ----------------------------------------------------------------------
+     * ----------------------------------------------------------------------*/
+
+    public void setHitboxRadius() {
+        switch (id){
+            case -1:
+            case -2:
+            case -3:
+            case 1:
+                hitboxRadius=((float)Assets.texture_bullet.getHeight()+(float)Assets.texture_bullet.getWidth())/4;
+                break;
+        }
+    }
+
+    public void setValue(){
+        value=1;
+    }
+
+    public void setMove() {                  //Furthermore edit bullet orbit here
+        X = x - x_b;
+        Y = y - y_b;
+        D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
+        switch (moveId) {
+            case -1://straight
+                setX_move(10 * X / (float) D);
+                setY_move(10 * Y / (float) D);
+                break;
+            case -2://spin around host
+                setX_move(((Y*15-X*10)*5/(float)D));
+                setY_move(((-X*15-Y*10)*5/(float)D));
+                x_b=MyGdxGame.player.getX();
+                y_b=MyGdxGame.player.getY();
+                if (System.currentTimeMillis()-t>500){
+                    t=System.currentTimeMillis();
+                    moveId=-1;
+                }
+                break;
+            case -3:
+                x_b=fakebase.x_b;
+                y_b=fakebase.y_b;
+                moveId=-1;
+                break;
+            case 1:
+                setX_move(3 * X / (float) D);
+                setY_move(3 * Y / (float) D);
+                break;
+        }
+    }
 }

@@ -23,28 +23,7 @@ public class Player extends GameObj{
         State=true;
         setId(1);
     }
-    public void input(){
-        switch (id) {
-            case -1:
-                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    varyDistance=1;
-                    rapidity=50;
-                }
-                else {
-                    varyDistance=5;
-                    rapidity=100;
-                }
-                break;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x-=varyDistance;
-        if (x<0) x=0;
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x+=varyDistance;
-        if (x>Gdx.graphics.getWidth()) x=Gdx.graphics.getWidth();
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) y+=varyDistance;
-        if (y>Gdx.graphics.getHeight()) y=Gdx.graphics.getHeight();
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) y-=varyDistance;
-        if (y<0) y=0;
-    }
+
     public void setId(int id){
         this.id=-id;
     }
@@ -70,6 +49,67 @@ public class Player extends GameObj{
         else return false;
 
     }
+
+    public void render_player () { // loop
+        if (State) {
+            batch.begin();
+            batch.draw(Assets.texture_plane, (int) (x - (/*Assets.texture_plane.getWidth() * scale / 2*/20)), (int) (y - (/*Assets.texture_plane.getHeight() * scale / 2*/20)),
+                    40/*Assets.texture_plane.getWidth() * scale*/, /*Assets.texture_plane.getHeight() * scale*/40);
+            batch.end();
+        }
+        input();
+
+    }
+    public void dispose () {
+        batch.dispose();
+    }
+
+    public static void checkCollision(Vector<Bullet> bullet_arr){
+        for (int i=0;i<bullet_arr.size();i++) {
+            if ((!bullet_arr.elementAt(i).isDed())&&
+                    (bullet_arr.elementAt(i).id*MyGdxGame.player.id<0)&&
+                    (Math.sqrt(Math.pow((double)bullet_arr.elementAt(i).getX()-MyGdxGame.player.x,2.0)+
+                            Math.pow((double)bullet_arr.elementAt(i).getY()-MyGdxGame.player.y,2.0))<
+                            (double)bullet_arr.elementAt(i).hitboxRadius+MyGdxGame.player.hitboxRadius)){
+                MyGdxGame.player.Execute();
+            }
+        }
+    }
+
+    public void Execute(){
+        State=false;
+    }
+
+    /* ----------------------------------------------------------------------
+     * ----------------------------------------------------------------------
+     * --------------------------Edit - add more-----------------------------
+     * --------------------------Player's data-------------------------------
+     * ----------------------------------------------------------------------
+     * ----------------------------------------------------------------------*/
+
+    public void input(){
+        switch (id) {
+            case -1:
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    varyDistance=1;
+                    rapidity=50;
+                }
+                else {
+                    varyDistance=5;
+                    rapidity=100;
+                }
+                break;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x-=varyDistance;
+        if (x<0) x=0;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x+=varyDistance;
+        if (x>Gdx.graphics.getWidth()) x=Gdx.graphics.getWidth();
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) y+=varyDistance;
+        if (y>Gdx.graphics.getHeight()) y=Gdx.graphics.getHeight();
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) y-=varyDistance;
+        if (y<0) y=0;
+    }
+
     public void Bullet_Call(Vector<Bullet> bullet_arr) {              //Furthermore edit here
         switch (Math.abs(id)) {
             case 0:
@@ -101,33 +141,5 @@ public class Player extends GameObj{
             }
             break;
         }
-    }
-    public void render_player () { // loop
-        if (State) {
-            batch.begin();
-            batch.draw(Assets.texture_plane, (int) (x - (Assets.texture_plane.getWidth() * scale / 2)), (int) (y - (Assets.texture_plane.getHeight() * scale / 2)), Assets.texture_plane.getWidth() * scale, Assets.texture_plane.getHeight() * scale);
-            batch.end();
-        }
-        input();
-
-    }
-    public void dispose () {
-        batch.dispose();
-    }
-
-    public static void checkCollision(Vector<Bullet> bullet_arr){
-        for (int i=0;i<bullet_arr.size();i++) {
-            if ((!bullet_arr.elementAt(i).isDed())&&
-                    (bullet_arr.elementAt(i).id*MyGdxGame.player.id<0)&&
-                    (Math.sqrt(Math.pow((double)bullet_arr.elementAt(i).getX()-MyGdxGame.player.x,2.0)+
-                            Math.pow((double)bullet_arr.elementAt(i).getY()-MyGdxGame.player.y,2.0))<
-                            (double)bullet_arr.elementAt(i).hitboxRadius+MyGdxGame.player.hitboxRadius)){
-                MyGdxGame.player.Execute();
-            }
-        }
-    }
-
-    public void Execute(){
-        State=false;
     }
 }

@@ -27,6 +27,8 @@ public class Background {
     //World parameters (Based on the game resolution)
     private final int WORLD_WIDTH = 720;
     private final int WORLD_HEIGHT = 1280;
+    public int getWORLD_WIDTH() {return WORLD_WIDTH;}
+    public int getWORLD_HEIGHT(){return WORLD_HEIGHT;}
 
 
     public void create () {

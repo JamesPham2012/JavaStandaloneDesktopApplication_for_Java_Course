@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 public class GameObj {
     protected float x;
     protected float y;
-    protected int cali_x;
-    protected int cali_y;
+    private Background bg=new Background();
+    protected float cali_x=bg.getWORLD_WIDTH()/1280;
+    protected float cali_y=bg.getWORLD_HEIGHT()/720;
     protected float x_b;
     protected float y_b;
     protected float x_move;
