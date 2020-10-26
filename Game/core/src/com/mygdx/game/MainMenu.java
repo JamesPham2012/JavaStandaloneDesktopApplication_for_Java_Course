@@ -1,52 +1,68 @@
-package com.mygdx.game;
+package UI;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import UI.MainClass;
+import com.mygdx.game.Background;
 
-public class MainMenu {
+public class MainMenu implements Screen {
     private SpriteBatch batch;
     private ImageButton PlayButton;
     private ImageButton ExitButton;
     private Skin skin;
-
+    private MainClass mainClass;
     private Table table;
+    private Background background;
 
-    BitmapFont font;
-    GlyphLayout layout;
+    private Image title;
 
     private Stage stage;
 
-    public void create () {
+    float tableY = Gdx.graphics.getHeight()/2 - 100;
+
+    public MainMenu(final MainClass mainClass){
+        this.mainClass = mainClass;
+
         batch = new SpriteBatch();
 
-        skin = new Skin(Gdx.files.internal("UI/ButtonPack.json"));
-        font = new BitmapFont(Gdx.files.internal("UI/minecraft.fnt"));
+        title = new Image(new Texture("skin/GameTitle.png"));
 
-        layout = new GlyphLayout();
-        layout.setText(font, "SPACESHOOTER");
+        background = new Background();
+        background.create();
+        background.resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+        skin = new Skin(Gdx.files.internal("skin/ButtonPack.json"));
 
         stage = new Stage(new ScreenViewport());
 
         table = new Table();
         table.setWidth(stage.getWidth());
         table.align(Align.center|Align.top);
-        table.setPosition(0, Gdx.graphics.getHeight()/2);
+        table.setPosition(0, tableY);
 
         PlayButton = new ImageButton(skin, "Play");
         PlayButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log("Start Game", "BEEP");
+                stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        mainClass.setNewGameScreen();
+                    }
+                })));
             }
         });
 
@@ -54,46 +70,53 @@ public class MainMenu {
         ExitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log("Exit Game", "BEEP");
+                Gdx.app.exit();
             }
         });
 
         table.pad(30);
+        table.add(title).size(700,60);
+        table.row();
         table.add(PlayButton);
         table.row();
         table.add(ExitButton);
 
         stage.addActor(table);
-
-        Gdx.input.setInputProcessor(stage);
+    }
+    @Override
+    public void show() {
+        stage.addAction(Actions.fadeIn(1));
+        Gdx.input.setInputProcessor(stage); // kieu nhu no add input vao thang render. -- call before render each frame.
     }
 
-    public void render () {
-
-        float width = layout.width;
-        float height = layout.height;
+    public void render (float delta) {
+        background.render();
 
         stage.act();
         stage.draw();
-
-        batch.begin();
-        font.draw(batch, layout, Gdx.graphics.getWidth()/2 - width/2, Gdx.graphics.getHeight()/2 + height/2);
-        batch.end();
     }
 
 
 
+    @Override
     public void resize(int width, int height) {
+        stage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true); // this line is important. update size of stage = current screen size.
+        table.setWidth(stage.getWidth());
+        table.align(Align.center|Align.top);
+        table.setPosition(0, tableY +table.getMinHeight()/2);
+    }
+
+    @Override
+    public void pause() {
 
     }
 
-
-
+    @Override
     public void resume() {
 
     }
 
-
+    @Override
     public void hide() {
 
     }
