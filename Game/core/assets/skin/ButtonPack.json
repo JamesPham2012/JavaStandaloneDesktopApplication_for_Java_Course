@@ -1,0 +1,34 @@
+{
+  com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+    default: {
+      up: PlayButtonUp
+      down: PlayButtonDown
+      over: PlayButtonHover
+    },
+    Play: {
+        up: PlayButtonUp
+        down: PlayButtonDown
+        over: PlayButtonHover
+    },
+    Exit: {
+        up: ExitButtonUp
+        down: ExitButtonDown
+        over: ExitButtonHover
+    }
+    Resume: {
+        up: ResumeButtonUp
+        down: ResumeButtonDown
+        over: ResumeButtonHover
+    },
+    Retry: {
+      up: RetryButtonUp
+      down: RetryButtonDown
+      over: RetryButtonHover
+    }
+    MainMenu: {
+      up: MainMenuButtonUp
+      down: MainMenuButtonDown
+      over: MainMenuButtonHover
+    }
+  }
+}
