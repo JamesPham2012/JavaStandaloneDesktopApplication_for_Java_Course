@@ -1,7 +1,6 @@
 package game.demo;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,12 +13,10 @@ import java.lang.Math;
 public class Bullet extends GameObj {
     private SpriteBatch batch;
     private long t=0l;
-    private static Bullet fakebase=new Bullet(0,0,0,0);
-    protected int Source_ID_Collision=0;
-    protected boolean isAlly(){
-        return (this.Source_ID_Collision==1);
-    }
-    public Bullet(float x_c, float y_c, float xfromhost, float yfromhost, int Id,int CollisionID) {
+    private static Bullet fakebase=new Bullet(0,0,0);
+
+
+    public Bullet(float x_c, float y_c, float xfromhost, float yfromhost, int Id) {
         x = x_c + xfromhost;
         x_b = x_c;
         y = y_c + yfromhost;
@@ -28,18 +25,16 @@ public class Bullet extends GameObj {
         id=Id;
         State=true;
         scale = 0.7f;
-        Source_ID_Collision=CollisionID;
         t=System.currentTimeMillis();
     }
 
-    public Bullet(float x_c, float y_c, int Id,int CollisionID) {
+    public Bullet(float x_c, float y_c, int Id) {
         x = x_c;
         x_b = x_c;
         y = y_c;
         y_b = y_c;
         scale = 0.7f;
         id = Id;
-        Source_ID_Collision=CollisionID;
     }
 
     public static void resetfakebase(){
@@ -59,18 +54,9 @@ public class Bullet extends GameObj {
         State=true;
     }
 
-    public void render(GameObj playerObject,Vector<PixelCoord> Sonar, Vector<PixelCoord> Pixel1, Vector<PixelCoord> Pixel2) { // loop
+    public void render(SpriteBatch batch) { // loop
         batch.begin();
-        batch.draw(Assets.texture_bullet, (x- (this.Texture_Width/2)),(y- (this.Texture_Height/2)));
-        if (this.isAlly()){
-        }
-        if (!this.isAlly()){
-            if ((this.distanceto(playerObject)<(playerObject.getSonarRange()+this.getSonarRange()))||(this.distanceto2(playerObject)<(playerObject.getSonarRange()+this.getSonarRange()))){
-                for(int z=0;z<Sonar.size();z++){
-                    Pixel2.addElement(new PixelCoord(x- (this.Texture_Width/2),y- (this.Texture_Height/2),Sonar.elementAt(z)));
-                }
-            }
-        }
+        batch.draw(Assets.texture_bullet, (int)(x- (Assets.texture_bullet.getWidth()*scale/2)),(int)(y- (Assets.texture_bullet.getHeight()*scale/2)),Assets.texture_bullet.getWidth()*scale,Assets.texture_bullet.getHeight()*scale);
         batch.end();
         y += y_move;
         x += x_move;
@@ -79,11 +65,11 @@ public class Bullet extends GameObj {
         }
     }
 
-    public static void render(Player player,Vector<Bullet> bullet_arr,Vector<PixelCoord> Sonar,Vector<PixelCoord> Pixel1,Vector<PixelCoord> Pixel2) {
+    public static void render(Vector<Bullet> bullet_arr,SpriteBatch batch) {
         for (int i = 0; i < bullet_arr.size(); i++) {
             if (bullet_arr.elementAt(i).State) {
                 bullet_arr.elementAt(i).setMove();
-                bullet_arr.elementAt(i).render(player,Sonar,Pixel1,Pixel2);
+                bullet_arr.elementAt(i).render(batch);
             }
         }
     }
@@ -92,13 +78,13 @@ public class Bullet extends GameObj {
         batch.dispose();
     }
 
-    public static void Bullet_Reallo(Vector<Bullet> bullet_arr, float x_c, float y_c, float x_offset, float y_offset,int id,int Collision_ID) {
+    public static void Bullet_Reallo(Vector<Bullet> bullet_arr, float x_c, float y_c, float x_offset, float y_offset,int id) {
         int BulletGen = 0;
         loop:     while (BulletGen == 0) {
             // need change to replace DED value with ALIVE value in order for the vector not to be too long, waste of memory
             for (int i = 0; i < bullet_arr.size(); i++) {                                                                           //there exists at least an element in the array
                 if (bullet_arr.elementAt(i).isDed()) {                                    // there is 1 dead bullet
-                    bullet_arr.elementAt(i).Revive(x_c, y_c, x_offset,y_offset,id,Collision_ID);//revive it as a new bullet
+                    bullet_arr.elementAt(i).Revive(x_c, y_c, x_offset,y_offset,id);//revive it as a new bullet
                     BulletGen = 1;
 
                     /*Gdx.app.log("Log", "Bullet number "+i+" revived");*/
@@ -106,7 +92,7 @@ public class Bullet extends GameObj {
                 }
             }
             // if the code get here, there is NO dead bullet in the array
-            bullet_arr.addElement(new Bullet(x_c, y_c,x_offset,y_offset,id,Collision_ID));// create a new bullet
+            bullet_arr.addElement(new Bullet(x_c, y_c,x_offset,y_offset,id));// create a new bullet
             bullet_arr.lastElement().setParam();
             bullet_arr.lastElement().create();
             BulletGen = 1;
@@ -117,7 +103,7 @@ public class Bullet extends GameObj {
         return !State;
     }
 
-    public void Revive(float x_c,float y_c, float x_offset, float y_offset,int id,int CollisionID){
+    public void Revive(float x_c,float y_c, float x_offset, float y_offset,int id){
         this.x_b=x_c;// omit for more effects
         this.y_b=y_c;// omit for more effects
         this.x=x_c+x_offset;
@@ -125,7 +111,6 @@ public class Bullet extends GameObj {
         this.id=id;
         this.moveId=id;
         this.State=true;
-        this.Source_ID_Collision=CollisionID;
         setHitboxRadius();
         setValue();
         t=System.currentTimeMillis();

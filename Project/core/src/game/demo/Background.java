@@ -17,9 +17,8 @@ public class Background {
     private Viewport viewport;
 
     //Graphics
-    SpriteBatch batch;
     Texture[] background;
-
+    SpriteBatch batch;
     //Background movement
     private float[] backgroundOffset = {0,0,0,0};
     private float speed;
@@ -33,10 +32,8 @@ public class Background {
         background = new Texture[4];
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-
-        speed = WORLD_HEIGHT / 2;
-
         batch = new SpriteBatch();
+        speed = WORLD_HEIGHT / 2;
 
         background[0] = new Texture("Star0.png");
         background[1] = new Texture("Star1.png");
@@ -47,8 +44,11 @@ public class Background {
 
     public void render () {
         float deltaTime = Gdx.graphics.getDeltaTime(); //Time between frames
+
         batch.begin();
+
         MoveBackground(deltaTime);
+
         batch.end();
     }
 

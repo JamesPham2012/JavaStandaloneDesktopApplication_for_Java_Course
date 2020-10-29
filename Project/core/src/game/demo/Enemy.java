@@ -14,8 +14,6 @@ public class Enemy extends GameObj {
     private long Wave;
     private Random randPara= new Random();
 
-
-
     public Enemy(float x_c, float y_c, int Id, int Wave) {
         x = x_c;
         x_b = x_c;
@@ -35,14 +33,11 @@ public class Enemy extends GameObj {
         batch = new SpriteBatch();
     }
 
-    public static void render(Vector<Enemy> enemy_arr,Vector<PixelCoord> Sonar,Vector<PixelCoord> Pixel) {
+    public static void render(Vector<Enemy> enemy_arr, SpriteBatch batch) {
         for (int i = 0; i < enemy_arr.size(); i++) {
             if (enemy_arr.elementAt(i).State) {
                 enemy_arr.elementAt(i).setMove();
-                enemy_arr.elementAt(i).render();
-                for(int j=0;j<Sonar.size();j++){
-                    Pixel.addElement(new PixelCoord(enemy_arr.elementAt(i).x_b,enemy_arr.elementAt(i).y_b,Sonar.elementAt(i)));
-                }
+                enemy_arr.elementAt(i).render(batch);
             }
         }
     }
@@ -61,7 +56,7 @@ public class Enemy extends GameObj {
         return false;
     }
 
-    public void render() { // loop
+    public void render(SpriteBatch batch) { // loop
         batch.begin();
         batch.draw(Assets.texture_enemy, (int)(x- (Assets.texture_enemy.getWidth()*scale/2)),(int)(y- (Assets.texture_enemy.getHeight()*scale/2)),Assets.texture_enemy.getWidth()*scale,Assets.texture_enemy.getHeight()*scale);
         batch.end();
@@ -179,23 +174,22 @@ public class Enemy extends GameObj {
     public void Bullet_Call(Vector<Bullet> bullet_arr) {              //Furthermore edit here
         X = x - MyGdxGame.player.x;
         Y = y - MyGdxGame.player.y;
-
         D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
         switch (id) {
             case 1:
                 if ((System.currentTimeMillis() - t) > 1000 - Wave * 10) {
-                    Bullet.Bullet_Reallo(bullet_arr, x, y, -X / (float) D, -Y / (float) D, 1,-1);
-                    Bullet.Bullet_Reallo(bullet_arr, x - 10, y, -X / (float) D, -Y / (float) D, 1,-1);
-                    Bullet.Bullet_Reallo(bullet_arr, x + 10, y, -X / (float) D, -Y / (float) D, 1,-1);
+                    Bullet.Bullet_Reallo(bullet_arr, x, y, -X / (float) D, -Y / (float) D, 1);
+                    Bullet.Bullet_Reallo(bullet_arr, x - 10, y, -X / (float) D, -Y / (float) D, 1);
+                    Bullet.Bullet_Reallo(bullet_arr, x + 10, y, -X / (float) D, -Y / (float) D, 1);
                     t = System.currentTimeMillis();
                 }
                 break;
             case 2:
             case 3:
                 if ((System.currentTimeMillis() - t) > 1000) {
-                    Bullet.Bullet_Reallo(bullet_arr, x, y, -X / (float) D, -Y / (float) D, 1,-1);
-                    Bullet.Bullet_Reallo(bullet_arr, x - 20, y, -(X - 20) / (float) D, -Y / (float) D, 1,-1);
-                    Bullet.Bullet_Reallo(bullet_arr, x + 20, y, -(X + 20) / (float) D, -Y / (float) D, 1,-1);
+                    Bullet.Bullet_Reallo(bullet_arr, x, y, -X / (float) D, -Y / (float) D, 1);
+                    Bullet.Bullet_Reallo(bullet_arr, x - 20, y, -(X - 20) / (float) D, -Y / (float) D, 1);
+                    Bullet.Bullet_Reallo(bullet_arr, x + 20, y, -(X + 20) / (float) D, -Y / (float) D, 1);
                     t=System.currentTimeMillis();
                 }
                 break;
