@@ -16,13 +16,10 @@ import java.awt.*;
 import java.lang.Math;
 import java.util.Vector;
 
-<<<<<<< Updated upstream:Project/core/src/game/demo/MyGdxGame.java
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-=======
 import com.badlogic.gdx.graphics.glutils.FileTextureData;
->>>>>>> Stashed changes:Game/core/src/game/demo/MyGdxGame.java
 import game.demo.Bullet;
 
 public class MyGdxGame implements Screen {
@@ -176,8 +173,7 @@ public class MyGdxGame implements Screen {
 				Waves.reset();
 				Wave=0;
 			}
-<<<<<<< Updated upstream:Project/core/src/game/demo/MyGdxGame.java
-=======
+
 			//trigger for checking needed, examination
 			/*System.out.println("Size of Sonar Bullet " + Sonar_Bullet.size());
 			System.out.println(Sonar_Enemy.size()+"  "+Sonar_Player.size());*/
@@ -201,7 +197,6 @@ loop:		for (int i=0;i<Bullet_Oppress_Pixel.size();i++){
 			Bullet_Ally_Pixel.clear();
 			Enemy_Pixel.clear();
 			Bullet_Oppress_Pixel.clear();
->>>>>>> Stashed changes:Game/core/src/game/demo/MyGdxGame.java
 
 		}
 
