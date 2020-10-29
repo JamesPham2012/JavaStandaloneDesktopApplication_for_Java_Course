@@ -1,47 +1,111 @@
+
 ButtonPack.png
-size: 2048,256
+size: 2048,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 ExitButtonDown
   rotate: false
-  xy: 598, 2
+  xy: 1558, 274
   size: 296, 134
   orig: 296, 134
   offset: 0, 0
   index: -1
 ExitButtonHover
   rotate: false
-  xy: 300, 2
+  xy: 1108, 138
   size: 296, 134
   orig: 296, 134
   offset: 0, 0
   index: -1
 ExitButtonUp
   rotate: false
-  xy: 2, 2
+  xy: 658, 2
   size: 296, 134
   orig: 296, 134
   offset: 0, 0
   index: -1
+MainMenuButtonDown
+  rotate: false
+  xy: 2, 138
+  size: 448, 134
+  orig: 448, 134
+  offset: 0, 0
+  index: -1
+MainMenuButtonHover
+  rotate: false
+  xy: 452, 274
+  size: 448, 134
+  orig: 448, 134
+  offset: 0, 0
+  index: -1
+MainMenuButtonUp
+  rotate: false
+  xy: 2, 274
+  size: 448, 134
+  orig: 448, 134
+  offset: 0, 0
+  index: -1
 PlayButtonDown
   rotate: false
-  xy: 1194, 2
+  xy: 1406, 138
   size: 296, 134
   orig: 296, 134
   offset: 0, 0
   index: -1
 PlayButtonHover
   rotate: false
-  xy: 1492, 2
+  xy: 1254, 2
   size: 296, 134
   orig: 296, 134
   offset: 0, 0
   index: -1
 PlayButtonUp
   rotate: false
-  xy: 896, 2
+  xy: 956, 2
   size: 296, 134
   orig: 296, 134
+  offset: 0, 0
+  index: -1
+ResumeButtonDown
+  rotate: false
+  xy: 1230, 274
+  size: 326, 134
+  orig: 326, 134
+  offset: 0, 0
+  index: -1
+ResumeButtonHover
+  rotate: false
+  xy: 780, 138
+  size: 326, 134
+  orig: 326, 134
+  offset: 0, 0
+  index: -1
+ResumeButtonUp
+  rotate: false
+  xy: 902, 274
+  size: 326, 134
+  orig: 326, 134
+  offset: 0, 0
+  index: -1
+RetryButtonDown
+  rotate: false
+  xy: 330, 2
+  size: 326, 134
+  orig: 326, 134
+  offset: 0, 0
+  index: -1
+RetryButtonHover
+  rotate: false
+  xy: 2, 2
+  size: 326, 134
+  orig: 326, 134
+  offset: 0, 0
+  index: -1
+RetryButtonUp
+  rotate: false
+  xy: 452, 138
+  size: 326, 134
+  orig: 326, 134
   offset: 0, 0
   index: -1

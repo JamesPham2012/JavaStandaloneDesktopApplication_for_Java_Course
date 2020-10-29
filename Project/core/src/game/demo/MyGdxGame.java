@@ -169,7 +169,7 @@ public class MyGdxGame implements Screen {
 			stage.draw();
 
 			if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-				mainClass.setMenuScreen();
+				mainClass.setPauseScreen();
 			}
 			if(!player.State){
 				mainClass.setMenuScreen();

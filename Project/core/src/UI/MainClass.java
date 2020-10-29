@@ -8,6 +8,7 @@ public class MainClass extends Game implements ApplicationListener {
 
     private MyGdxGame gameScreen;
     private MainMenu mainMenu;
+    private PauseScreen pauseScreen;
 //    private HudClass hudScreen;
 //    private StartClass startScreen;
     @Override
@@ -16,7 +17,7 @@ public class MainClass extends Game implements ApplicationListener {
         //menuScreen=new MenuClass(this);
         mainMenu = new MainMenu(this);
 //        startScreen=new StartClass(this);
-
+        pauseScreen = new PauseScreen(this);
         setMenuScreen();
 
     }
@@ -39,7 +40,10 @@ public class MainClass extends Game implements ApplicationListener {
         setScreen(mainMenu);
         gameScreen.pause();
     }
+    public void setPauseScreen(){
+        setScreen(pauseScreen);
 
+    }
 
 
 
