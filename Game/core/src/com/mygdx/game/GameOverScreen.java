@@ -1,11 +1,13 @@
 package UI;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -16,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.Background;
 
 public class GameOverScreen implements Screen {
     private SpriteBatch batch;
@@ -29,40 +30,64 @@ public class GameOverScreen implements Screen {
     private Skin skin;
     private MainClass mainClass;
     private Table table;
-    private Background background;
 
     private Stage stage;
 
-
     float tableY = Gdx.graphics.getHeight()/2;
 
-    public GameOverScreen(final MainClass mainClass) {
+    public static int score, highscore;
+    GlyphLayout scorelayout, highscorelayout;
+
+    Animation<TextureRegion> animation;
+    float elapsed;
+
+    BitmapFont scoreFont;
+
+    Sound sound = Gdx.audio.newSound(Gdx.files.internal("Audio/Astronomia.mp3"));;
+
+    public GameOverScreen(final MainClass mainClass, int score) {
         this.mainClass = mainClass;
         batch = new SpriteBatch();
         GameOverTitle = new Texture("skin/GAMEOVER.png");
         title = new Image(GameOverTitle);
 
-        background = new Background();
-        background.create();
-        background.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Texture/Gif/coffindance.gif").read());
+
+        this.score = score;
+        Preferences preferences = Gdx.app.getPreferences("GameScore"); //Create file to store score
+        highscore = preferences.getInteger("highscore", score);
+
+        if(score > highscore)
+        {
+            preferences.putInteger("highscore", score);
+            preferences.flush(); //Flush will save file
+        }
+
+        scoreFont = new BitmapFont(Gdx.files.internal("skin/minecraft.fnt"));
 
         skin = new Skin(Gdx.files.internal("skin/ButtonPack.json"));
 
         stage = new Stage(new ScreenViewport());
 
+        CreateTable(stage);
+    }
+
+    public void CreateTable(final Stage stage)
+    {
         table = new Table();
         table.setWidth(stage.getWidth());
         table.align(Align.center | Align.top);
         table.setPosition(0, tableY);
 
         RetryButton = new ImageButton(skin, "Retry");
-        RetryButton.addListener(new ClickListener() {
+        RetryButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.run(new Runnable() {
                     @Override
                     public void run() {
                         mainClass.setNewGameScreen();
+                        sound.stop();
                     }
                 })));
             }
@@ -76,6 +101,7 @@ public class GameOverScreen implements Screen {
                     @Override
                     public void run() {
                         mainClass.setMenuScreen();
+                        sound.stop();
                     }
                 })));
             }
@@ -100,17 +126,39 @@ public class GameOverScreen implements Screen {
         table.add(ExitButton);
 
         stage.addActor(table);
+    }
 
+    private void playSong()
+    {
+        long id = sound.play(1f);
+        sound.setPitch(id, 1f);
+        sound.setVolume(id, 0.5f);
+        sound.setLooping(id,true);
     }
 
     public void show() {
         stage.addAction(Actions.fadeIn(1));
         Gdx.input.setInputProcessor(stage); // kieu nhu no add input vao thang render. -- call before render each frame.
+        playSong();
     }
 
     public void render(float delta) {
-        background.render();
-        stage.addAction(Actions.fadeIn(1));
+        elapsed += Gdx.graphics.getDeltaTime(); //Get time frame
+
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        batch.draw(animation.getKeyFrame(elapsed), 20,20); //Draw the gif
+
+        //Score text
+        scorelayout = new GlyphLayout(scoreFont, "Score: \n" + score, Color.WHITE, 0, Align.left, false);
+        highscorelayout = new GlyphLayout(scoreFont, "High Score: \n" + highscore, Color.WHITE, 0, Align.left, false);
+
+        scoreFont.draw(batch, scorelayout, 20, tableY + title.getHeight()*2);
+        scoreFont.draw(batch, highscorelayout, 20, tableY + title.getHeight());
+
+        batch.end();
+
         stage.act();
         stage.draw();
     }
@@ -143,5 +191,7 @@ public class GameOverScreen implements Screen {
         stage.dispose();
         batch.dispose();
         skin.dispose();
+        scoreFont.dispose();
+        sound.dispose();
     }
 }
