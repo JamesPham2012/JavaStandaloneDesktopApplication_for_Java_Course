@@ -47,11 +47,8 @@ public class Background {
 
     public void render () {
         float deltaTime = Gdx.graphics.getDeltaTime(); //Time between frames
-
         batch.begin();
-
         MoveBackground(deltaTime);
-
         batch.end();
     }
 

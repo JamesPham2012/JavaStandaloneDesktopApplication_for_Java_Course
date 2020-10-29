@@ -4,11 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import static java.lang.Integer.max;
+
 public class GameObj {
     protected float x;
     protected float y;
+<<<<<<< Updated upstream:Project/core/src/game/demo/GameObj.java
     protected int cali_x;
     protected int cali_y;
+=======
+    private Background bg=new Background();
+    protected float cali_x;
+    protected float cali_y;
+>>>>>>> Stashed changes:Game/core/src/game/demo/GameObj.java
     protected float x_b;
     protected float y_b;
     protected float x_move;
@@ -24,15 +32,27 @@ public class GameObj {
     protected int moveId;
     protected boolean State;
     protected long value;
+    protected float scaleWidth;
+    protected float scaleHeight;
     protected float hitboxRadius;
+<<<<<<< Updated upstream:Project/core/src/game/demo/GameObj.java
     protected float scaleWidth;
     protected float scaleHeight;
     protected SpriteBatch batch;
+=======
+    protected int Texture_Width=22;
+    protected int Texture_Height=22;
+
+>>>>>>> Stashed changes:Game/core/src/game/demo/GameObj.java
 
     public void setParam(){
         this.S_width=Gdx.graphics.getWidth();
         this.S_height=Gdx.graphics.getHeight();
 
+    }
+    public void setScale(float scaleWidth, float scaleHeight){
+        this.scaleWidth = scaleWidth;
+        this.scaleHeight = scaleHeight;
     }
     public void setScale(float scaleWidth, float scaleHeight){
         this.scaleWidth = scaleWidth;
@@ -49,6 +69,27 @@ public class GameObj {
     public long getValue() { return value;}
     public void dispose(){
         art.dispose();
+<<<<<<< Updated upstream:Project/core/src/game/demo/GameObj.java
+=======
+    }
+    public double getSonarRange(){
+        return max(this.Texture_Width/2,this.Texture_Height/2);
+    }
+
+    public void getCalX(){
+        cali_x=x-Texture_Width/2;
+    }
+    public void getCalY(){
+        cali_x=y-Texture_Height/2;
+    }
+
+
+    public double distanceto(GameObj another){
+        return Math.sqrt(Math.pow(this.x+this.Texture_Width/2-another.x-another.Texture_Width/2,2)  + Math.pow(this.x+this.Texture_Height/2-another.x-another.Texture_Height/2,2));
+    }
+    public double distanceto2(GameObj another){
+        return Math.sqrt(Math.pow(this.x-this.Texture_Width/2-another.x+another.Texture_Width/2,2)  + Math.pow(this.x-this.Texture_Height/2-another.x+another.Texture_Height/2,2));
+>>>>>>> Stashed changes:Game/core/src/game/demo/GameObj.java
     }
 
 
