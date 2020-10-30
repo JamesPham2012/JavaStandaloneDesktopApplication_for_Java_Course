@@ -14,26 +14,24 @@ public class Bullet extends GameObj {
     private SpriteBatch batch;
     private long t=0l;
     private static Bullet fakebase=new Bullet(0,0,0);
+    public static Vector<Bullet> bullet_arr=new Vector<>();
 
-
-    public Bullet(float x_c, float y_c, float xfromhost, float yfromhost, int Id) {
+    private Bullet(float x_c, float y_c, float xfromhost, float yfromhost, int Id) {
         x = x_c + xfromhost;
         x_b = x_c;
         y = y_c + yfromhost;
         y_b = y_c;
-        moveId = Id;
+        moveId = Id*100;
         id=Id;
         State=true;
-        scale = 0.7f;
         t=System.currentTimeMillis();
     }
 
-    public Bullet(float x_c, float y_c, int Id) {
+    private Bullet(float x_c, float y_c, int Id) {
         x = x_c;
         x_b = x_c;
         y = y_c;
         y_b = y_c;
-        scale = 0.7f;
         id = Id;
     }
 
@@ -48,28 +46,23 @@ public class Bullet extends GameObj {
         this.y_move = y_move;
     }
 
-    public void create() {
-
+    private void create() {
         batch = new SpriteBatch();
-        State=true;
     }
 
-    public void render() { // loop
+    private void renders() { // loop
         batch.begin();
         batch.draw(Assets.texture_bullet, (int)(x- (Assets.texture_bullet.getWidth()*scale/2)),(int)(y- (Assets.texture_bullet.getHeight()*scale/2)),Assets.texture_bullet.getWidth()*scale,Assets.texture_bullet.getHeight()*scale);
         batch.end();
         y += y_move;
         x += x_move;
-        if (System.currentTimeMillis()-t>10000){
-            State=false;
-        }
     }
 
-    public static void render(Vector<Bullet> bullet_arr) {
+    public static void render() {
         for (int i = 0; i < bullet_arr.size(); i++) {
             if (bullet_arr.elementAt(i).State) {
                 bullet_arr.elementAt(i).setMove();
-                bullet_arr.elementAt(i).render();
+                bullet_arr.elementAt(i).renders();
             }
         }
     }
@@ -78,7 +71,7 @@ public class Bullet extends GameObj {
         batch.dispose();
     }
 
-    public static void Bullet_Reallo(Vector<Bullet> bullet_arr, float x_c, float y_c, float x_offset, float y_offset,int id) {
+    public static void Bullet_Reallo(float x_c, float y_c, float x_offset, float y_offset,int id) {
         int BulletGen = 0;
         loop:     while (BulletGen == 0) {
             // need change to replace DED value with ALIVE value in order for the vector not to be too long, waste of memory
@@ -103,13 +96,13 @@ public class Bullet extends GameObj {
         return !State;
     }
 
-    public void Revive(float x_c,float y_c, float x_offset, float y_offset,int id){
-        this.x_b=x_c;// omit for more effects
-        this.y_b=y_c;// omit for more effects
+    private void Revive(float x_c,float y_c, float x_offset, float y_offset,int id){
+        this.x_b=x_c;
+        this.y_b=y_c;
         this.x=x_c+x_offset;
         this.y=y_c+y_offset;
         this.id=id;
-        this.moveId=id;
+        this.moveId=id*100;
         this.State=true;
         setHitboxRadius();
         setValue();
@@ -128,7 +121,7 @@ public class Bullet extends GameObj {
      * ----------------------------------------------------------------------
      * ----------------------------------------------------------------------*/
 
-    public void setHitboxRadius() {
+    private void setHitboxRadius() {
         switch (id){
             case -1:
             case -2:
@@ -139,37 +132,47 @@ public class Bullet extends GameObj {
         }
     }
 
-    public void setValue(){
+    private void setValue(){
         value=1;
     }
 
-    public void setMove() {                  //Furthermore edit bullet orbit here
+    private void setMove() {                  //Furthermore edit bullet orbit here
         X = x - x_b;
         Y = y - y_b;
         D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
         switch (moveId) {
-            case -1://straight
-                setX_move(10 * X / (float) D);
-                setY_move(10 * Y / (float) D);
+            case -100://straight
+                speed=10;
+                moveId=1;
                 break;
-            case -2://spin around host
-                setX_move(((Y*15-X*10)*5/(float)D));
-                setY_move(((-X*15-Y*10)*5/(float)D));
-                x_b=MyGdxGame.player.getX();
-                y_b=MyGdxGame.player.getY();
-                if (System.currentTimeMillis()-t>500){
-                    t=System.currentTimeMillis();
-                    moveId=-1;
-                }
+            case -200://spin around host
+                speed=10/(float)Math.sqrt(D);
+                moveId=2;
                 break;
-            case -3:
+            case -300:
                 x_b=fakebase.x_b;
                 y_b=fakebase.y_b;
-                moveId=-1;
+                moveId=-100;
                 break;
-            case 1:
-                setX_move(3 * X / (float) D);
-                setY_move(3 * Y / (float) D);
+            case 100:
+                speed=3;
+                moveId+=1;
+                break;
+        }
+        switch (moveId%10) {  // Default and simple move
+            case 1: //straight
+                setX_move(speed * X / (float) D);
+                setY_move(speed * Y / (float) D);
+                if((x>1280)||(x<0)||(y<0)||(y>720)) Execute();
+                break;
+            case 2: //spin and keep distance
+                setX_move(((Y-X*0.1f)*speed/(float)D));
+                setY_move(((-X-Y*0.1f)*speed/(float)D));
+                if (System.currentTimeMillis()-t>5000) Execute();
+                break;
+            case 3: //spin and spread
+                setX_move(((Y+X*0.3f)*speed/(float)D));
+                setY_move(((-X+Y*0.3f)*speed/(float)D));
                 break;
         }
     }

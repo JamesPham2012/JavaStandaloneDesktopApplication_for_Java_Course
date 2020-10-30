@@ -18,8 +18,6 @@ public class MyGdxGame implements Screen {
 	// In later we have to player = new Player() in somewhere--> but not remove new Player()
 	static Player player = new Player();
 	Assets assets = new Assets();
-	Vector<Bullet> bullet_arr = new Vector<>();
-	Vector<Enemy> enemy_arr = new Vector<>();
 	Background background = new Background();
 	static int Wave=0;
 
@@ -49,18 +47,22 @@ public class MyGdxGame implements Screen {
 			background.render();
 			player.render_player();
 			if(player.fire()){
-				player.Bullet_Call(bullet_arr);
+				player.Bullet_Call();
 			}
 			/*if(Waves.Wave_Come()){
 				Waves.Wave_Call(enemy_arr,Wave);
 			}*/
-			Waves.Wave_Come(enemy_arr);
-			Enemy.render(enemy_arr);
-			Enemy.fire(enemy_arr,bullet_arr);
-			Bullet.render(bullet_arr);
-			player.checkCollision(bullet_arr);
-			Enemy.checkCollision(enemy_arr,bullet_arr);
+			Waves.Wave_Come();
+			Enemy.render();
+			Enemy.fire();
+			Bullet.render();
+//			player.checkCollisionwthBullet();
+			player.checkCollisionwthEnemy();
+			Enemy.checkCollision();
+			Item.render();
+
 			Gdx.app.log("FPS", Integer.toString(Gdx.graphics.getFramesPerSecond()));
+			System.out.println(Wave);
 
 			if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
 				mainClass.setMenuScreen();

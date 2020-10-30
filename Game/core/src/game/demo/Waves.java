@@ -15,17 +15,16 @@ public class Waves {
     private static boolean isAllEGone;
     private static Object obj=new Object();
 
-    public static void Wave_Come(Vector<Enemy> enemy_arr) {
+    public static void Wave_Come() {
         if (System.currentTimeMillis() - t > wavetime) {
             t = System.currentTimeMillis();
             Loadwave = true;
-            MyGdxGame.Wave++;
-            id=waveid.nextInt(3);
+            id=waveid.nextInt(4);
             enemies=0;
         }
         if (System.currentTimeMillis() - t <= wavetime){
             if (Loadwave) {
-                Wave_Call(enemy_arr, MyGdxGame.Wave);
+                Wave_Call();
             }
             /*if (!Loadwave){
                 isAllEGone=false;
@@ -40,34 +39,46 @@ public class Waves {
         }
     }
 
+    public static long getWavetime() {return wavetime;}
+
     public static void reset(){
         wavetime=0;
     }
 
-    private static void Wave_Call(Vector<Enemy> enemy_arr, int Wave) {
+    private static void Wave_Call() {
+        int Wave=MyGdxGame.Wave;
         switch (id){
             case 1:
-                wavetime=20000;
-                for (int i=0; i<(Wave+1)/2; i++){
-                    Enemy.Enemy_Reallo(enemy_arr,(float)(waveid.nextInt(320)+480), (float)(waveid.nextInt(160)+560), 1, Wave);//this is just an example
+                wavetime=10000+(long)Math.sqrt(Wave)*1000;
+                if (wavetime>20000) wavetime=20000;
+                MyGdxGame.Wave++;
+                if (Wave>10) Wave=10;
+                for (int i=0; i<Wave+1; i++){
+                    Enemy.Enemy_Reallo((float)(waveid.nextInt(320)+480), (float)(waveid.nextInt(160)+560), 1, Wave);//this is just an example
                 }
                 Loadwave=false;
                 break;
             case 2:
                 wavetime=10000;
                 for (int i=0; i<8; i++){
-                    Enemy.Enemy_Reallo(enemy_arr,(float)80+160*i,720,2,Wave);
+                    Enemy.Enemy_Reallo((float)80+160*i,720,2,Wave);
                 }
                 Loadwave=false;
+                MyGdxGame.Wave++;
                 break;
             case 3:
                 wavetime=10000;
                 if (System.currentTimeMillis()-t>1000){
-                    Enemy.Enemy_Reallo(enemy_arr, 0, (float) (waveid.nextInt(160) + 560), 3, Wave);
-                    t=System.currentTimeMillis();
-                    enemies++;
+                    for (int i=0;i<(Wave/10+1);i++) {
+                        Enemy.Enemy_Reallo(0, (float) (waveid.nextInt(160) + 560-80*i), 3, Wave);
+                        t = System.currentTimeMillis();
+                        enemies++;
+                    }
                 }
-                if (enemies==Wave) Loadwave=false;
+                if ((enemies>=Wave+1)||(enemies>=30)) {
+                    Loadwave=false;
+                    MyGdxGame.Wave++;
+                }
                 break;
         }
     }

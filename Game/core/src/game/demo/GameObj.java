@@ -3,6 +3,8 @@ package game.demo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.Random;
+
 public class GameObj {
     protected float x;
     protected float y;
@@ -25,6 +27,9 @@ public class GameObj {
     protected boolean State;
     protected long value;
     protected float hitboxRadius;
+    protected float speed;
+    protected Random randPara= new Random();
+
 
 
     public void setParam(){
