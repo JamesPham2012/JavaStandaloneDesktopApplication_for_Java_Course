@@ -1,7 +1,7 @@
 package UI;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.GL20;
+import game.demo.Multiplayer.MultiplayerGame;
 import game.demo.MyGdxGame;
 
 public class MainClass extends Game implements ApplicationListener {
@@ -9,6 +9,8 @@ public class MainClass extends Game implements ApplicationListener {
     private MyGdxGame gameScreen;
     private MainMenu mainMenu;
     private PauseScreen pauseScreen;
+    private MultiplayerGame multiplayerScreen;
+    private GameOverScreen gameOverScreen;
 //    private HudClass hudScreen;
 //    private StartClass startScreen;
     @Override
@@ -16,10 +18,11 @@ public class MainClass extends Game implements ApplicationListener {
         gameScreen=new MyGdxGame(this);
         //menuScreen=new MenuClass(this);
         mainMenu = new MainMenu(this);
+        multiplayerScreen = new MultiplayerGame(this);
 //        startScreen=new StartClass(this);
         pauseScreen = new PauseScreen(this);
+        gameOverScreen = new GameOverScreen(this);
         setMenuScreen();
-
     }
     public void setGameScreen()
     {
@@ -40,12 +43,18 @@ public class MainClass extends Game implements ApplicationListener {
         setScreen(mainMenu);
         gameScreen.pause();
     }
-    public void setPauseScreen(){
-        setScreen(pauseScreen);
+    public void setMultiplayerScreen(){
+        setScreen(multiplayerScreen);
 
     }
+    public void setPauseScreen(){
+        setScreen(pauseScreen);
+    }
 
-
+    public void setGameOverScreen()
+    {
+        setScreen(gameOverScreen);
+    }
 
     @Override
     public void dispose() {

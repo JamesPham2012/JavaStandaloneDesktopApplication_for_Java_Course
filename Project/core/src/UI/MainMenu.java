@@ -8,10 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -22,6 +19,7 @@ public class MainMenu implements Screen {
     private SpriteBatch batch;
     private ImageButton PlayButton;
     private ImageButton ExitButton;
+    private Label multiplayer;
     private Skin skin;
     private MainClass mainClass;
     private Table table;
@@ -47,6 +45,7 @@ public class MainMenu implements Screen {
         skin = new Skin(Gdx.files.internal("skin/ButtonPack.json"));
 
         stage = new Stage(new ScreenViewport());
+        multiplayer = new Label("MultiplayerGame",new Skin(Gdx.files.internal("skin/Textfield.json")));
 
         table = new Table();
         table.setWidth(stage.getWidth());
@@ -65,7 +64,17 @@ public class MainMenu implements Screen {
                 })));
             }
         });
-
+        multiplayer.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        mainClass.setMultiplayerScreen();
+                    }
+                })));
+            }
+        });
         ExitButton = new ImageButton(skin, "Exit");
         ExitButton.addListener(new ClickListener(){
             @Override
@@ -80,6 +89,8 @@ public class MainMenu implements Screen {
         table.add(PlayButton);
         table.row();
         table.add(ExitButton);
+        table.row();
+        table.add(multiplayer);
 
         stage.addActor(table);
     }

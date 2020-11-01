@@ -11,7 +11,6 @@ import java.util.Vector;
 import java.lang.Math;
 
 public class Bullet extends GameObj {
-    private SpriteBatch batch;
     private long t=0l;
     private static Bullet fakebase=new Bullet(0,0,0);
 
@@ -55,9 +54,7 @@ public class Bullet extends GameObj {
     }
 
     public void render(SpriteBatch batch) { // loop
-        batch.begin();
         batch.draw(Assets.texture_bullet, (int)(x- (Assets.texture_bullet.getWidth()*scale/2)),(int)(y- (Assets.texture_bullet.getHeight()*scale/2)),Assets.texture_bullet.getWidth()*scale,Assets.texture_bullet.getHeight()*scale);
-        batch.end();
         y += y_move;
         x += x_move;
         if (System.currentTimeMillis()-t>10000){

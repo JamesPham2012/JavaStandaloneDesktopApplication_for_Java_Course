@@ -1,5 +1,6 @@
 package game.demo;
 
+import UI.GameOverScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -30,7 +31,7 @@ public class Enemy extends GameObj {
     }
 
     public void create() {
-        batch = new SpriteBatch();
+
     }
 
     public static void render(Vector<Enemy> enemy_arr, SpriteBatch batch) {
@@ -57,9 +58,9 @@ public class Enemy extends GameObj {
     }
 
     public void render(SpriteBatch batch) { // loop
-        batch.begin();
+
         batch.draw(Assets.texture_enemy, (int)(x- (Assets.texture_enemy.getWidth()*scale/2)),(int)(y- (Assets.texture_enemy.getHeight()*scale/2)),Assets.texture_enemy.getWidth()*scale,Assets.texture_enemy.getHeight()*scale);
-        batch.end();
+
         y += y_move;
         x += x_move;
     }
@@ -117,7 +118,7 @@ public class Enemy extends GameObj {
     private void Execute(){
         State=false;
         id=0;
-        MyGdxGame.point+=point;
+        GameOverScreen.score += 1;
     }
 
     public void checkCollision(Vector<Bullet> bullet_arr){

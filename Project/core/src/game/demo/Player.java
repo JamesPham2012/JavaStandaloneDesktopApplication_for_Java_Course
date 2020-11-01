@@ -14,14 +14,21 @@ public class Player extends GameObj{
     private long t=System.currentTimeMillis()-200;
     private float varyDistance;
     private long rapidity;
-
+    private boolean controllable = true; // to distinguish player and coop_player--> coop_player is false 
+    private boolean fire; // Fire and shift_left variables are on/off buttons for coop_player.
+    private boolean shift_left;
+    private Texture texture;
     public void create(){
+        texture =  Assets.texture_plane;
         scale = 0.4f;
         hitboxRadius=10;
         State=true;
         setId(1);
     }
 
+    public void setTexture(Texture texture){
+        this.texture = texture;
+    }
     public void setId(int id){
         this.id=-id;
     }
@@ -31,29 +38,60 @@ public class Player extends GameObj{
     public float getY(){
         return y;
     }
-    public boolean fire(){
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) Bullet.resetfakebase();
-        if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
-            if (System.currentTimeMillis() - t > rapidity) {
-                t = System.currentTimeMillis();
-                loaded = 1;
-            } else {
-                loaded = 0;
-            }
-            if (loaded==1) return true;
-            else return false;
+    public void setX(float x){
+        this.x = x;
+    }
+    public void setControllable(boolean controllable){
+        this.controllable = controllable;
+    }
+    public void setY(float y){
+        this.y = y;
+    }
+    public void setExecute(boolean execute){
+        this.State = !execute;
+    }
 
+    public boolean fire(){
+        if(controllable){
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) Bullet.resetfakebase();
+            if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+                if (System.currentTimeMillis() - t > rapidity) {
+                    t = System.currentTimeMillis();
+                    loaded = 1;
+                } else {
+                    loaded = 0;
+                }
+                if (loaded==1) return true;
+                else return false;
+
+            }
+            else return false;
         }
-        else return false;
+        else{
+            if(shift_left) Bullet.resetfakebase();
+            if(fire){
+                if (System.currentTimeMillis() - t > rapidity) {
+                    t = System.currentTimeMillis();
+                    loaded = 1;
+                } else {
+                    loaded = 0;
+                }
+                if (loaded==1) return true;
+                else return false;
+            }
+            else return false;
+        }
 
     }
+    public void setFire(boolean fire){
+        this.fire = fire;
+    }
+
 
     public void render_player (SpriteBatch batch) { // loop
         if (State) {
-            batch.begin();
-            batch.draw(Assets.texture_plane, (int) (x - 20), (int) (y -20),
+            batch.draw(texture, (int) (x - 20), (int) (y -20),
                     40, 40);
-            batch.end();
         }
         input();
 
@@ -85,27 +123,41 @@ public class Player extends GameObj{
      * ----------------------------------------------------------------------
      * ----------------------------------------------------------------------*/
 
-    public void input(){
-        switch (id) {
-            case -1:
-                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    varyDistance=1;
-                    rapidity=50;
-                }
-                else {
-                    varyDistance=5;
-                    rapidity=100;
-                }
-                break;
+    public boolean input(){
+        if(controllable){ // we just control our player not coop_player.
+            float xPrevious = x;
+            float yPrevious = y;
+            switch (id) {
+                case -1:
+                    if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                        varyDistance=1;
+                        rapidity=50;
+                    }
+                    else {
+                        varyDistance=5;
+                        rapidity=100;
+                    }
+                    break;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x-=varyDistance;
+            if (x<0) x=0;
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x+=varyDistance;
+            if (x>Gdx.graphics.getWidth()) x=Gdx.graphics.getWidth();
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) y+=varyDistance;
+            if (y>Gdx.graphics.getHeight()) y=Gdx.graphics.getHeight();
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) y-=varyDistance;
+            if (y<0) y=0;
+            if(x==xPrevious&&y==yPrevious){
+                return false;
+            }
+            else{
+                return true;
+            }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x-=varyDistance;
-        if (x<0) x=0;
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x+=varyDistance;
-        if (x>Gdx.graphics.getWidth()) x=Gdx.graphics.getWidth();
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) y+=varyDistance;
-        if (y>Gdx.graphics.getHeight()) y=Gdx.graphics.getHeight();
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) y-=varyDistance;
-        if (y<0) y=0;
+        else{
+            return false;
+        }
+
     }
 
     public void Bullet_Call(Vector<Bullet> bullet_arr) {              //Furthermore edit here

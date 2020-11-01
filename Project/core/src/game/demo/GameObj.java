@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameObj {
-    protected float x;
-    protected float y;
+    public float x;
+    public float y;
     protected int cali_x;
     protected int cali_y;
-    protected float x_b;
-    protected float y_b;
+    public float x_b;
+    public float y_b;
     protected float x_move;
     protected float y_move;
     protected float X;
@@ -20,11 +20,11 @@ public class GameObj {
     public int S_height;
     protected float scale = 0.3f;
     Texture art;
-    protected int id; //negative for player, positive for enemy
+    public int id; //negative for player, positive for enemy
     protected int moveId;
-    protected boolean State;
+    public boolean State;
     protected long value;
-    protected float hitboxRadius;
+    public float hitboxRadius;
     protected float scaleWidth;
     protected float scaleHeight;
     protected SpriteBatch batch;
@@ -37,6 +37,9 @@ public class GameObj {
     public void setScale(float scaleWidth, float scaleHeight){
         this.scaleWidth = scaleWidth;
         this.scaleHeight = scaleHeight;
+    }
+    public boolean isExecuted(){
+        return !State;
     }
 
     public float getX() {

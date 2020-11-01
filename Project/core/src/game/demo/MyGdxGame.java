@@ -1,5 +1,6 @@
 package game.demo;
 
+import UI.GameOverScreen;
 import UI.MainClass;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -25,7 +26,7 @@ public class MyGdxGame implements Screen {
 
 	//Player player; // null obj which not consist any method. --> it just save a variable __> different from c++.
 	// In later we have to player = new Player() in somewhere--> but not remove new Player()
-	public static int point;
+
 	BitmapFont font_point;
 	static Player player = new Player();
 	Assets assets = new Assets();
@@ -46,16 +47,17 @@ public class MyGdxGame implements Screen {
 //	//Input in; // interface class --> abstract class --> we cannot call obj of this class.
 	public MyGdxGame(MainClass mainClass){
 		stage = new Stage();
-		label_point.setText(point);
+		label_point.setText(GameOverScreen.score);
 		label_point.setFontScale(2f);
 		label_point.setPosition(0,Gdx.graphics.getHeight()-50);
 		stage.addActor(label_point);
+
 		batch = new SpriteBatch();
 
 		this.mainClass = mainClass;
 		assets.load();
 		player.create();
-		point = 0;
+
 		background.create();
 		background.resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 	}
@@ -65,16 +67,17 @@ public class MyGdxGame implements Screen {
 		System.out.println("Show");
 	}
 	public void render(float delta){
+		Gdx.gl.glClearColor(0, 0, 0, 255);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
+		batch.begin();
+		background.render();
 		if(!pauseGame){
-			Gdx.gl.glClearColor(0, 0, 0, 255);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-			background.render();
 			player.render_player(batch);
 			if(player.fire()){
 				player.Bullet_Call(bullet_arr);
+
 			}
 			Waves.Wave_Come(enemy_arr);
 			Enemy.render(enemy_arr,batch);
@@ -82,24 +85,22 @@ public class MyGdxGame implements Screen {
 			Bullet.render(bullet_arr,batch);
 			player.checkCollision(bullet_arr);
 			Enemy.checkCollision(enemy_arr,bullet_arr);
-			Gdx.app.log("FPS", Integer.toString(Gdx.graphics.getFramesPerSecond()));
 
-
-			label_point.setText(point);
+			label_point.setText(GameOverScreen.score);
 			stage.act();
 			stage.draw();
-
 			if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
 				mainClass.setPauseScreen();
 			}
 			if(!player.State){
-				mainClass.setMenuScreen();
+				mainClass.setGameOverScreen();
 				Waves.reset();
 				Wave=0;
 			}
+			Gdx.app.log("FPS", Integer.toString(Gdx.graphics.getFramesPerSecond()));
 
 		}
-
+		batch.end();
 	}
 
 
@@ -127,7 +128,6 @@ public class MyGdxGame implements Screen {
 	}
 
 	public void dispose(){
-		player.dispose();
 		System.out.println("out");
 	}
 }
