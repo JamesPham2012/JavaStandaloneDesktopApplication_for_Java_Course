@@ -50,17 +50,13 @@ public class Player extends GameObj{
 
         }
         else return false;
-
     }
 
-    public void render_player (Vector<PixelCoord> Sonar,Vector<PixelCoord> Pixel1) { // loop
+    public void render_player () { // loop
         if (State) {
             batch.begin();
             batch.draw(Assets.texture_plane,  (x - (this.Texture_Width/2)),  (y - (Texture_Height/2)));
             batch.end();
-            for (int i=0;i<Sonar.size();i++){
-                Pixel1.addElement(new PixelCoord(x - (this.Texture_Width/2),y - (this.Texture_Height/2), Sonar.elementAt(i)));
-            }
         }
         input();
 
@@ -83,6 +79,18 @@ public class Player extends GameObj{
 
     public void Execute(){
         State=false;
+    }
+
+    public void Collision(Vector<PixelCoord> Hail,Vector<Bullet> Barr){
+ loop:  for(int i=0;i<Pixel.size();i++){
+            for(int j=0;j<Hail.size();j++){
+                if(Pixel.elementAt(i).VicinityBullet(Hail.elementAt(j))){
+                    Barr.elementAt(Hail.elementAt(j).location_Bullet).Execute();
+                    this.Execute();
+                    break loop;
+                }
+            }
+        }
     }
 
     /* ----------------------------------------------------------------------

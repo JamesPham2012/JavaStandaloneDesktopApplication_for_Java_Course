@@ -20,7 +20,7 @@ public class Collision {
         return result;
     }
 
-    public int[][] HitboxGen(byte[] byte_arr ,int width_of_byte,int bpp){
+    public int[][] HitboxGen(byte [] byte_arr ,int width_of_byte,int bpp){
         int[] newdata=new int[byte_arr.length/(bpp/8)];
         int height_of_byte= byte_arr.length/(bpp/8)/width_of_byte;
         int[][] TransparencyMap=new int[height_of_byte+2][width_of_byte+2];//map of transparent pixels

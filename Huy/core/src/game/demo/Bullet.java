@@ -16,6 +16,10 @@ public class Bullet extends GameObj {
     private long t=0l;
     private static Bullet fakebase=new Bullet(0,0,0,0);
     protected int Source_ID_Collision=0;
+
+
+
+
     protected boolean isAlly(){
         return (this.Source_ID_Collision==1);
     }
@@ -27,7 +31,7 @@ public class Bullet extends GameObj {
         moveId = Id;
         id=Id;
         State=true;
-        scale = 0.7f;
+        scale = 1f;
         Source_ID_Collision=CollisionID;
         t=System.currentTimeMillis();
     }
@@ -59,16 +63,19 @@ public class Bullet extends GameObj {
         State=true;
     }
 
-    public void render(GameObj playerObject,Vector<PixelCoord> Sonar, Vector<PixelCoord> Pixel1, Vector<PixelCoord> Pixel2) { // loop
+    public void render(GameObj playerObject,Vector<Enemy> Earr,int location_of_Bullet,Vector<PixelCoord> Pixel1,Vector<PixelCoord> Pixel2) { // loop
         batch.begin();
         batch.draw(Assets.texture_bullet, (x- (this.Texture_Width/2)),(y- (this.Texture_Height/2)));
         if (this.isAlly()){
+            for(int i=0;i< Earr.size();i++){
+                if ((this.distanceto(Earr.elementAt(i))<(Earr.elementAt(i).getSonarRange()+this.getSonarRange()))||(this.distanceto2(Earr.elementAt(i))<(Earr.elementAt(i).getSonarRange()+this.getSonarRange()))){
+                    Pixel1.addElement(new PixelCoord(x- (this.Texture_Width/2),y- (this.Texture_Height/2),location_of_Bullet,i));
+                }
+            }
         }
         if (!this.isAlly()){
             if ((this.distanceto(playerObject)<(playerObject.getSonarRange()+this.getSonarRange()))||(this.distanceto2(playerObject)<(playerObject.getSonarRange()+this.getSonarRange()))){
-                for(int z=0;z<Sonar.size();z++){
-                    Pixel2.addElement(new PixelCoord(x- (this.Texture_Width/2),y- (this.Texture_Height/2),Sonar.elementAt(z)));
-                }
+                Pixel2.addElement(new PixelCoord(x- (this.Texture_Width/2),y- (this.Texture_Height/2),location_of_Bullet));
             }
         }
         batch.end();
@@ -79,11 +86,11 @@ public class Bullet extends GameObj {
         }
     }
 
-    public static void render(Player player,Vector<Bullet> bullet_arr,Vector<PixelCoord> Sonar,Vector<PixelCoord> Pixel1,Vector<PixelCoord> Pixel2) {
+    public static void render(Player player,Vector<Enemy> Earr,Vector<Bullet> bullet_arr,Vector<PixelCoord> Pixel1,Vector<PixelCoord> Pixel2) {
         for (int i = 0; i < bullet_arr.size(); i++) {
             if (bullet_arr.elementAt(i).State) {
                 bullet_arr.elementAt(i).setMove();
-                bullet_arr.elementAt(i).render(player,Sonar,Pixel1,Pixel2);
+                bullet_arr.elementAt(i).render(player,Earr,i,Pixel1,Pixel2);
             }
         }
     }

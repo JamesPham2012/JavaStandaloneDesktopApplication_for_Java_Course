@@ -4,14 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Vector;
+
 import static java.lang.Integer.max;
 
 public class GameObj {
     protected float x;
     protected float y;
     private Background bg=new Background();
-    protected float cali_x;
-    protected float cali_y;
     protected float x_b;
     protected float y_b;
     protected float x_move;
@@ -21,7 +21,7 @@ public class GameObj {
     protected double D;
     public int S_width;
     public int S_height;
-    protected float scale = 0.3f;
+    protected float scale = 1f;
     Texture art;
     protected int id; //negative for player, positive for enemy
     protected int moveId;
@@ -31,9 +31,9 @@ public class GameObj {
     protected float scaleHeight;
     protected float hitboxRadius;
     protected SpriteBatch batch;
-    protected int Texture_Width=22;
-    protected int Texture_Height=22;
-
+    protected int Texture_Width=9;
+    protected int Texture_Height=9;
+    public Vector<PixelCoord> Pixel=new Vector<PixelCoord>();
 
     public void setParam(){
         this.S_width=Gdx.graphics.getWidth();
@@ -62,12 +62,6 @@ public class GameObj {
         return max(this.Texture_Width/2,this.Texture_Height/2);
     }
 
-    public void getCalX(){
-        cali_x=x-Texture_Width/2;
-    }
-    public void getCalY(){
-        cali_x=y-Texture_Height/2;
-    }
 
 
     public double distanceto(GameObj another){
@@ -77,8 +71,18 @@ public class GameObj {
         return Math.sqrt(Math.pow(this.x-this.Texture_Width/2-another.x+another.Texture_Width/2,2)  + Math.pow(this.x-this.Texture_Height/2-another.x+another.Texture_Height/2,2));
     }
 
-
-
+    public void PixelClear(){
+        Pixel.clear();
+    }
+    public void setHitbox(Vector<PixelCoord> Sonar){
+        PixelClear();
+        for(int i=0;i<Sonar.size();i++){
+            Pixel.addElement(new PixelCoord(x-Texture_Width/2,y-Texture_Height/2,Sonar.elementAt(i)));
+        }
+    }
+    public void setHitboxRoundBullet(PixelCoord Hitbox){
+        Pixel.addElement(new PixelCoord(Hitbox));
+    }
 }
 
 

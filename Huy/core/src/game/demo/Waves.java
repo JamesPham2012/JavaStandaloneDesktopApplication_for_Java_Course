@@ -1,4 +1,6 @@
 package game.demo;
+import com.badlogic.gdx.Gdx;
+
 import java.lang.Object;
 import java.util.Random;
 import java.util.Vector;
@@ -56,7 +58,7 @@ public class Waves {
             case 2:
                 wavetime=10000;
                 for (int i=0; i<8; i++){
-                    Enemy.Enemy_Reallo(enemy_arr,(float)80+160*i,720,2,Wave);
+                    Enemy.Enemy_Reallo(enemy_arr,(float)(80+160*i)*Gdx.graphics.getWidth()/1280,720* Gdx.graphics.getHeight()/720,2,Wave);
                 }
                 Loadwave=false;
                 break;

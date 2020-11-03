@@ -8,8 +8,8 @@ public class Assets {
     public static Texture texture_enemy;
 
     public void load(){
-        texture_bullet = new Texture("Bullet_plane.png");
-        texture_plane = new Texture("Plane.png");
-        texture_enemy = new Texture("Enemy.png");
+        texture_bullet = new Texture("Bullet99.png");
+        texture_plane = new Texture("Spacefighter2_Small.png");
+        texture_enemy = new Texture("Enemy_Small.png");
     }
 }

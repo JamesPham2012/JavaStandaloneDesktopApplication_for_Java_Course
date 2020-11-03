@@ -14,6 +14,11 @@ public class Enemy extends GameObj {
     private long Wave;
     private Random randPara= new Random();
 
+    public void ChangeTextureValue(){
+        this.Texture_Height=Assets.texture_enemy.getHeight();
+        this.Texture_Width=Assets.texture_enemy.getWidth();
+    }
+
 
 
     public Enemy(float x_c, float y_c, int Id, int Wave) {
@@ -29,20 +34,20 @@ public class Enemy extends GameObj {
         setValue();
         setHitboxRadius();
         t=t1=System.currentTimeMillis();
+
     }
 
     public void create() {
         batch = new SpriteBatch();
     }
 
-    public static void render(Vector<Enemy> enemy_arr,Vector<PixelCoord> Sonar,Vector<PixelCoord> Pixel) {
+    public static void render(Vector<Enemy> enemy_arr,Vector<PixelCoord> Sonar) {
         for (int i = 0; i < enemy_arr.size(); i++) {
             if (enemy_arr.elementAt(i).State) {
                 enemy_arr.elementAt(i).setMove();
+                enemy_arr.elementAt(i).setHitbox(Sonar);
                 enemy_arr.elementAt(i).render();
-                for(int j=0;j<Sonar.size();j++){
-                    Pixel.addElement(new PixelCoord(enemy_arr.elementAt(i).x_b,enemy_arr.elementAt(i).y_b,Sonar.elementAt(i)));
-                }
+
             }
         }
     }
@@ -137,6 +142,22 @@ public class Enemy extends GameObj {
             }
         }
     }
+
+    public void Colixong(Vector<PixelCoord> Aaar,Vector<Bullet> bulletarr){
+        loop:  for(int i=0;i<Pixel.size();i++){
+            for(int j=0;j<Aaar.size();j++){
+                if(Pixel.elementAt(i).VicinityBullet(Aaar.elementAt(j))){
+                    bulletarr.elementAt(Aaar.elementAt(j).location_Bullet).Execute();
+                    this.Execute();
+                    break loop;
+                }
+            }
+        }
+    }
+
+
+
+
     /*----------------------------------------------------------------------
      * ----------------------------------------------------------------------
      * --------------------------Edit - add more-----------------------------
