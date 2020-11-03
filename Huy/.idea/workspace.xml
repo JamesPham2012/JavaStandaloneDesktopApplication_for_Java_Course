@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f99d9690-74d5-40f0-964d-6073d5b8d3d1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/core/src/game/demo/Assets.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/game/demo/Assets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/game/demo/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/game/demo/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/game/demo/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/game/demo/Collision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/game/demo/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/game/demo/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/game/demo/GameObj.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/game/demo/GameObj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/game/demo/MyGdxGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/game/demo/MyGdxGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/game/demo/PixelCoord.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/game/demo/PixelCoord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/game/demo/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/game/demo/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/game/demo/Waves.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/game/demo/Waves.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Huy" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1jlI6482rOms0jfPTz5KyNSlOLO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="game.demo.desktop.DesktopLauncher" />
+      <module name="Huy.desktop.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f99d9690-74d5-40f0-964d-6073d5b8d3d1" name="Default Changelist" comment="" />
+      <created>1604372073018</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604372073018</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="414" y="175" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604372101009">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604372101009" />
+    <state x="689" y="322" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1604372095968">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="689" y="322" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604372095968" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1604372509063">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604372509063" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1604372509063">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604372509063" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1604372509063">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604372509063" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1604372509063">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604372509063" />
+  </component>
+</project>
