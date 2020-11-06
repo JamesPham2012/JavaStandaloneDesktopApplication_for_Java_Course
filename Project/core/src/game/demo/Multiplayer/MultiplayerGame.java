@@ -19,6 +19,7 @@ import game.demo.Waves;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Vector;
@@ -30,12 +31,17 @@ public class MultiplayerGame implements Screen {
     Texture texture_plane = Assets.texture_plane;
 
     public static Player_Multiplayer player;
-    private Player_Multiplayer coopPlayer;
-
     private final float UPDATE_TIME=1/60;
     float timer;
-    private static String id;
-    static int rand;
+    public static String id;
+    public static int point = 0;
+    static int rand=0; // for random waves.
+    static Vector<Integer> randPosition1 = new Vector();
+    static Vector<Integer> randPosition2 = new Vector();
+    static boolean isAction = false;
+    static boolean ar=false;
+    Label label_point = new Label("0",new Skin(Gdx.files.internal("skin/Textfield.json")));
+    static String id_rand; // for random id to bullet aim enemy.
 
     public Vector<Bullet_Multiplayer> bullet_arr = new Vector<>();
     Vector<Enemy_Multiplayer> enemy_arr = new Vector<>();
@@ -52,6 +58,10 @@ public class MultiplayerGame implements Screen {
 
     public MultiplayerGame(MainClass mainClass){
         stage = new Stage();
+        label_point.setText(point);
+        label_point.setFontScale(2f);
+        label_point.setPosition(0,Gdx.graphics.getHeight()-50);
+        stage.addActor(label_point);
         stage.addActor(guide);
         background.create();
         background.resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -89,43 +99,25 @@ public class MultiplayerGame implements Screen {
                     try {
                         pauseGame = false;
                         player = new Player_Multiplayer();
-                        coopPlayer = new Player_Multiplayer();
-                        coopPlayer.setTexture(Assets.texture_plane2);
-                        coopPlayer.setControllable(false);
                         player.create();
-                        coopPlayer.create();
-
                     } catch (Exception e) {
 
                     }
                 }})
-                .on("sendAnotherPositionToClient", new Emitter.Listener() {
+                .on("winGame", new Emitter.Listener() {
                     @Override
                     public void call(Object... args) {
-                        JSONObject data = (JSONObject) args[0];
-                        try{
-                            coopPlayer.setX(data.getInt("x"));
-                            coopPlayer.setY(data.getInt("y"));
-                            coopPlayer.setExecute(data.getBoolean("execute"));
-                            System.out.println("executed of coopPlayer: "+data.getBoolean("execute"));
-                        }catch(Exception e){
-                            System.out.println("error send postion of another players to client: "+e);
+                        try {
+                            System.out.println("winGame");
+                            mainClass.setMenuScreen();
+                            Waves.reset();
+                            Wave=0;
+                        } catch (Exception e) {
+
                         }
-                    }
-                }).on("sendAnotherTrigger", new Emitter.Listener() {
-                    @Override
-                    public void call(Object... args) {
-                        JSONObject data = (JSONObject) args[0];
-                        try{
-                            coopPlayer.setFire(data.getBoolean("fire"));
-                            if(data.getBoolean("fire")==true){
-                                coopPlayer.Bullet_Call(bullet_arr);
-                            }
-                        }catch(Exception e){
-                            System.out.println("error send trigger of another players to client: "+e);
-                        }
-                    }
-                });
+                    }});
+
+
         // Nhưng để ngoài thì asynchronous.
     }
 
@@ -151,11 +143,49 @@ public class MultiplayerGame implements Screen {
                 }
             }});
         return rand;
-
     }
 
 
+    public static int RandomBound1(int lower_bound,int upper_bound,int size){
+        JSONObject data = new JSONObject();
+        try{
+            data.put("id",id);
+            data.put("size",size);
+            data.put("lower",lower_bound);
+            data.put("upper",upper_bound);
+            socket.emit("sendRandomBound1",data);
+        }catch(Exception e){
+            System.out.println(e+": Error random bound from "+lower_bound+"-"+upper_bound);
+        }
+        socket.on("receiveRandomBound1", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                JSONArray data = (JSONArray) args[0];
+                try {
+                    for(int i=0;i<data.length();i++){
+                        randPosition1.addElement(data.getJSONObject(i).getInt("x"));
+                        randPosition2.addElement(data.getJSONObject(i).getInt("y"));
+                        System.out.println(randPosition1.lastElement()+"-"+randPosition2.lastElement());
+                    }
+                    isAction=true;
 
+                } catch (Exception e) {
+                    Gdx.app.log("SocketIO", "Error getting rand");
+                }
+
+            }});
+        return size;
+    }
+
+    public void EndGame(){
+        JSONObject data = new JSONObject();
+        try{
+            data.put("id",id);
+            socket.emit("EndGame",data);
+        }catch(Exception e){
+            System.out.println("Cannot endGame");
+        }
+    }
 
     @Override
     public void render(float delta){
@@ -178,51 +208,29 @@ public class MultiplayerGame implements Screen {
             }
         }
        else{
-
-            Waves_Multiplayer.Wave_Come(enemy_arr);
-            Enemy_Multiplayer.render(enemy_arr,batch);
-            Enemy_Multiplayer.fire(enemy_arr,bullet_arr);
-            Bullet_Multiplayer.render(bullet_arr,batch);
-            player.checkCollision(bullet_arr);
-            updatetoServer();
+//           System.out.println("start");
+            Waves_Multiplayer.Wave_Come();
+            Enemy_Multiplayer.render(batch);
+            Enemy_Multiplayer.fire();
+            Bullet_Multiplayer.render(batch);
+            player.checkCollision();
             if(player.State){
                 player.render_player(batch);
             }
-            else{
-                System.out.println("send");
-                JSONObject data = new JSONObject();
-                try{
-                    data.put("x",0);
-                    data.put("y",0);
-                    data.put("execute",true);
-                    socket.emit("sendtoServer",data);
-                }catch(Exception e){
-
-                }
-            }
-            if(coopPlayer.State){
-                coopPlayer.render_player(batch);
-            }
-
-
-
-            Enemy_Multiplayer.checkCollision(enemy_arr,bullet_arr);
+            label_point.setText(point);
+            Enemy_Multiplayer.checkCollision();
+            Item_Multiplayer.render(batch);
 
             if(player.fire()){
-                player.Bullet_Call(bullet_arr);
-                triggerBullet(true);
+                player.Bullet_Call();
             }
-            else{
-                triggerBullet(false);
-            }
-            System.out.println(coopPlayer.State+" "+player.State);
-            if((coopPlayer.State==false)&& (player.State==false)){
-                System.out.println("endGame");
-                mainClass.setGameOverScreen();
+            if(!player.State){
+                EndGame();
+                System.out.println("loseGame");
+                mainClass.setMenuScreen();
                 Waves.reset();
                 Wave=0;
             }
-
         }
         batch.end();
     }
@@ -237,35 +245,6 @@ public class MultiplayerGame implements Screen {
             System.out.println(e);
         }
     }
-
-    public void updatetoServer(){
-        if(player.input()||!player.State){
-            JSONObject data = new JSONObject();
-            try{
-                data.put("x",player.getX());
-                data.put("y",player.getY());
-                data.put("id",id);
-                data.put("execute",!player.State);
-
-                socket.emit("sendtoServer",data);
-            }catch(Exception e){
-                System.out.println("error update");
-            }
-
-        }
-    }
-    public void triggerBullet(boolean fire){
-        JSONObject data = new JSONObject();
-        try{
-            data.put("fire",fire);
-            socket.emit("sendTrigger",data);
-
-        }catch(Exception e){
-            System.out.println("error trigger");
-        }
-    }
-
-
 
     @Override
     public void resize(int width, int height) {

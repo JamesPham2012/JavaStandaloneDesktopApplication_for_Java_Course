@@ -5,7 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import game.demo.Assets;
+import game.demo.Enemy;
 import game.demo.GameObj;
+import game.demo.MyGdxGame;
 
 import java.util.Vector;
 
@@ -18,6 +20,7 @@ public class Player_Multiplayer extends GameObj {
     private boolean fire; // Fire and shift_left variables are on/off buttons for coop_player.
     private boolean shift_left;
     private Texture texture;
+    private double power;
     public void create(){
         texture =  Assets.texture_plane;
         scale = 0.4f;
@@ -96,22 +99,29 @@ public class Player_Multiplayer extends GameObj {
         input();
 
     }
-    public void dispose () {
-        batch.dispose();
-    }
 
-    public static void checkCollision(Vector<Bullet_Multiplayer> bullet_arr){
-        for (int i=0;i<bullet_arr.size();i++) {
-            if ((!bullet_arr.elementAt(i).isDed())&&
-                    (bullet_arr.elementAt(i).id*MultiplayerGame.player.id<0)&&
-                    (Math.sqrt(Math.pow((double)bullet_arr.elementAt(i).getX()-MultiplayerGame.player.x,2.0)+
-                            Math.pow((double)bullet_arr.elementAt(i).getY()-MultiplayerGame.player.y,2.0))<
-                            (double)bullet_arr.elementAt(i).hitboxRadius+MultiplayerGame.player.hitboxRadius)){
+    public static void checkCollision(){
+        for (int i=0;i<Bullet_Multiplayer.bullet_arr.size();i++) {
+            if ((!Bullet_Multiplayer.bullet_arr.elementAt(i).isDed())&&
+                    (Bullet_Multiplayer.bullet_arr.elementAt(i).id*MultiplayerGame.player.id<0)&&
+                    (Math.sqrt(Math.pow((double)Bullet_Multiplayer.bullet_arr.elementAt(i).getX()-MultiplayerGame.player.x,2.0)+
+                            Math.pow((double)Bullet_Multiplayer.bullet_arr.elementAt(i).getY()-MultiplayerGame.player.y,2.0))<
+                            (double)Bullet_Multiplayer.bullet_arr.elementAt(i).hitboxRadius+MultiplayerGame.player.hitboxRadius)){
                                     MultiplayerGame.player.Execute();
             }
         }
-    }
 
+        for (int i = 0; i< Enemy.enemy_arr.size(); i++) {
+            if ((Enemy.enemy_arr.elementAt(i).State)&&
+                    (Math.sqrt(Math.pow((double)Enemy.enemy_arr.elementAt(i).getX()- MultiplayerGame.player.x,2.0)+
+                            Math.pow((double)Enemy.enemy_arr.elementAt(i).getY()-MultiplayerGame.player.y,2.0))<
+                            (double)Enemy.enemy_arr.elementAt(i).hitboxRadius+MultiplayerGame.player.hitboxRadius)){
+                MultiplayerGame.player.Execute();
+            }
+        }
+    }
+    public double getPower() { return power; }
+    public void setPower(double power) { this.power=power; }
     public boolean Execute(){
         State=false;
         System.out.println("Dead");
@@ -162,33 +172,33 @@ public class Player_Multiplayer extends GameObj {
 
     }
 
-    public void Bullet_Call(Vector<Bullet_Multiplayer> bullet_arr) {              //Furthermore edit here
+    public void Bullet_Call() {              //Furthermore edit here
         switch (Math.abs(id)) {
             case 0:
             {
-                Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, 0);
-                Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), 0, -30, 0);
-                Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), 30, 0, 0);
-                Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), -30, 0, 0);
+                Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), 0, 30, 0);
+                Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), 0, -30, 0);
+                Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), 30, 0, 0);
+                Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), -30, 0, 0);
                 break;
             }
             case 1:
                 /*     bullet_arr.addElement(new Bullet(getX(), getY(), 0, 30, 1));*/
             {
                 if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, -3);
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), -5, 29, -3);
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), 5, 29, -3);
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 25, -3);
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), -10, 28, -3);
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), 10, 28, -3);
+                    Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), 0, 30, -3);
+                    Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), -5, 29, -3);
+                    Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), 5, 29, -3);
+                    Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), 0, 25, -3);
+                    Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), -10, 28, -3);
+                    Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), 10, 28, -3);
                 }
                 else {
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, -1);
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX()-3, getY(), -2, 29, -1);
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX()+3, getY(), 2, 29, -1);
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX()-5, getY(), -5, 28, -1);
-                    Bullet_Multiplayer.Bullet_Reallo(bullet_arr,getX()+5, getY(), 5, 28, -1);
+                    Bullet_Multiplayer.Bullet_Reallo(getX(), getY(), 0, 30, -1);
+                    Bullet_Multiplayer.Bullet_Reallo(getX()-3, getY(), -2, 29, -1);
+                    Bullet_Multiplayer.Bullet_Reallo(getX()+3, getY(), 2, 29, -1);
+                    Bullet_Multiplayer.Bullet_Reallo(getX()-5, getY(), -5, 28, -1);
+                    Bullet_Multiplayer.Bullet_Reallo(getX()+5, getY(), 5, 28, -1);
                 }
             }
             break;

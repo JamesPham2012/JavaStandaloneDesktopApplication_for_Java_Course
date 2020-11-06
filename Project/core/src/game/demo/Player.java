@@ -10,25 +10,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Vector;
 
 public class Player extends GameObj{
+    private SpriteBatch batch;
     private int loaded=0;
     private long t=System.currentTimeMillis()-200;
-    private float varyDistance;
     private long rapidity;
-    private boolean controllable = true; // to distinguish player and coop_player--> coop_player is false 
-    private boolean fire; // Fire and shift_left variables are on/off buttons for coop_player.
-    private boolean shift_left;
-    private Texture texture;
-    public void create(){
-        texture =  Assets.texture_plane;
+    private double power;
+
+    public void create(int width, int height){
         scale = 0.4f;
+        batch = new SpriteBatch();
         hitboxRadius=10;
         State=true;
+        Texture_Width=width;
+        Texture_Height=height;
         setId(1);
     }
 
-    public void setTexture(Texture texture){
-        this.texture = texture;
-    }
     public void setId(int id){
         this.id=-id;
     }
@@ -38,60 +35,24 @@ public class Player extends GameObj{
     public float getY(){
         return y;
     }
-    public void setX(float x){
-        this.x = x;
-    }
-    public void setControllable(boolean controllable){
-        this.controllable = controllable;
-    }
-    public void setY(float y){
-        this.y = y;
-    }
-    public void setExecute(boolean execute){
-        this.State = !execute;
-    }
-
     public boolean fire(){
-        if(controllable){
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) Bullet.resetfakebase();
-            if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
-                if (System.currentTimeMillis() - t > rapidity) {
-                    t = System.currentTimeMillis();
-                    loaded = 1;
-                } else {
-                    loaded = 0;
-                }
-                if (loaded==1) return true;
-                else return false;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) Bullet.resetfakebase();
+        if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+            if (System.currentTimeMillis() - t > rapidity) {
+                t = System.currentTimeMillis();
+                return true;
+            } return false;
 
-            }
-            else return false;
         }
-        else{
-            if(shift_left) Bullet.resetfakebase();
-            if(fire){
-                if (System.currentTimeMillis() - t > rapidity) {
-                    t = System.currentTimeMillis();
-                    loaded = 1;
-                } else {
-                    loaded = 0;
-                }
-                if (loaded==1) return true;
-                else return false;
-            }
-            else return false;
-        }
+        else return false;
 
     }
-    public void setFire(boolean fire){
-        this.fire = fire;
-    }
 
-
-    public void render_player (SpriteBatch batch) { // loop
+    public void render_player () { // loop
         if (State) {
-            batch.draw(texture, (int) (x - 20), (int) (y -20),
-                    40, 40);
+            batch.begin();
+            batch.draw(Assets.texture_plane, (x - Texture_Width/2), (y - Texture_Height/2));
+            batch.end();
         }
         input();
 
@@ -100,13 +61,23 @@ public class Player extends GameObj{
         batch.dispose();
     }
 
-    public static void checkCollision(Vector<Bullet> bullet_arr){
-        for (int i=0;i<bullet_arr.size();i++) {
-            if ((!bullet_arr.elementAt(i).isDed())&&
-                    (bullet_arr.elementAt(i).id*MyGdxGame.player.id<0)&&
-                    (Math.sqrt(Math.pow((double)bullet_arr.elementAt(i).getX()-MyGdxGame.player.x,2.0)+
-                            Math.pow((double)bullet_arr.elementAt(i).getY()-MyGdxGame.player.y,2.0))<
-                            (double)bullet_arr.elementAt(i).hitboxRadius+MyGdxGame.player.hitboxRadius)){
+    public static void checkCollisionwthBullet(){
+        for (int i=0;i<Bullet.bullet_arr.size();i++) {
+            if ((Bullet.bullet_arr.elementAt(i).State)&&
+                    (Bullet.bullet_arr.elementAt(i).id*MyGdxGame.player.id<0)&&
+                    (Math.sqrt(Math.pow((double)Bullet.bullet_arr.elementAt(i).getX()-MyGdxGame.player.x,2.0)+
+                            Math.pow((double)Bullet.bullet_arr.elementAt(i).getY()-MyGdxGame.player.y,2.0))<
+                            (double)Bullet.bullet_arr.elementAt(i).hitboxRadius+MyGdxGame.player.hitboxRadius)){
+                MyGdxGame.player.Execute();
+            }
+        }
+    }
+    public static void checkCollisionwthEnemy(){
+        for (int i=0;i<Enemy.enemy_arr.size();i++) {
+            if ((Enemy.enemy_arr.elementAt(i).State)&&
+                    (Math.sqrt(Math.pow((double)Enemy.enemy_arr.elementAt(i).getX()-MyGdxGame.player.x,2.0)+
+                            Math.pow((double)Enemy.enemy_arr.elementAt(i).getY()-MyGdxGame.player.y,2.0))<
+                            (double)Enemy.enemy_arr.elementAt(i).hitboxRadius+MyGdxGame.player.hitboxRadius)){
                 MyGdxGame.player.Execute();
             }
         }
@@ -115,6 +86,8 @@ public class Player extends GameObj{
     public void Execute(){
         State=false;
     }
+    public double getPower() { return power; }
+    public void setPower(double power) { this.power=power; }
 
     /* ----------------------------------------------------------------------
      * ----------------------------------------------------------------------
@@ -122,71 +95,68 @@ public class Player extends GameObj{
      * --------------------------Player's data-------------------------------
      * ----------------------------------------------------------------------
      * ----------------------------------------------------------------------*/
-
-    public boolean input(){
-        if(controllable){ // we just control our player not coop_player.
-            float xPrevious = x;
-            float yPrevious = y;
-            switch (id) {
-                case -1:
-                    if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                        varyDistance=1;
-                        rapidity=50;
-                    }
-                    else {
-                        varyDistance=5;
-                        rapidity=100;
-                    }
-                    break;
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x-=varyDistance;
-            if (x<0) x=0;
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x+=varyDistance;
-            if (x>Gdx.graphics.getWidth()) x=Gdx.graphics.getWidth();
-            if (Gdx.input.isKeyPressed(Input.Keys.UP)) y+=varyDistance;
-            if (y>Gdx.graphics.getHeight()) y=Gdx.graphics.getHeight();
-            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) y-=varyDistance;
-            if (y<0) y=0;
-            if(x==xPrevious&&y==yPrevious){
-                return false;
-            }
-            else{
-                return true;
+    public void Collision(Vector<PixelCoord> Hail,Vector<Bullet> Barr){
+        loop:  for(int i=0;i<Pixel.size();i++){
+            for(int j=0;j<Hail.size();j++){
+                if(Pixel.elementAt(i).VicinityBullet(Hail.elementAt(j))){
+                    Barr.elementAt(Hail.elementAt(j).location_Bullet).Execute();
+                    this.Execute();
+                    break loop;
+                }
             }
         }
-        else{
-            return false;
+    }
+    public void input(){
+        switch (id) {
+            case 0:
+            case -1:
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    speed=1;
+                    rapidity=50;
+                }
+                else {
+                    speed=5;
+                    rapidity=100;
+                }
+                break;
         }
-
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x-=speed;
+        if (x<0) x=0;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x+=speed;
+        if (x>Gdx.graphics.getWidth()) x=Gdx.graphics.getWidth();
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) y+=speed;
+        if (y>Gdx.graphics.getHeight()) y=Gdx.graphics.getHeight();
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) y-=speed;
+        if (y<0) y=0;
     }
 
-    public void Bullet_Call(Vector<Bullet> bullet_arr) {              //Furthermore edit here
+    public void Bullet_Call() {              //Furthermore edit here
         switch (Math.abs(id)) {
             case 0:
             {
-                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, 0);
-                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, -30, 0);
-                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 30, 0, 0);
-                Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -30, 0, 0);
+                Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -2,1);
+                Bullet.Bullet_Reallo(getX(), getY(), 0, -30, -2,1);
+                Bullet.Bullet_Reallo(getX(), getY(), 30, 0, -2,1);
+                Bullet.Bullet_Reallo(getX(), getY(), -30, 0, -2,1);
                 break;
             }
             case 1:
                 /*     bullet_arr.addElement(new Bullet(getX(), getY(), 0, 30, 1));*/
             {
                 if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, -3);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -5, 29, -3);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 5, 29, -3);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 25, -3);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), -10, 28, -3);
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 10, 28, -3);
+                    Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), -5, 29, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), 5, 29, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), 0, 25, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), -10, 28, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), 10, 28, -3,1);
                 }
                 else {
-                    Bullet.Bullet_Reallo(bullet_arr,getX(), getY(), 0, 30, -1);
-                    Bullet.Bullet_Reallo(bullet_arr,getX()-3, getY(), -2, 29, -1);
-                    Bullet.Bullet_Reallo(bullet_arr,getX()+3, getY(), 2, 29, -1);
-                    Bullet.Bullet_Reallo(bullet_arr,getX()-5, getY(), -5, 28, -1);
-                    Bullet.Bullet_Reallo(bullet_arr,getX()+5, getY(), 5, 28, -1);
+                    Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -1,1);
+                    Bullet.Bullet_Reallo(getX()-3, getY(), -2, 29, -1,1);
+                    Bullet.Bullet_Reallo(getX()+3, getY(), 2, 29, -1,1);
+                    Bullet.Bullet_Reallo(getX()-5, getY(), -5, 28, -1,1);
+                    Bullet.Bullet_Reallo(getX()+5, getY(), 5, 28, -1,1);
                 }
             }
             break;

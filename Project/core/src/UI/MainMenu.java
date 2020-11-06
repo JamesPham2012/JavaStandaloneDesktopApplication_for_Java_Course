@@ -21,6 +21,7 @@ public class MainMenu implements Screen {
     private ImageButton ExitButton;
     private Label multiplayer;
     private Skin skin;
+    private Skin skin2;
     private MainClass mainClass;
     private Table table;
     private Background background;
@@ -43,6 +44,7 @@ public class MainMenu implements Screen {
         background.resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
         skin = new Skin(Gdx.files.internal("skin/ButtonPack.json"));
+        skin2 = new Skin(Gdx.files.internal("skin/Textfield.json"));
 
         stage = new Stage(new ScreenViewport());
         multiplayer = new Label("MultiplayerGame",new Skin(Gdx.files.internal("skin/Textfield.json")));

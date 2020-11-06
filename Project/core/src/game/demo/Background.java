@@ -27,7 +27,8 @@ public class Background {
     private final int WORLD_WIDTH = 1280;
     private final int WORLD_HEIGHT = 720;
 
-
+    public int getWORLD_WIDTH() {return WORLD_WIDTH;}
+    public int getWORLD_HEIGHT(){return WORLD_HEIGHT;}
     public void create () {
         background = new Texture[4];
         camera = new OrthographicCamera();

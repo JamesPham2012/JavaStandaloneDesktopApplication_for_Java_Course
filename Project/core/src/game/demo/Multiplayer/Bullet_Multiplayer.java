@@ -10,7 +10,8 @@ import java.lang.Math;
 
 public class Bullet_Multiplayer extends GameObj {
     private long t=0l;
-    private static Bullet fakebase=new Bullet(0,0,0);
+    private static Bullet_Multiplayer fakebase=new Bullet_Multiplayer(0,0,0);
+    public static Vector<Bullet_Multiplayer> bullet_arr=new Vector<>();
 
 
     public Bullet_Multiplayer(float x_c, float y_c, float xfromhost, float yfromhost, int Id) {
@@ -46,12 +47,10 @@ public class Bullet_Multiplayer extends GameObj {
     }
 
     public void create() {
-
-        batch = new SpriteBatch();
         State=true;
     }
 
-    public void render(SpriteBatch batch) { // loop
+    public void renders(SpriteBatch batch) { // loop
         batch.draw(Assets.texture_bullet, (int)(x- (Assets.texture_bullet.getWidth()*scale/2)),(int)(y- (Assets.texture_bullet.getHeight()*scale/2)),Assets.texture_bullet.getWidth()*scale,Assets.texture_bullet.getHeight()*scale);
         y += y_move;
         x += x_move;
@@ -60,20 +59,17 @@ public class Bullet_Multiplayer extends GameObj {
         }
     }
 
-    public static void render(Vector<Bullet_Multiplayer> bullet_arr,SpriteBatch batch) {
+    public static void render(SpriteBatch batch) {
         for (int i = 0; i < bullet_arr.size(); i++) {
             if (bullet_arr.elementAt(i).State) {
                 bullet_arr.elementAt(i).setMove();
-                bullet_arr.elementAt(i).render(batch);
+                bullet_arr.elementAt(i).renders(batch);
             }
         }
     }
 
-    public void dispose() {
-        batch.dispose();
-    }
 
-    public static void Bullet_Reallo(Vector<Bullet_Multiplayer> bullet_arr, float x_c, float y_c, float x_offset, float y_offset,int id) {
+    public static void Bullet_Reallo(float x_c, float y_c, float x_offset, float y_offset,int id) {
         int BulletGen = 0;
         loop:     while (BulletGen == 0) {
             // need change to replace DED value with ALIVE value in order for the vector not to be too long, waste of memory
@@ -114,6 +110,7 @@ public class Bullet_Multiplayer extends GameObj {
     public void Execute(){
         State=false;
         id=0;
+
     }
 
     /* ----------------------------------------------------------------------
