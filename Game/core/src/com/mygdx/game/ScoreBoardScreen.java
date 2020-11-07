@@ -7,29 +7,44 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.PlayerData;
 
 public class ScoreBoardScreen implements Screen {
     SpriteBatch batch;
 
+    MainClass mainClass;
+
     private BitmapFont font;
 
+    private ImageButton backButton;
+    private Skin skin;
+    private Stage stage;
+
     int maxPlayer = 10;
-    PlayerData[] playerList, list;
+    PlayerData[] list;
     PlayerData playerData;
 
     Json json;
 
     FileHandle file;
 
-    public ScoreBoardScreen(PlayerData data)
+    public ScoreBoardScreen(PlayerData data, final MainClass mainClass)
     {
+        this.mainClass = mainClass;
+
+        stage = new Stage(new ScreenViewport());
+
         batch = new SpriteBatch();
         json = new Json();
         font = new BitmapFont(Gdx.files.internal("skin/minecraft.fnt"));
 
-        playerList = new PlayerData[maxPlayer];
         list = new PlayerData[maxPlayer];
 
         this.playerData = data;
@@ -77,6 +92,18 @@ public class ScoreBoardScreen implements Screen {
             file.writeString(text, false);
         }
 
+        skin = new Skin(Gdx.files.internal("skin/ButtonPack.json"));
+        backButton = new ImageButton(skin, "Back");
+
+        backButton.addListener(new ClickListener()
+        {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mainClass.setMenuScreen();
+            }
+        });
+
+        stage.addActor(backButton);
     }
 
     public PlayerData[] sortBoard(PlayerData[] players)
@@ -100,7 +127,7 @@ public class ScoreBoardScreen implements Screen {
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -131,6 +158,10 @@ public class ScoreBoardScreen implements Screen {
             h = layout.height;
             font.draw(batch, layout, (Gdx.graphics.getWidth() - w)/2, DrawY - height*2 - i * 2*h);
         }
+
+        stage.act();
+        stage.draw();
+
         batch.end();
     }
 
