@@ -1,48 +1,174 @@
 
 ButtonPack.png
-size: 2048,256
+size: 2048,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+BackButtonDown
+  rotate: false
+  xy: 1381, 373
+  size: 216, 50
+  orig: 216, 50
+  offset: 0, 0
+  index: -1
+BackButtonHover
+  rotate: false
+  xy: 1270, 321
+  size: 216, 50
+  orig: 216, 50
+  offset: 0, 0
+  index: -1
+BackButtonUp
+  rotate: false
+  xy: 330, 159
+  size: 216, 50
+  orig: 216, 50
+  offset: 0, 0
+  index: -1
 ExitButtonDown
   rotate: false
-  xy: 598, 2
-  size: 296, 134
-  orig: 296, 134
+  xy: 1806, 373
+  size: 205, 50
+  orig: 205, 50
   offset: 0, 0
   index: -1
 ExitButtonHover
   rotate: false
-  xy: 300, 2
-  size: 296, 134
-  orig: 296, 134
+  xy: 1488, 321
+  size: 205, 50
+  orig: 205, 50
   offset: 0, 0
   index: -1
 ExitButtonUp
   rotate: false
-  xy: 2, 2
-  size: 296, 134
-  orig: 296, 134
+  xy: 1599, 373
+  size: 205, 50
+  orig: 205, 50
+  offset: 0, 0
+  index: -1
+MainMenuButtonDown
+  rotate: false
+  xy: 1204, 425
+  size: 448, 50
+  orig: 448, 50
+  offset: 0, 0
+  index: -1
+MainMenuButtonHover
+  rotate: false
+  xy: 552, 321
+  size: 448, 50
+  orig: 448, 50
+  offset: 0, 0
+  index: -1
+MainMenuButtonUp
+  rotate: false
+  xy: 603, 373
+  size: 448, 50
+  orig: 448, 50
+  offset: 0, 0
+  index: -1
+MultiplayerButtonDown
+  rotate: false
+  xy: 604, 425
+  size: 598, 50
+  orig: 598, 50
+  offset: 0, 0
+  index: -1
+MultiplayerButtonHover
+  rotate: false
+  xy: 2, 373
+  size: 599, 50
+  orig: 599, 50
+  offset: 0, 0
+  index: -1
+MultiplayerButtonUp
+  rotate: false
+  xy: 2, 425
+  size: 600, 50
+  orig: 600, 50
   offset: 0, 0
   index: -1
 PlayButtonDown
   rotate: false
-  xy: 1194, 2
-  size: 296, 134
-  orig: 296, 134
+  xy: 2, 2
+  size: 212, 50
+  orig: 212, 50
   offset: 0, 0
   index: -1
 PlayButtonHover
   rotate: false
-  xy: 1492, 2
-  size: 296, 134
-  orig: 296, 134
+  xy: 268, 55
+  size: 212, 50
+  orig: 212, 50
   offset: 0, 0
   index: -1
 PlayButtonUp
   rotate: false
-  xy: 896, 2
-  size: 296, 134
-  orig: 296, 134
+  xy: 270, 107
+  size: 212, 50
+  orig: 212, 50
+  offset: 0, 0
+  index: -1
+ResumeButtonDown
+  rotate: false
+  xy: 1654, 425
+  size: 326, 50
+  orig: 326, 50
+  offset: 0, 0
+  index: -1
+ResumeButtonHover
+  rotate: false
+  xy: 1053, 373
+  size: 326, 50
+  orig: 326, 50
+  offset: 0, 0
+  index: -1
+ResumeButtonUp
+  rotate: false
+  xy: 2, 159
+  size: 326, 50
+  orig: 326, 50
+  offset: 0, 0
+  index: -1
+RetryButtonDown
+  rotate: false
+  xy: 2, 107
+  size: 266, 50
+  orig: 266, 50
+  offset: 0, 0
+  index: -1
+RetryButtonHover
+  rotate: false
+  xy: 2, 54
+  size: 264, 51
+  orig: 264, 51
+  offset: 0, 0
+  index: -1
+RetryButtonUp
+  rotate: false
+  xy: 1002, 321
+  size: 266, 50
+  orig: 266, 50
+  offset: 0, 0
+  index: -1
+ScoreBoardButtonDown
+  rotate: false
+  xy: 2, 211
+  size: 544, 52
+  orig: 544, 52
+  offset: 0, 0
+  index: -1
+ScoreBoardButtonHover
+  rotate: false
+  xy: 2, 265
+  size: 546, 52
+  orig: 546, 52
+  offset: 0, 0
+  index: -1
+ScoreBoardButtonUp
+  rotate: false
+  xy: 2, 319
+  size: 548, 52
+  orig: 548, 52
   offset: 0, 0
   index: -1

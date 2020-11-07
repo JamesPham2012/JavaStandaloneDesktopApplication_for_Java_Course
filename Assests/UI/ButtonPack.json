@@ -10,10 +10,35 @@
         down: PlayButtonDown
         over: PlayButtonHover
     },
+    Retry: {
+      up: RetryButtonUp
+      down: RetryButtonDown
+      over: RetryButtonHover
+    }
+    Multiplayer: {
+        up: MultiplayerButtonUp
+        down: MultiplayerButtonDown
+        over: MultiplayerButtonHover
+    },
+    ScoreBoard: {
+        up: ScoreBoardButtonUp
+        down: ScoreBoardButtonDown
+        over: ScoreBoardButtonHover
+    },
     Exit: {
         up: ExitButtonUp
         down: ExitButtonDown
         over: ExitButtonHover
+    },
+    Resume: {
+        up: ResumeButtonUp
+        down: ResumeButtonDown
+        over: ResumeButtonHover
+    }
+    MainMenu: {
+      up: MainMenuButtonUp
+      down: MainMenuButtonDown
+      over: MainMenuButtonHover
     }
   }
 }
