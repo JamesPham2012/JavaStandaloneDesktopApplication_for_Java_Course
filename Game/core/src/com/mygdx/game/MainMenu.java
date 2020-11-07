@@ -174,6 +174,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
+        stage.addAction(Actions.fadeIn(1));
         Gdx.input.setInputProcessor(stage); // kieu nhu no add input vao thang render. -- call before render each frame.
     }
 
