@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.Player;
+import com.mygdx.game.PlayerData;
 
 public class GameOverScreen implements Screen {
     private SpriteBatch batch;
@@ -45,7 +47,8 @@ public class GameOverScreen implements Screen {
 
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("Audio/Astronomia.mp3"));;
 
-    public GameOverScreen(final MainClass mainClass, int score) {
+    public GameOverScreen(final MainClass mainClass) {
+
         this.mainClass = mainClass;
         batch = new SpriteBatch();
         GameOverTitle = new Texture("skin/GAMEOVER.png");
@@ -53,7 +56,6 @@ public class GameOverScreen implements Screen {
 
         animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Texture/Gif/coffindance.gif").read());
 
-        this.score = score;
         Preferences preferences = Gdx.app.getPreferences("GameScore"); //Create file to store score
         highscore = preferences.getInteger("highscore", score);
 
@@ -119,11 +121,11 @@ public class GameOverScreen implements Screen {
         table.pad(30);
         table.add(title).size(500,100);
         table.row();
-        table.add(RetryButton);
+        table.add(RetryButton).pad(30);
         table.row();
-        table.add(MainMenuButton);
+        table.add(MainMenuButton).pad(30);
         table.row();
-        table.add(ExitButton);
+        table.add(ExitButton).pad(30);
 
         stage.addActor(table);
     }
@@ -161,6 +163,11 @@ public class GameOverScreen implements Screen {
 
         stage.act();
         stage.draw();
+    }
+
+    public int getScore()
+    {
+        return score;
     }
 
     @Override
