@@ -5,10 +5,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -75,15 +75,16 @@ public class PauseScreen implements Screen {
         });
 
         table.pad(30);
-        table.add(ResumeButton);
+        table.add(ResumeButton).pad(30);
         table.row();
-        table.add(ExitButton);
+        table.add(ExitButton).pad(30);
 
         stage.addActor(table);
 
     }
 
     public void show() {
+        stage.addAction(Actions.fadeIn(1));
         Gdx.input.setInputProcessor(stage); // kieu nhu no add input vao thang render. -- call before render each frame.
     }
 
