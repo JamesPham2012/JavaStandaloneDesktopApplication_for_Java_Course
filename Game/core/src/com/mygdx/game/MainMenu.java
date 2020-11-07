@@ -76,7 +76,7 @@ public class MainMenu implements Screen {
         label = new Label("SPACESHOOTER",skin2);
         label.setFontScale(1.5f);
 
-        textfield = new TextField("Input your name here:", skin2);
+        textfield = new TextField("Input your name here", skin2);
 
         resizeTextField();
         
