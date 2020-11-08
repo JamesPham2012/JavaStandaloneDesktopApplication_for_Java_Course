@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.Random;
 import java.util.Vector;
 
-import static java.lang.Integer.max;
-
 public class GameObj {
     public float x;
     public float y;
@@ -54,7 +52,8 @@ public class GameObj {
         return y;
     }
     public double getSonarRange(){
-        return max(this.Texture_Width/2,this.Texture_Height/2);
+
+        return Math.max(this.Texture_Width/2,this.Texture_Height/2);
     }
     public double distanceto(GameObj another){
         return Math.sqrt(Math.pow(this.x+this.Texture_Width/2-another.x-another.Texture_Width/2,2)  + Math.pow(this.x+this.Texture_Height/2-another.x-another.Texture_Height/2,2));

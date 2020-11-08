@@ -166,15 +166,8 @@ public class Enemy extends GameObj {
      * ----------------------------------------------------------------------*/
 
     private void Bullet_Call() {              //Furthermore edit here
-        if(MyGdxGame.player.x !=0){
             X = x - MyGdxGame.player.x;
             Y = y - MyGdxGame.player.y;
-        }
-        else{
-            X = x - MultiplayerGame.player.x;
-            Y = y - MultiplayerGame.player.y;
-        }
-
         D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
         switch (id) {
             case 1:

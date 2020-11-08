@@ -3,57 +3,61 @@ package UI;
 import com.badlogic.gdx.*;
 import game.demo.Multiplayer.MultiplayerGame;
 import game.demo.MyGdxGame;
+import UI.PlayerData;
 
 public class MainClass extends Game implements ApplicationListener {
 
     private MyGdxGame gameScreen;
     private MainMenu mainMenu;
     private PauseScreen pauseScreen;
+    private GameOverScreen gameOver;
+    private ScoreBoardScreen scoreBoardScreen;
     private MultiplayerGame multiplayerScreen;
-    private GameOverScreen gameOverScreen;
-//    private HudClass hudScreen;
-//    private StartClass startScreen;
+    public int score;
+    public String name;
+
     @Override
     public void create() {
         gameScreen=new MyGdxGame(this);
-        //menuScreen=new MenuClass(this);
+
         mainMenu = new MainMenu(this);
-        multiplayerScreen = new MultiplayerGame(this);
-//        startScreen=new StartClass(this);
         pauseScreen = new PauseScreen(this);
-        gameOverScreen = new GameOverScreen(this);
+        gameOver = new GameOverScreen(this);
+        multiplayerScreen = new MultiplayerGame(this);
+
         setMenuScreen();
     }
-    public void setGameScreen()
-    {
 
-        setScreen(gameScreen);
-
-    }
-//    public void setStartScreen(){
-//        setScreen(startScreen);
-//    }
     public void setNewGameScreen(){
         gameScreen=new MyGdxGame(this);
         setScreen(gameScreen);
     }
+
     public void setMenuScreen()
     {
-
         setScreen(mainMenu);
         gameScreen.pause();
+
     }
     public void setMultiplayerScreen(){
         setScreen(multiplayerScreen);
-
     }
-    public void setPauseScreen(){
+    public void setPauseScreen()
+    {
         setScreen(pauseScreen);
+        gameScreen.pause();
     }
-
     public void setGameOverScreen()
     {
-        setScreen(gameOverScreen);
+        score = gameOver.getScore();
+        setScreen(gameOver);
+        gameScreen.pause();
+    }
+    public void setScoreBoardScreen()
+    {
+        scoreBoardScreen = new ScoreBoardScreen(new PlayerData(name, score),this);
+        setScreen(scoreBoardScreen);
+        gameScreen.pause();
     }
 
     @Override

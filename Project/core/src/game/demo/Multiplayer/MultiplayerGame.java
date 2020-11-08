@@ -22,6 +22,8 @@ import io.socket.emitter.Emitter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.util.Vector;
 
 public class MultiplayerGame implements Screen {
@@ -237,7 +239,7 @@ public class MultiplayerGame implements Screen {
 
     public void connectSocket(){
         try{
-            socket = IO.socket("http://localhost:3000");
+            socket = IO.socket("http://0.0.0.0:3000");
             socket.connect();
 
         }

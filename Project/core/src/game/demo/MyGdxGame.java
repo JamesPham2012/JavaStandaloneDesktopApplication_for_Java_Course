@@ -146,10 +146,10 @@ public class MyGdxGame implements Screen {
 			System.out.println(Wave);
 
 			if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-				mainClass.setMenuScreen();
+				mainClass.setPauseScreen();
 			}
 			if(!player.State){
-				mainClass.setMenuScreen();
+				mainClass.setGameOverScreen();
 				Waves.reset();
 				Wave=0;
 			}

@@ -1,10 +1,16 @@
+const { hostname } = require('os');
+
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+// app.list(3000, '0.0.0.0');
 server.listen(3000,function(){
     console.log("Server is now running");
 });
+
+app.get('/',(req,res)=>{
+    res.send(hostname()); // just accept / route.
+})
 
 function Player(x,y,id,state){
     this.x=x;
