@@ -44,7 +44,7 @@ public class Multiplay_WinScreen implements Screen{
     public Multiplay_WinScreen(final MainClass mainClass) {
         this.mainClass = mainClass;
 
-        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Texture/Gif/DancingEngineer.gif").read());
+        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Texture/Gif/DancingEngi.gif").read());
 
         batch = new SpriteBatch();
 
