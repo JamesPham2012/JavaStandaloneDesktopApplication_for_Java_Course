@@ -40,5 +40,11 @@
       down: MainMenuButtonDown
       over: MainMenuButtonHover
     }
+    Back:
+    {
+      up: BackButtonUp
+      down: BackButtonDown
+      over: BackButtonHover
+    }
   }
 }

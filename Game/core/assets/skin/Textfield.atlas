@@ -1,0 +1,82 @@
+Textfield.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Background_mainmenu
+  rotate: false
+  xy: 1, 1243
+  size: 1280, 720
+  orig: 1280, 720
+  offset: 0, 0
+  index: -1
+ExitButtonDown
+  rotate: false
+  xy: 1283, 1634
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+ExitButtonHover
+  rotate: false
+  xy: 1, 398
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+ExitButtonUp
+  rotate: false
+  xy: 1283, 1498
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+Group 1
+  rotate: false
+  xy: 1, 1048
+  size: 682, 193
+  orig: 682, 193
+  offset: 0, 0
+  index: -1
+PlayButtonDown
+  rotate: false
+  xy: 1581, 1634
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+PlayButtonHover
+  rotate: false
+  xy: 1, 262
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+PlayButtonUp
+  rotate: false
+  xy: 1283, 1362
+  size: 296, 134
+  orig: 296, 134
+  offset: 0, 0
+  index: -1
+Rectangle 1
+  rotate: false
+  xy: 685, 1151
+  size: 489, 90
+  orig: 489, 90
+  offset: 0, 0
+  index: -1
+clicked
+  rotate: false
+  xy: 1283, 1770
+  size: 682, 193
+  orig: 682, 193
+  offset: 0, 0
+  index: -1
+minecraft
+  rotate: false
+  xy: 1, 534
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
