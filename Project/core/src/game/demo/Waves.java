@@ -28,9 +28,9 @@ public class Waves {
             if (Loadwave) {
                 Wave_Call();
             }
-            // Khi chua giet het thi ra wave moi.
+//            // Khi chua giet het thi ra wave moi.
             if (!Loadwave) {
-                if (Enemy_Multiplayer.isClearedAll()) {
+                if (Enemy.isClearedAll()) {
                     wavetime=0;
                 }
             }

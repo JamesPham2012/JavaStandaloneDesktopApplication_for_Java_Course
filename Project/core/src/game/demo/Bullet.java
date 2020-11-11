@@ -15,7 +15,7 @@ public class Bullet extends GameObj {
     private long t=0l;
     private static Bullet fakebase=new Bullet(0,0,0,0);
     protected int Source_ID_Collision=0;
-    public static Vector<Bullet> bullet_arr=new Vector<>();
+    public static Vector<Bullet> bullet_arr=new Vector<Bullet>();
 
     protected boolean isAlly(){
         return (this.Source_ID_Collision==1);
@@ -42,6 +42,7 @@ public class Bullet extends GameObj {
     }
 
     public static void resetfakebase(){
+
         fakebase.x_b=MyGdxGame.player.getX();
         fakebase.y_b=MyGdxGame.player.getY();
     }

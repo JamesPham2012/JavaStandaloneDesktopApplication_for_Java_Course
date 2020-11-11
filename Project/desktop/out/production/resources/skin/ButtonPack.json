@@ -6,25 +6,40 @@
       over: PlayButtonHover
     },
     Play: {
-        up: PlayButtonUp
-        down: PlayButtonDown
-        over: PlayButtonHover
-    },
-    Exit: {
-        up: ExitButtonUp
-        down: ExitButtonDown
-        over: ExitButtonHover
-    }
-    Resume: {
-        up: ResumeButtonUp
-        down: ResumeButtonDown
-        over: ResumeButtonHover
+      up: PlayButtonUp
+      down: PlayButtonDown
+      over: PlayButtonHover
     },
     Retry: {
       up: RetryButtonUp
       down: RetryButtonDown
       over: RetryButtonHover
     }
+    Multiplayer: {
+      up: MultiplayerButtonUp
+      down: MultiplayerButtonDown
+      over: MultiplayerButtonHover
+    },
+    ScoreBoard: {
+      up: ScoreBoardButtonUp
+      down: ScoreBoardButtonDown
+      over: ScoreBoardButtonHover
+    },
+    Exit: {
+      up: ExitButtonUp
+      down: ExitButtonDown
+      over: ExitButtonHover
+    },
+    Resume: {
+      up: ResumeButtonUp
+      down: ResumeButtonDown
+      over: ResumeButtonHover
+    },
+    Back: {
+      up : BackButtonUp
+      down : BackButtonDown
+      over : BackButtonHover
+    },
     MainMenu: {
       up: MainMenuButtonUp
       down: MainMenuButtonDown

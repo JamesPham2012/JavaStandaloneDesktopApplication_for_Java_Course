@@ -111,6 +111,9 @@ io.on('connection',function(socket){
     
     socket.on('EndGame',function(data){
         socket.broadcast.emit("winGame");
+        id2.splice(0,2);
+        ID.splice(0,2);
+        player.splice(0,2);
     })
     
     socket.on('disconnect',function(){

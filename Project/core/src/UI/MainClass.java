@@ -13,6 +13,8 @@ public class MainClass extends Game implements ApplicationListener {
     private GameOverScreen gameOver;
     private ScoreBoardScreen scoreBoardScreen;
     private MultiplayerGame multiplayerScreen;
+    private Multiplay_LostScreen lostScreen;
+    private Multiplay_WinScreen winScreen;
     public int score;
     public String name;
 
@@ -24,6 +26,8 @@ public class MainClass extends Game implements ApplicationListener {
         pauseScreen = new PauseScreen(this);
         gameOver = new GameOverScreen(this);
         multiplayerScreen = new MultiplayerGame(this);
+        winScreen = new Multiplay_WinScreen(this);
+        lostScreen = new Multiplay_LostScreen(this);
 
         setMenuScreen();
     }
@@ -40,6 +44,7 @@ public class MainClass extends Game implements ApplicationListener {
 
     }
     public void setMultiplayerScreen(){
+        multiplayerScreen = new MultiplayerGame(this);
         setScreen(multiplayerScreen);
     }
     public void setPauseScreen()
@@ -57,6 +62,15 @@ public class MainClass extends Game implements ApplicationListener {
     {
         scoreBoardScreen = new ScoreBoardScreen(new PlayerData(name, score),this);
         setScreen(scoreBoardScreen);
+        gameScreen.pause();
+    }
+    public void setWinScreen(){
+        setScreen(winScreen);
+        gameScreen.pause();
+    }
+    public void setLostScreen(){
+
+        setScreen(lostScreen);
         gameScreen.pause();
     }
 

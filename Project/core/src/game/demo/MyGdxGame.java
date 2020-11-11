@@ -1,5 +1,6 @@
 package game.demo;
 
+import UI.GameOverScreen;
 import UI.MainClass;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -16,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import game.demo.Bullet;
+import game.demo.Multiplayer.Bullet_Multiplayer;
+import game.demo.Multiplayer.Enemy_Multiplayer;
 
 public class MyGdxGame implements Screen {
 
@@ -28,7 +31,6 @@ public class MyGdxGame implements Screen {
 
 	boolean pauseGame = false;
 	MainClass mainClass;
-
 	static Vector<PixelCoord> Sonar_Player=new Vector<>();//generic relative position
 	static Vector<PixelCoord> Sonar_Enemy=new Vector<>();//generic relative position
 	static Vector<PixelCoord> Bullet_Ally_Pixel=new Vector<>();//generic relative position
@@ -131,7 +133,7 @@ public class MyGdxGame implements Screen {
 //			player.checkCollisionwthBullet();
 			//player.checkCollisionwthEnemy();
 			//Enemy.checkCollision();
-//			player.Collision(Bullet_Oppress_Pixel,Bullet.bullet_arr);//works
+			player.Collision(Bullet_Oppress_Pixel,Bullet.bullet_arr);//works
 			for(int j=0;j<Enemy.enemy_arr.size();j++){
 				if(!Enemy.enemy_arr.elementAt(j).isDed()){
 					Enemy.enemy_arr.elementAt(j).Colixong(Bullet_Ally_Pixel);
@@ -149,7 +151,11 @@ public class MyGdxGame implements Screen {
 				mainClass.setPauseScreen();
 			}
 			if(!player.State){
+				GameOverScreen.score = point;
 				mainClass.setGameOverScreen();
+				Bullet.bullet_arr.clear();
+				Enemy.enemy_arr.clear();
+				point = 0;
 				Waves.reset();
 				Wave=0;
 			}

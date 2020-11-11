@@ -33,33 +33,40 @@ public class MultiplayerGame implements Screen {
     Texture texture_plane = Assets.texture_plane;
 
     public static Player_Multiplayer player;
-    private final float UPDATE_TIME=1/60;
     float timer;
     public static String id;
-    public static int point = 0;
+    public static int point;
     static int rand=0; // for random waves.
-    static Vector<Integer> randPosition1 = new Vector();
-    static Vector<Integer> randPosition2 = new Vector();
-    static boolean isAction = false;
-    static boolean ar=false;
-    Label label_point = new Label("0",new Skin(Gdx.files.internal("skin/Textfield.json")));
-    static String id_rand; // for random id to bullet aim enemy.
+    static Vector<Integer> randPosition1 ;
+    static Vector<Integer> randPosition2;
+    static boolean isAction;
+    Label label_point;
 
-    public Vector<Bullet_Multiplayer> bullet_arr = new Vector<>();
-    Vector<Enemy_Multiplayer> enemy_arr = new Vector<>();
-    Background background = new Background();
-    static int Wave=0;
+    Background background;
+    static int Wave;
 
     ScreenViewport viewport = new ScreenViewport();
     Stage stage;
-    boolean pauseGame = true;
+    boolean pauseGame;
     private MainClass mainClass;
     public static Socket socket;
-    SpriteBatch batch = new SpriteBatch();
-    Label guide = new Label("Press Enter to ready ",new Skin(Gdx.files.internal("skin/Textfield.json")));
+    SpriteBatch batch;
+    Label guide;
 
     public MultiplayerGame(MainClass mainClass){
+        this.mainClass = mainClass;
+
+        label_point  = new Label("0",new Skin(Gdx.files.internal("skin/Textfield.json")));
+        randPosition1 = new Vector();
+        randPosition2 = new Vector();
+        point = 0;
+        isAction = false;
+        Wave=0;
+        background = new Background();
+        pauseGame = true;
+        guide = new Label("Press Enter to ready ",new Skin(Gdx.files.internal("skin/Textfield.json")));
         stage = new Stage();
+        batch = new SpriteBatch();
         label_point.setText(point);
         label_point.setFontScale(2f);
         label_point.setPosition(0,Gdx.graphics.getHeight()-50);
@@ -67,7 +74,7 @@ public class MultiplayerGame implements Screen {
         stage.addActor(guide);
         background.create();
         background.resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        this.mainClass = mainClass;
+
 
 
     }
@@ -111,9 +118,12 @@ public class MultiplayerGame implements Screen {
                     public void call(Object... args) {
                         try {
                             System.out.println("winGame");
-                            mainClass.setMenuScreen();
+                            Bullet_Multiplayer.bullet_arr.clear();
+                            Enemy_Multiplayer.enemy_arr.clear();
                             Waves.reset();
                             Wave=0;
+                            mainClass.setWinScreen();
+
                         } catch (Exception e) {
 
                         }
@@ -229,7 +239,9 @@ public class MultiplayerGame implements Screen {
             if(!player.State){
                 EndGame();
                 System.out.println("loseGame");
-                mainClass.setMenuScreen();
+                Bullet_Multiplayer.bullet_arr.clear();
+                Enemy_Multiplayer.enemy_arr.clear();
+                mainClass.setLostScreen();
                 Waves.reset();
                 Wave=0;
             }

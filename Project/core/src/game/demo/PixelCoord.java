@@ -33,6 +33,6 @@ public class PixelCoord {
     }
 
     public boolean VicinityBullet(PixelCoord another){
-        return (Math.abs(this.relativeX-another.relativeX)<=3)&&(Math.abs(this.relativeY-another.relativeY)<=3);
+        return (Math.abs(this.relativeX-another.relativeX)<=Assets.texture_bullet.getHeight()/2)&&(Math.abs(this.relativeY-another.relativeY)<=Assets.texture_bullet.getHeight()/2);
     }
 }

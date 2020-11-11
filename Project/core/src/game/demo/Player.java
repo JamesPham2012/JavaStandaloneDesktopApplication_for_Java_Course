@@ -3,6 +3,7 @@ package game.demo;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,6 +16,7 @@ public class Player extends GameObj{
     private long t=System.currentTimeMillis()-200;
     private long rapidity;
     private double power;
+    private Sound fire = Gdx.audio.newSound(Gdx.files.internal("lasmic.wav"));
 
     public void create(int width, int height){
         scale = 0.4f;
@@ -24,6 +26,8 @@ public class Player extends GameObj{
         Texture_Width=width;
         Texture_Height=height;
         setId(1);
+
+
     }
 
     public void setId(int id){
@@ -38,8 +42,11 @@ public class Player extends GameObj{
     public boolean fire(){
         if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) Bullet.resetfakebase();
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+
             if (System.currentTimeMillis() - t > rapidity) {
                 t = System.currentTimeMillis();
+                long id = fire.play(1f);
+                fire.setPitch(id,0.3f);
                 return true;
             } return false;
 
