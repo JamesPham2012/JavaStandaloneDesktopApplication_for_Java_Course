@@ -1,0 +1,58 @@
+/*------------------edit----------------------
+game.demo.Player.Bullet_Call(Change all)
+--------------------------------------------*/
+switch (Math.abs(id)) {
+            case 0:
+            {
+                Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -2,1);
+                Bullet.Bullet_Reallo(getX(), getY(), 0, -30, -2,1);
+                Bullet.Bullet_Reallo(getX(), getY(), 30, 0, -2,1);
+                Bullet.Bullet_Reallo(getX(), getY(), -30, 0, -2,1);
+                break;
+            }
+            case 1:
+            {
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT))
+                switch ((int)power) {
+                    case 3:
+                        Bullet.Bullet_Reallo(getX()-3, getY(), -2, 29, -1,1);
+                        Bullet.Bullet_Reallo(getX()+3, getY(), 2, 29, -1,1);
+                        Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -1,1);
+                        power=3;
+                    case 2:
+                        Bullet.Bullet_Reallo(getX(), getY(), -10, 28, -3,1);
+                        Bullet.Bullet_Reallo(getX(), getY(), 10, 28, -3,1);
+                    case 1:
+                        Bullet.Bullet_Reallo(getX(), getY(), -5, 29, -3,1);
+                        Bullet.Bullet_Reallo(getX(), getY(), 5, 29, -3,1);
+                    case 0:
+                    Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), 0, 25, -3,1);
+                    break;
+                }
+                else switch ((int)power) {
+                    case 3:
+                        Bullet.Bullet_Reallo(getX()-2, getY(), 0, 29, -1,1);
+                        Bullet.Bullet_Reallo(getX()+2, getY(), 0, 29, -1,1);
+                        power=3;
+                    case 2:
+                        Bullet.Bullet_Reallo(getX()-4, getY(), -5, 29, -1,1);
+                        Bullet.Bullet_Reallo(getX()+4, getY(), 5, 29, -1,1);
+                    case 1:
+                        Bullet.Bullet_Reallo(getX()-5, getY(), -5, 28, -1,1);
+                        Bullet.Bullet_Reallo(getX()+5, getY(), 5, 28, -1,1);
+                    case 0:
+                    Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -1,1);
+                        Bullet.Bullet_Reallo(getX()-3, getY(), -2, 29, -1,1);
+                        Bullet.Bullet_Reallo(getX()+3, getY(), 2, 29, -1,1);
+                        break;
+                }
+            }
+            break;
+        }
+/*------------edit--------------
+Other
+------------------------------*/
+Change player's speed:
+-3 when press SHIFT
+-Otherwise 6

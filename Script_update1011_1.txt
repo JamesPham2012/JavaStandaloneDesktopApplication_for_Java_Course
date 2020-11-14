@@ -1,0 +1,91 @@
+/*----------------edit-------------------
+game.demo.Waves.Wave_Call(add)
+---------------------------------------*/
+case 4:
+                wavetime=10000;
+                if (System.currentTimeMillis()-t>2000){
+                        Enemy.Enemy_Reallo((float) (waveid.nextInt(160) + 160), 720, 4, Wave);
+                        t = System.currentTimeMillis();
+                        enemies++;
+                }
+                if ((enemies>=Wave+1)||(enemies>=30)) {
+                    Loadwave=false;
+                }
+                break;
+/*----------------edit-------------------
+game.demo.Enemy.Bullet_Call(change all)
+---------------------------------------*/
+	X = x - MyGdxGame.player.x;
+        Y = y - MyGdxGame.player.y;
+        D = Math.sqrt((double) X * (double) X + (double) Y * (double) Y);
+        switch (moveId) {
+            case 100:
+            case 103:
+            case 113:
+                if ((System.currentTimeMillis() - t) > 1000 - Wave * 10) {
+                    Bullet.Bullet_Reallo(x, y, -X / (float) D, -Y / (float) D, 1,2);
+                    Bullet.Bullet_Reallo(x - 10, y, -X / (float) D, -Y / (float) D, 1,2);
+                    Bullet.Bullet_Reallo(x + 10, y, -X / (float) D, -Y / (float) D, 1,2);
+                    t = System.currentTimeMillis();
+                }
+                break;
+            case 200:
+            case 201:
+            case 204:
+            case 214:
+            case 300:
+                if ((System.currentTimeMillis() - t) > 1000) {
+                    Bullet.Bullet_Reallo(x, y, -X / (float) D, -Y / (float) D, 1,2);
+                    Bullet.Bullet_Reallo(x - 20, y, -(X - 20) / (float) D, -Y / (float) D, 1,2);
+                    Bullet.Bullet_Reallo(x + 20, y, -(X + 20) / (float) D, -Y / (float) D, 1,2);
+                    t=System.currentTimeMillis();
+                }
+                break;
+            case 499:
+                Bullet.Bullet_Reallo(x,y,-X / (float) D, -Y / (float) D, 2,2);
+                moveId=401;
+                break;
+        }
+/*--------------edit-------------
+game.demo.Enemy.setMove(add)
+-------------------------------*/
+case 400:
+                speed=-2;
+                setX_move(0);
+                moveId+=4;
+                break;
+            case 404:
+                if (System.currentTimeMillis()-t1>2000) moveId=499;
+                break;
+            case 403:
+                speed=2;
+                setY_move(0);
+                if (x>1280) State=false;
+                break;
+            case 401:
+                if (System.currentTimeMillis()-t1>2500) moveId+=2;
+                break;
+*/--------------edit--------------
+game.demo.Bullet.setMove(add)
+--------------------------------*/
+case 200:
+                speed=4;
+                moveId+=1;
+                break;
+            case 201:
+                if (y<MyGdxGame.player.y) {
+                    Bullet_Reallo(x,y,1,0,3,2);
+                    Bullet_Reallo(x,y,-1,0,3,2);
+                    Bullet_Reallo(x,y,0,1,3,2);
+                    Bullet_Reallo(x,y,0,-1,3,2);
+                    Bullet_Reallo(x,y,1,1,3,2);
+                    Bullet_Reallo(x,y,1,-1,3,2);
+                    Bullet_Reallo(x,y,-1,-1,3,2);
+                    Bullet_Reallo(x,y,-1,1,3,2);
+                    Execute();
+                }
+                break;
+            case 300:
+                speed=2;
+                moveId+=1;
+                break;
