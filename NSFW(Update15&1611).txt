@@ -1,0 +1,126 @@
+/*----------------edit----------------
+game.demo.Waves.Wave_Call(add)
+------------------------------------*/
+case 5:
+                wavetime=30000;
+                Enemy.Enemy_Reallo(640,720,5,Wave);
+                Loadwave=false;
+                break;
+/*----------------edit----------------
+game.demo.Enemy.setMove(add)
+------------------------------------*/
+case 500:
+                speed=-3;
+                setX_move(0);
+                moveId+=4;
+                break;
+            case 504:
+                if (System.currentTimeMillis()-t1>2000) moveId-=3;
+                break;
+            case 501:
+                moveId=599;
+                break;
+            case 514:
+                speed=3;
+                if (y>720) State=false;
+                break;
+/*----------------edit----------------
+game.demo.Enemy.Bullet_Call(add)
+------------------------------------*/
+case 599:
+                a=30;
+                b=0;
+                t=System.currentTimeMillis();
+                moveId-=1;
+                break;
+            case 598:
+                D=Math.sqrt((double) a * (double) a + (double) b * (double) b);
+                X=(b-a*0.1f)*60/(float)Math.sqrt(101)/(float)D;
+                Y=(-a-b*0.1f)*60/(float)Math.sqrt(101)/(float)D;
+                Bullet.Bullet_Reallo(x,y,a,b,4,2);
+                Bullet.Bullet_Reallo(x,y,-a,-b,4,2);
+                Bullet.Bullet_Reallo(x,y,-b,a,4,2);
+                Bullet.Bullet_Reallo(x,y,b,-a,4,2);
+                if ((System.currentTimeMillis()-t>1000)&&(System.currentTimeMillis()-t<2000)) {
+                    Bullet.Bullet_Reallo(x,y,a,b,5,2);
+                    Bullet.Bullet_Reallo(x,y,-a,-b,5,2);
+                    Bullet.Bullet_Reallo(x,y,-b,a,5,2);
+                    Bullet.Bullet_Reallo(x,y,b,-a,5,2);
+                }
+                a+=X;
+                b+=Y;
+                if (System.currentTimeMillis()-t>3000) {
+                    moveId=597;
+                    t=System.currentTimeMillis();
+                }
+                if (System.currentTimeMillis()-t1>27500) moveId=514;
+                break;
+            case 597:
+                D=Math.sqrt((double) a * (double) a + (double) b * (double) b);
+                X=(1.5f*b+a*0.1f)*-720/(float)Math.sqrt(226)/(float)D;
+                Y=(-1.5f*a+b*0.1f)*-720/(float)Math.sqrt(226)/(float)D;
+                Bullet.Bullet_Reallo(x,y,a,b,4,2);
+                Bullet.Bullet_Reallo(x,y,-a,-b,4,2);
+                Bullet.Bullet_Reallo(x,y,-b,a,4,2);
+                Bullet.Bullet_Reallo(x,y,b,-a,4,2);
+                if ((System.currentTimeMillis()-t>3000)&&(System.currentTimeMillis()-t<4000)) {
+                    Bullet.Bullet_Reallo(x,y,a,b,6,2);
+                    Bullet.Bullet_Reallo(x,y,-a,-b,6,2);
+                    Bullet.Bullet_Reallo(x,y,-b,a,6,2);
+                    Bullet.Bullet_Reallo(x,y,b,-a,6,2);
+                }
+                a+=X;
+                b+=Y;
+                if (System.currentTimeMillis()-t>5000) {
+                    moveId=596;
+                    t=System.currentTimeMillis();
+                }
+                if (System.currentTimeMillis()-t1>27500) moveId=514;
+                break;
+            case 596:
+                D=Math.sqrt((double) a * (double) a + (double) b * (double) b);
+                X=(0.3f*b-a)*7/(float)D;
+                Y=(-0.3f*a-b)*7/(float)D;
+                Bullet.Bullet_Reallo(x,y,a,b,4,2);
+                Bullet.Bullet_Reallo(x,y,-a,-b,4,2);
+                Bullet.Bullet_Reallo(x,y,-b,a,4,2);
+                Bullet.Bullet_Reallo(x,y,b,-a,4,2);
+                a+=X;
+                b+=Y;
+                if (D<30) {
+                    moveId=598;
+                    t=System.currentTimeMillis();
+                }
+                break;
+/*----------------edit----------------
+game.demo.Bullet.Bullet_Call(add)
+------------------------------------*/
+case 400:
+                Execute();
+                break;
+            case 500:
+            case 600:
+                setY_move(0);
+                setX_move(0);
+                moveId+=4;
+                break;
+            case 501:
+            case 601:
+                moveId+=4;
+                break;
+            case 504:
+                speed=4;
+                if (System.currentTimeMillis()-t>1000) moveId-=3;
+                break;
+            case 604:
+                speed=-4;
+                if (System.currentTimeMillis()-t>1000) moveId-=3;
+                break;
+            case 505:
+            case 605:
+                if((x>1280)||(x<0)||(y<0)||(y>1120)) Execute();
+                break;
+/*---------------edit-------------
+Others
+--------------------------------*/
+add float a,b in Enemy-class
