@@ -78,6 +78,7 @@ public class Multiplay_WinScreen implements Screen{
                 stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.run(new Runnable() {
                     @Override
                     public void run() {
+                        sound.stop();
                         mainClass.setMultiplayerScreen();
                     }
                 })));
@@ -91,6 +92,7 @@ public class Multiplay_WinScreen implements Screen{
                 stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.run(new Runnable() {
                     @Override
                     public void run() {
+                        sound.stop();
                         mainClass.setMenuScreen();
                     }
                 })));
@@ -101,6 +103,7 @@ public class Multiplay_WinScreen implements Screen{
         ExitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                sound.stop();
                 Gdx.app.log("Exit Game", "BEEP");
                 Gdx.app.exit();
             }

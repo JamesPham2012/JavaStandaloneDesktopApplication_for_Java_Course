@@ -1,6 +1,7 @@
 package game.demo.Multiplayer;
 
 
+import UI.Multiplayer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import UI.MainClass;
 import game.demo.Assets;
 import game.demo.Background;
+import game.demo.Item;
 import game.demo.Waves;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -81,6 +83,7 @@ public class MultiplayerGame implements Screen {
 
     @Override
     public void show() {
+        System.out.println("Server IP: "+Multiplayer.ServerIP);
         connectSocket(); // copy file gradle build. thu muc server.
 
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
@@ -241,6 +244,7 @@ public class MultiplayerGame implements Screen {
                 System.out.println("loseGame");
                 Bullet_Multiplayer.bullet_arr.clear();
                 Enemy_Multiplayer.enemy_arr.clear();
+                Item.item_arr.clear();
                 mainClass.setLostScreen();
                 Waves.reset();
                 Wave=0;
@@ -251,7 +255,7 @@ public class MultiplayerGame implements Screen {
 
     public void connectSocket(){
         try{
-            socket = IO.socket("http://0.0.0.0:3000");
+            socket = IO.socket("http://"+ Multiplayer.ServerIP+":3000");
             socket.connect();
 
         }

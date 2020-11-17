@@ -15,6 +15,8 @@ public class MainClass extends Game implements ApplicationListener {
     private MultiplayerGame multiplayerScreen;
     private Multiplay_LostScreen lostScreen;
     private Multiplay_WinScreen winScreen;
+    private SinglePlayer singlePlayerScreen;
+    private Multiplayer multiplayerUIScreen;
     public int score;
     public String name;
 
@@ -28,10 +30,17 @@ public class MainClass extends Game implements ApplicationListener {
         multiplayerScreen = new MultiplayerGame(this);
         winScreen = new Multiplay_WinScreen(this);
         lostScreen = new Multiplay_LostScreen(this);
+        singlePlayerScreen = new SinglePlayer(this);
+        multiplayerUIScreen = new Multiplayer(this);
 
         setMenuScreen();
     }
-
+    public void setMultiplayerUIScreen(){
+        setScreen(multiplayerUIScreen);
+    }
+    public void setSinglePlayerScreen(){
+        setScreen(singlePlayerScreen);
+    }
     public void setNewGameScreen(){
         gameScreen=new MyGdxGame(this);
         setScreen(gameScreen);
