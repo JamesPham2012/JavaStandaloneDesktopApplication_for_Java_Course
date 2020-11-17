@@ -46,6 +46,7 @@ public class Player extends GameObj{
             if (System.currentTimeMillis() - t > rapidity) {
                 t = System.currentTimeMillis();
                 long id = fire.play(1f);
+                fire.setVolume(id, 0.15f);
                 fire.setPitch(id,0.3f);
                 return true;
             } return false;

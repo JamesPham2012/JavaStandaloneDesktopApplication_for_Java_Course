@@ -14,6 +14,6 @@ public class Assets {
         texture_plane = new Texture("Plane.png");
         texture_enemy = new Texture("Enemy.png");
         texture_plane2 = new Texture("Plane2.png");
-        texture_item = new Texture("badlogic.jpg");
+        texture_item = new Texture("powerup.png");
     }
 }
