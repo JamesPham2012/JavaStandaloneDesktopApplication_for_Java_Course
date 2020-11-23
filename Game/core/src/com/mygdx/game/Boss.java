@@ -2,46 +2,55 @@ package com.mygdx.game;
 
 import UI.GameOverScreen;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Boss extends GameObj{
     private SpriteBatch batch;
     private Sprite sprite;
-    private Texture BossTexture;
 
     public float WORLD_WIDTH;
     public float WORLD_HEIGHT;
 
-    public Explosion explosion;
-
+    //Boss movement
     private static float speed = 100f;
 
     private float des_x, des_y;
     private GameObj[] wayPoints;
 
-    private float HP = 1;
-    private Texture HPTexture, HPBackground;
-
+    private boolean arrived = false;
     Random random;
     private int posIndex;
 
-    //    private float offset_x;
-    private float offset_y;
-
     //Player position
     private GameObj playerPos = new GameObj();
+    /////////////////////////
 
-
-    private boolean isDead = false;
+    //Boss stats
+    private float HP = 1;
     private int score = 100;
 
     private float hitBoxWidth;
     private float hitBoxHeight;
 
+    private Texture HPTexture, HPBackground;
+    private float offset_y;
+    private boolean isDead = false;
+    //////////////////////////
+
+    //How fast the boss shoot
+    private float fireRate = 3f;
+    private float timeSinceLastFire = 0f;
+    ArrayList<Rocket> rocketList;
+    ///////////////////////////
+
+    private Sound sound= Gdx.audio.newSound(Gdx.files.internal("Audio/Explosion3.mp3"));
+    
     public Boss()
     {
         WORLD_HEIGHT = Gdx.graphics.getHeight();
@@ -52,8 +61,7 @@ public class Boss extends GameObj{
         State = true;
 
         //Setting up boss texture to draw
-        BossTexture = new Texture(Gdx.files.internal("Texture/Boss/EnemyBoss.png"));
-        sprite = new Sprite(BossTexture);
+        sprite = new Sprite(Assets.texture_boss);
 
         //Setting up Hitbox
         hitBoxHeight = sprite.getHeight();
@@ -74,8 +82,8 @@ public class Boss extends GameObj{
         for(int i = 0; i < wayPoints.length; i++)
         {
             wayPoints[i] = new GameObj();
-            wayPoints[i].x = WORLD_WIDTH/2 -sprite.getWidth()/2 * i;
-            wayPoints[i].y = WORLD_HEIGHT/2 + sprite.getHeight()/2 * i/ 2;
+            wayPoints[i].x = (WORLD_WIDTH/2 - sprite.getWidth()/2) * i;
+            wayPoints[i].y = WORLD_HEIGHT/2 + sprite.getHeight()/2 * i/2;
         }
 
         random = new Random();
@@ -85,7 +93,8 @@ public class Boss extends GameObj{
 
         setHitBoxRadius();
 
-        explosion = new Explosion();
+        rocketList = new ArrayList<>();
+
     }
 
     public void render()
@@ -107,18 +116,18 @@ public class Boss extends GameObj{
             batch.end();
 
             moveBoss();
+            shootRocket();
+
+            for(int i = 0; i < rocketList.size(); i++)
+            {
+                rocketList.get(i).render();
+                rocketList.get(i).getPlayerPos(playerPos.x, playerPos.y);
+            }
+
+            timeSinceLastFire += Gdx.graphics.getDeltaTime();
+            checkRocket();
         }
 
-
-//        RotateBoss();
-
-//        System.out.println("BEEP" + pos);
-    }
-
-    public void getPlayerPos(float x, float y)
-    {
-        playerPos.x = x;
-        playerPos.y = y;
     }
 
     private void moveBoss()
@@ -135,8 +144,11 @@ public class Boss extends GameObj{
 
         if(des_x % x <= 0.1 & des_y % y <= 0.1)
         {
+            arrived = true;
             setDes();
         }
+        else
+            arrived = false;
     }
 
     private void setDes()
@@ -145,13 +157,6 @@ public class Boss extends GameObj{
         des_x = wayPoints[posIndex].x;
         des_y = wayPoints[posIndex].y;
     }
-//
-//    private void RotateBoss()
-//    {
-//        degree = (float) Math.atan2(y - playerPos.y, x - playerPos.x) * MathUtils.radDeg;
-//
-//        sprite.setRotation(degree - 95f);
-//    }
 
     public void checkCollision(){
             if (State)
@@ -184,17 +189,17 @@ public class Boss extends GameObj{
     private void checkHP()
     {
         if(HP <= 0)
+        {
             Execute();
+        }
     }
 
-    private void Execute(){
-        explosion.draw();
-        if(explosion.isDone)
-        {
-            State=false;
-            id=0;
-            GameOverScreen.score += score;
-        }
+    private void Execute()
+    {
+        sound.dispose();
+        State=false;
+        id=0;
+        GameOverScreen.score += score;
     }
 
     private void setHitBoxRadius()
@@ -202,13 +207,39 @@ public class Boss extends GameObj{
         hitboxRadius = sprite.getHeight()/2;
     }
 
-    private void hitBox()
+    public void getPlayerPos(float x, float y)
     {
+        playerPos.x = x;
+        playerPos.y = y;
+    }
 
+    public void shootRocket() {
+        if (timeSinceLastFire >= fireRate)
+        {
+            rocketList.add(new Rocket(x, y));
+            rocketList.add(new Rocket(x+sprite.getWidth(), y));
+
+            System.out.println(rocketList.size());
+            timeSinceLastFire = 0f;
+        }
+    }
+
+    private void checkRocket()
+    {
+        for(int i = 0; i < rocketList.size(); i++)
+        {
+            if(!rocketList.get(i).State)
+            {
+                sound.play();
+                rocketList.remove(i);
+                System.out.println("DEAD");
+            }
+        }
     }
 
     public void dispose()
     {
+        sound.dispose();
         batch.dispose();
     }
 }
