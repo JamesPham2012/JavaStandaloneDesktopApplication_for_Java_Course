@@ -11,6 +11,10 @@ public class MainClass extends Game implements ApplicationListener {
     private PauseScreen pauseScreen;
     private GameOverScreen gameOver;
     private ScoreBoardScreen scoreBoardScreen;
+    private Multiplay_WinScreen winScreen;
+    private Multiplay_LostScreen lostScreen;
+    private GameModesMenu gameModesMenu;
+
     public int score;
     public String name;
 
@@ -21,8 +25,15 @@ public class MainClass extends Game implements ApplicationListener {
         mainMenu = new MainMenu(this);
         pauseScreen = new PauseScreen(this);
         gameOver = new GameOverScreen(this);
+        gameModesMenu = new GameModesMenu(this);
 
         setMenuScreen();
+    }
+
+    public void setGameModeScreen()
+    {
+        setScreen(gameModesMenu);
+        gameScreen.pause();;
     }
 
     public void setNewGameScreen(){
@@ -48,15 +59,31 @@ public class MainClass extends Game implements ApplicationListener {
     }
     public void setScoreBoardScreen()
     {
-        scoreBoardScreen = new ScoreBoardScreen(new PlayerData(name, score));
+        scoreBoardScreen = new ScoreBoardScreen(new PlayerData(name, score), this);
         setScreen(scoreBoardScreen);
         gameScreen.pause();
     }
+    public void setWinScreen()
+    {
+        winScreen = new Multiplay_WinScreen(this);
+        setScreen(winScreen);
+    }
+    public void setLostScreen()
+    {
+        lostScreen = new Multiplay_LostScreen(this);
+        setScreen(lostScreen);
+    }
+
 
     @Override
     public void dispose() {
-
         super.dispose();
+        gameScreen.dispose();
+        pauseScreen.dispose();
+        mainMenu.dispose();
+        scoreBoardScreen.dispose();
+        winScreen.dispose();
+        gameOver.dispose();
     }
 
     @Override

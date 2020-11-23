@@ -46,12 +46,6 @@ public class MainMenu implements Screen {
 
     private Stage stage;
 
-
-    public MainMenu()
-    {
-
-    }
-
     public MainMenu(final MainClass mainClass){
         this.mainClass = mainClass;
         batch = new SpriteBatch();
@@ -92,17 +86,23 @@ public class MainMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 PlayerName = textfield.getText();
-                mainClass.setNewGameScreen();
+
+                stage.addAction(Actions.sequence(Actions.fadeOut(1), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        mainClass.setGameModeScreen();
+                    }
+                })));
             }
         });
 
-        MultiplayerButton = new ImageButton(skin, "Multiplayer");
-        MultiplayerButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("COMING SOON");
-            }
-        });
+//        MultiplayerButton = new ImageButton(skin, "Multiplayer");
+//        MultiplayerButton.addListener(new ClickListener() {
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                System.out.println("COMING SOON");
+//            }
+//        });
 
         ScoreBoardButton = new ImageButton(skin, "ScoreBoard");
         ScoreBoardButton.addListener(new ClickListener() {
@@ -140,8 +140,8 @@ public class MainMenu implements Screen {
         table.add(textfield);
         table.row();
         table.add(PlayButton).pad(30);
-        table.row();
-        table.add(MultiplayerButton).pad(30);
+//        table.row();
+//        table.add(MultiplayerButton).pad(30);
         table.row();
         table.add(ScoreBoardButton).pad(30);
         table.row();
@@ -188,7 +188,6 @@ public class MainMenu implements Screen {
     }
 
 
-
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true); // this line is important. update size of stage = current screen size.
@@ -199,7 +198,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void pause() {
-
+        PlayButton.setDisabled(true);
     }
 
     @Override
@@ -209,7 +208,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void hide() {
-
+        Gdx.input.setInputProcessor(null);
     }
 
 
