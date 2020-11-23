@@ -10,6 +10,11 @@
         down: PlayButtonDown
         over: PlayButtonHover
     },
+    Singleplayer: {
+        up: SingleplayerButtonUp
+        down: SingleplayerButtonDown
+        over: SingleplayerButtonHover
+    },
     Retry: {
       up: RetryButtonUp
       down: RetryButtonDown
@@ -21,9 +26,9 @@
         over: MultiplayerButtonHover
     },
     ScoreBoard: {
-        up: ScoreBoardButtonUp
-        down: ScoreBoardButtonDown
-        over: ScoreBoardButtonHover
+        up: ScoreboardButtonUp
+        down: ScoreboardButtonDown
+        over: ScoreboardButtonHover
     },
     Exit: {
         up: ExitButtonUp
