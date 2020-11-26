@@ -73,7 +73,7 @@ public class MainMenu implements Screen {
         table.align(Align.center|Align.top);
 
 
-        PlayButton = new ImageButton(skin, "Play");
+        PlayButton = new ImageButton(skin, "Singleplayer");
         PlayButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

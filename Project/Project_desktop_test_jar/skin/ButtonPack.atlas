@@ -4,108 +4,193 @@ size: 2048,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+BackButtonDown
+  rotate: false
+  xy: 1330, 269
+  size: 216, 50
+  orig: 216, 50
+  offset: 0, 0
+  index: -1
+BackButtonHover
+  rotate: false
+  xy: 270, 55
+  size: 216, 50
+  orig: 216, 50
+  offset: 0, 0
+  index: -1
+BackButtonUp
+  rotate: false
+  xy: 330, 107
+  size: 216, 50
+  orig: 216, 50
+  offset: 0, 0
+  index: -1
 ExitButtonDown
   rotate: false
-  xy: 1558, 274
-  size: 296, 134
-  orig: 296, 134
+  xy: 759, 217
+  size: 205, 50
+  orig: 205, 50
   offset: 0, 0
   index: -1
 ExitButtonHover
   rotate: false
-  xy: 1108, 138
-  size: 296, 134
-  orig: 296, 134
+  xy: 552, 217
+  size: 205, 50
+  orig: 205, 50
   offset: 0, 0
   index: -1
 ExitButtonUp
   rotate: false
-  xy: 658, 2
-  size: 296, 134
-  orig: 296, 134
+  xy: 1548, 269
+  size: 205, 50
+  orig: 205, 50
   offset: 0, 0
   index: -1
 MainMenuButtonDown
   rotate: false
-  xy: 2, 138
-  size: 448, 134
-  orig: 448, 134
+  xy: 1262, 373
+  size: 448, 50
+  orig: 448, 50
   offset: 0, 0
   index: -1
 MainMenuButtonHover
   rotate: false
-  xy: 452, 274
-  size: 448, 134
-  orig: 448, 134
+  xy: 552, 269
+  size: 448, 50
+  orig: 448, 50
   offset: 0, 0
   index: -1
 MainMenuButtonUp
   rotate: false
-  xy: 2, 274
-  size: 448, 134
-  orig: 448, 134
+  xy: 604, 321
+  size: 448, 50
+  orig: 448, 50
+  offset: 0, 0
+  index: -1
+MultiplayerButtonDown
+  rotate: false
+  xy: 1323, 425
+  size: 598, 50
+  orig: 598, 50
+  offset: 0, 0
+  index: -1
+MultiplayerButtonHover
+  rotate: false
+  xy: 661, 373
+  size: 599, 50
+  orig: 599, 50
+  offset: 0, 0
+  index: -1
+MultiplayerButtonUp
+  rotate: false
+  xy: 2, 321
+  size: 600, 50
+  orig: 600, 50
   offset: 0, 0
   index: -1
 PlayButtonDown
   rotate: false
-  xy: 1406, 138
-  size: 296, 134
-  orig: 296, 134
+  xy: 1712, 373
+  size: 212, 50
+  orig: 212, 50
   offset: 0, 0
   index: -1
 PlayButtonHover
   rotate: false
-  xy: 1254, 2
-  size: 296, 134
-  orig: 296, 134
+  xy: 1650, 321
+  size: 212, 50
+  orig: 212, 50
   offset: 0, 0
   index: -1
 PlayButtonUp
   rotate: false
-  xy: 956, 2
-  size: 296, 134
-  orig: 296, 134
+  xy: 268, 3
+  size: 212, 50
+  orig: 212, 50
   offset: 0, 0
   index: -1
 ResumeButtonDown
   rotate: false
-  xy: 1230, 274
-  size: 326, 134
-  orig: 326, 134
+  xy: 1002, 269
+  size: 326, 50
+  orig: 326, 50
   offset: 0, 0
   index: -1
 ResumeButtonHover
   rotate: false
-  xy: 780, 138
-  size: 326, 134
-  orig: 326, 134
+  xy: 1054, 321
+  size: 326, 50
+  orig: 326, 50
   offset: 0, 0
   index: -1
 ResumeButtonUp
   rotate: false
-  xy: 902, 274
-  size: 326, 134
-  orig: 326, 134
+  xy: 2, 107
+  size: 326, 50
+  orig: 326, 50
   offset: 0, 0
   index: -1
 RetryButtonDown
   rotate: false
-  xy: 330, 2
-  size: 326, 134
-  orig: 326, 134
+  xy: 1382, 321
+  size: 266, 50
+  orig: 266, 50
   offset: 0, 0
   index: -1
 RetryButtonHover
   rotate: false
   xy: 2, 2
-  size: 326, 134
-  orig: 326, 134
+  size: 264, 51
+  orig: 264, 51
   offset: 0, 0
   index: -1
 RetryButtonUp
   rotate: false
-  xy: 452, 138
-  size: 326, 134
-  orig: 326, 134
+  xy: 2, 55
+  size: 266, 50
+  orig: 266, 50
   offset: 0, 0
   index: -1
+ScoreboardButtonDown
+  rotate: false
+  xy: 2, 159
+  size: 544, 52
+  orig: 544, 52
+  offset: 0, 0
+  index: -1
+ScoreboardButtonHover
+  rotate: false
+  xy: 2, 213
+  size: 546, 52
+  orig: 546, 52
+  offset: 0, 0
+  index: -1
+ScoreboardButtonUp
+  rotate: false
+  xy: 2, 267
+  size: 548, 52
+  orig: 548, 52
+  offset: 0, 0
+  index: -1
+SingleplayerButtonDown
+  rotate: false
+  xy: 2, 425
+  size: 660, 50
+  orig: 660, 50
+  offset: 0, 0
+  index: -1
+SingleplayerButtonHover
+  rotate: false
+  xy: 664, 425
+  size: 657, 50
+  orig: 657, 50
+  offset: 0, 0
+  index: -1
+SingleplayerButtonUp
+  rotate: false
+  xy: 2, 373
+  size: 657, 50
+  orig: 657, 50
+  offset: 0, 0
+  index: -1
+

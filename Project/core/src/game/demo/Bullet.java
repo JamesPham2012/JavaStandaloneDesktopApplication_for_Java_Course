@@ -13,14 +13,10 @@ import java.lang.Math;
 public class Bullet extends GameObj {
     private SpriteBatch batch;
     private long t=0l;
-    private static Bullet fakebase=new Bullet(0,0,0,0);
-    protected int Source_ID_Collision=0;
-    public static Vector<Bullet> bullet_arr=new Vector<Bullet>();
+    private static Bullet fakebase=new Bullet(0,0,0);
+    public static Vector<Bullet> bullet_arr=new Vector<>();
 
-    protected boolean isAlly(){
-        return (this.Source_ID_Collision==1);
-    }
-    private Bullet(float x_c, float y_c, float xfromhost, float yfromhost, int Id,int CollisionID) {
+    private Bullet(float x_c, float y_c, float xfromhost, float yfromhost, int Id) {
         x = x_c + xfromhost;
         x_b = x_c;
         y = y_c + yfromhost;
@@ -29,20 +25,17 @@ public class Bullet extends GameObj {
         id=Id;
         State=true;
         t=System.currentTimeMillis();
-        Source_ID_Collision=CollisionID;
     }
 
-    private Bullet(float x_c, float y_c, int Id,int CollisionID) {
+    private Bullet(float x_c, float y_c, int Id) {
         x = x_c;
         x_b = x_c;
         y = y_c;
         y_b = y_c;
         id = Id;
-        Source_ID_Collision=CollisionID;
     }
 
     public static void resetfakebase(){
-
         fakebase.x_b=MyGdxGame.player.getX();
         fakebase.y_b=MyGdxGame.player.getY();
     }
@@ -57,35 +50,19 @@ public class Bullet extends GameObj {
         batch = new SpriteBatch();
     }
 
-    private void renders(GameObj playerObject,int location_of_Bullet,Vector<PixelCoord> Pixel1,Vector<PixelCoord> Pixel2) { // loop
+    private void renders() { // loop
         batch.begin();
-        batch.draw(Assets.texture_bullet, (x- (Assets.texture_bullet.getWidth()/2)),(y- (Assets.texture_bullet.getHeight()/2)));
-        if (this.isAlly()){
-            for(int i=0;i< Enemy.enemy_arr.size();i++){
-                if ((this.distanceto(Enemy.enemy_arr.elementAt(i))<(Enemy.enemy_arr.elementAt(i).getSonarRange()+this.getSonarRange()))||(this.distanceto2(Enemy.enemy_arr.elementAt(i))<(Enemy.enemy_arr.elementAt(i).getSonarRange()+this.getSonarRange()))){
-                    Pixel1.addElement(new PixelCoord(x- (Assets.texture_bullet.getWidth()*scale/2),y- (Assets.texture_bullet.getHeight()*scale/2),location_of_Bullet,i));
-                }
-            }
-        }
-        if (!this.isAlly()){
-            if ((this.distanceto(playerObject)<(playerObject.getSonarRange()+this.getSonarRange()))||(this.distanceto2(playerObject)<(playerObject.getSonarRange()+this.getSonarRange()))){
-                Pixel2.addElement(new PixelCoord(x- (Assets.texture_bullet.getWidth()*scale/2),y- (Assets.texture_bullet.getHeight()*scale/2),location_of_Bullet));
-            }
-        }
+        batch.draw(Assets.texture_bullet, (int)(x- (Assets.texture_bullet.getWidth()*scale/2)),(int)(y- (Assets.texture_bullet.getHeight()*scale/2)),Assets.texture_bullet.getWidth()*scale,Assets.texture_bullet.getHeight()*scale);
         batch.end();
         y += y_move;
         x += x_move;
-        if (System.currentTimeMillis()-t>10000){
-            State=false;
-        }
     }
 
-
-    public static void render(Player player,Vector<PixelCoord> Pixel1,Vector<PixelCoord> Pixel2) {
+    public static void render() {
         for (int i = 0; i < bullet_arr.size(); i++) {
             if (bullet_arr.elementAt(i).State) {
                 bullet_arr.elementAt(i).setMove();
-                bullet_arr.elementAt(i).renders(player,i,Pixel1,Pixel2);
+                bullet_arr.elementAt(i).renders();
             }
         }
     }
@@ -94,13 +71,13 @@ public class Bullet extends GameObj {
         batch.dispose();
     }
 
-    public static void Bullet_Reallo(float x_c, float y_c, float x_offset, float y_offset,int id,int Collision_ID) {
+    public static void Bullet_Reallo(float x_c, float y_c, float x_offset, float y_offset,int id) {
         int BulletGen = 0;
         loop:     while (BulletGen == 0) {
             // need change to replace DED value with ALIVE value in order for the vector not to be too long, waste of memory
             for (int i = 0; i < bullet_arr.size(); i++) {                                                                           //there exists at least an element in the array
                 if (bullet_arr.elementAt(i).isDed()) {                                    // there is 1 dead bullet
-                    bullet_arr.elementAt(i).Revive(x_c, y_c, x_offset,y_offset,id,Collision_ID);//revive it as a new bullet
+                    bullet_arr.elementAt(i).Revive(x_c, y_c, x_offset,y_offset,id);//revive it as a new bullet
                     BulletGen = 1;
 
                     /*Gdx.app.log("Log", "Bullet number "+i+" revived");*/
@@ -108,7 +85,7 @@ public class Bullet extends GameObj {
                 }
             }
             // if the code get here, there is NO dead bullet in the array
-            bullet_arr.addElement(new Bullet(x_c, y_c,x_offset,y_offset,id,Collision_ID));// create a new bullet
+            bullet_arr.addElement(new Bullet(x_c, y_c,x_offset,y_offset,id));// create a new bullet
             bullet_arr.lastElement().setParam();
             bullet_arr.lastElement().create();
             BulletGen = 1;
@@ -119,7 +96,7 @@ public class Bullet extends GameObj {
         return !State;
     }
 
-    private void Revive(float x_c,float y_c, float x_offset, float y_offset,int id,int Collision_Id){
+    private void Revive(float x_c,float y_c, float x_offset, float y_offset,int id){
         this.x_b=x_c;
         this.y_b=y_c;
         this.x=x_c+x_offset;
@@ -130,11 +107,9 @@ public class Bullet extends GameObj {
         setHitboxRadius();
         setValue();
         t=System.currentTimeMillis();
-        Source_ID_Collision = Collision_Id;
     }
 
     public void Execute(){
-
         State=false;
         id=0;
     }

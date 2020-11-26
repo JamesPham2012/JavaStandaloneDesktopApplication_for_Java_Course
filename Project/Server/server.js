@@ -97,18 +97,6 @@ io.on('connection',function(socket){
         
     })
 
-    socket.on('sendtoServer',function(data){
-        socket.broadcast.emit("sendAnotherPositionToClient",data);
-
-        for(var i=0;i<player.length;i++){
-            if(player[i].id==data.id){
-                player[i].x = data.x;
-                player[i].y = data.y;
-                player[i].execute = data.execute;
-            }
-        }
-    })
-    
     socket.on('EndGame',function(data){
         socket.broadcast.emit("winGame");
         id2.splice(0,2);

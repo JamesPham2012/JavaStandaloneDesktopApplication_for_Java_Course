@@ -1,5 +1,4 @@
 package game.demo;
-import game.demo.Multiplayer.Enemy_Multiplayer;
 
 import java.lang.Object;
 import java.util.Random;
@@ -10,17 +9,19 @@ public class Waves {
     private static Random waveid=new Random();
     private static long wavetime=0;
     private static long t=System.currentTimeMillis();
+    //    private static long t1=System.currentTimeMillis();
     private static boolean Loadwave;
     private static int enemies=0;
     private static int id;
     private static boolean isAllEGone;
     private static Object obj=new Object();
 
+    public static int Wave = 0;
+
     public static void Wave_Come() {
         if (System.currentTimeMillis() - t > wavetime) {
             t = System.currentTimeMillis();
             Loadwave = true;
-            MyGdxGame.Wave++;
             id=waveid.nextInt(4);
             enemies=0;
         }
@@ -28,7 +29,6 @@ public class Waves {
             if (Loadwave) {
                 Wave_Call();
             }
-//            // Khi chua giet het thi ra wave moi.
             if (!Loadwave) {
                 if (Enemy.isClearedAll()) {
                     wavetime=0;
@@ -44,12 +44,14 @@ public class Waves {
     }
 
     private static void Wave_Call() {
-        int Wave=MyGdxGame.Wave;
+        Wave = MyGdxGame.Wave;
         switch (id){
             case 1:
                 wavetime=10000+(long)Math.sqrt(Wave)*1000;
                 if (wavetime>20000) wavetime=20000;
-                if (Wave>10) Wave=10;
+                MyGdxGame.Wave++;
+                if (Wave>10)
+                    Wave=10;
                 for (int i=0; i<Wave+1; i++){
                     Enemy.Enemy_Reallo((float)(waveid.nextInt(320)+480), (float)(waveid.nextInt(160)+560), 1, Wave);//this is just an example
                 }
@@ -61,6 +63,7 @@ public class Waves {
                     Enemy.Enemy_Reallo((float)80+160*i,720,2,Wave);
                 }
                 Loadwave=false;
+                MyGdxGame.Wave++;
                 break;
             case 3:
                 wavetime=10000;
@@ -73,6 +76,7 @@ public class Waves {
                 }
                 if ((enemies>=Wave+1)||(enemies>=30)) {
                     Loadwave=false;
+                    MyGdxGame.Wave++;
                 }
                 break;
         }
