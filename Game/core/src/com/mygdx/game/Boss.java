@@ -186,6 +186,18 @@ public class Boss extends GameObj{
         }
     }
 
+    public void checkCollisionWithPlayer()
+    {
+        if((playerPos.x >= x) &&
+                (playerPos.x <= x+hitBoxWidth) &&
+                (playerPos.y >= y) &&
+                (playerPos.y <= y+hitBoxHeight))
+        {
+            MyGdxGame.player.State = false;
+            MyGdxGame.player.id = 0;
+        }
+    }
+
     private void checkHP()
     {
         if(HP <= 0)
