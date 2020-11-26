@@ -16,6 +16,8 @@ public class Waves {
     private static boolean isAllEGone;
     private static Object obj=new Object();
 
+    public static int Wave = 0;
+
     public static void Wave_Come() {
         if (System.currentTimeMillis() - t > wavetime) {
             t = System.currentTimeMillis();
@@ -47,13 +49,14 @@ public class Waves {
     }
 
     private static void Wave_Call() {
-        int Wave=MyGdxGame.Wave;
+        Wave = MyGdxGame.Wave;
         switch (id){
             case 1:
                 wavetime=10000+(long)Math.sqrt(Wave)*1000;
                 if (wavetime>20000) wavetime=20000;
                 MyGdxGame.Wave++;
-                if (Wave>10) Wave=10;
+                if (Wave>10)
+                    Wave=10;
                 for (int i=0; i<Wave+1; i++){
                     Enemy.Enemy_Reallo((float)(waveid.nextInt(320)+480), (float)(waveid.nextInt(160)+560), 1, Wave);//this is just an example
                 }
