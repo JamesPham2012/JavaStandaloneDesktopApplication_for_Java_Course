@@ -6,12 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import java.util.ArrayList;
-import java.util.Vector;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -22,16 +16,10 @@ public class MyGdxGame implements Screen {
 	//Player player; // null obj which not consist any method. --> it just save a variable __> different from c++.
 	// In later we have to player = new Player() in somewhere--> but not remove new Player()
 
-	BitmapFont font_point;
 	static Player player = new Player();
 	Assets assets = new Assets();
 
-	Vector<Bullet> bullet_arr = new Vector<>();
-	Vector<Enemy> enemy_arr = new Vector<>();
-
 	static Boss boss;
-	Rocket rocket;
-	ArrayList<Rocket> rocket_arr = new ArrayList<>();
 
 	Background background = new Background();
 
@@ -47,7 +35,8 @@ public class MyGdxGame implements Screen {
 
 	PlayerData playerData;
 
-	public static int enemyNum;
+	public int bossWave = 3;
+
 	//	Texture sprite_bullet;
 //	//Input in; // interface class --> abstract class --> we cannot call obj of this class.
 	public MyGdxGame(MainClass mainClass){
@@ -67,7 +56,6 @@ public class MyGdxGame implements Screen {
 		background.resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
 		boss = new Boss();
-		rocket = new Rocket(boss.x, boss.y);
 	}
 
 	@Override
@@ -87,23 +75,34 @@ public class MyGdxGame implements Screen {
 				player.Bullet_Call();
 			}
 
-			boss.getPlayerPos(player.x, player.y);
-			boss.render();
-			boss.shootRocket();
-			boss.checkCollision();
 
-//			Waves.Wave_Come();
-//
-//			Enemy.render();
-//			Enemy.fire();
-//			Enemy.checkCollision();
+			if(Waves.Wave < bossWave)
+			{
+				Waves.Wave_Come();
+
+				Enemy.render();
+				Enemy.fire();
+				Enemy.checkCollision();
+			}
+
 			Bullet.render();
+
+			if(Waves.Wave >= bossWave)
+			{
+				boss.getPlayerPos(player.x, player.y);
+				boss.render();
+				boss.shootRocket();
+				boss.checkCollision();
+				boss.checkCollisionWithPlayer();
+				Enemy.killAll();
+			}
 
 			player.checkCollisionwthBullet();
 			player.checkCollisionwthEnemy();
 
 
 //			Gdx.app.log("FPS", Integer.toString(Gdx.graphics.getFramesPerSecond()));
+			System.out.println(Waves.Wave);
 
 			label_point.setText(GameOverScreen.score);
 
