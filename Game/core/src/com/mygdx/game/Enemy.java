@@ -123,6 +123,14 @@ public class Enemy extends GameObj {
         explosion.elapsedTime=0;
     }
 
+    public static void killAll()
+    {
+        for (int i = 0; i < enemy_arr.size(); i++) {
+            enemy_arr.elementAt(i).State = false;
+            enemy_arr.elementAt(i).id = 0;
+        }
+    }
+
     public static void checkCollision(){
         for (int i=0;i<enemy_arr.size();i++) {
             if (enemy_arr.elementAt(i).State) {
