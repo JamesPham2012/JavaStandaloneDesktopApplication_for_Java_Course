@@ -1,11 +1,14 @@
 package game.demo;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.Vector;
 
 public class Item extends GameObj {
+    private Sound powerup= Gdx.audio.newSound(Gdx.files.internal("Audio/Powerup.mp3"));
 
     private SpriteBatch batch;
     private long t;
@@ -134,6 +137,7 @@ public class Item extends GameObj {
             switch (id) {
                 case 1:
                     MyGdxGame.player.setPower(MyGdxGame.player.getPower() + 0.01);
+                    powerup.play();
                     break;
             }
             Execute();

@@ -19,5 +19,8 @@ public class Assets {
         texture_item = new Texture("badlogic.jpg");
         texture_boss = new Texture("Boss/EnemyBoss.png");
         texture_rocket = new Texture("Rocket.png");
+
+        texture_item = new Texture("powerup.png");
+
     }
 }

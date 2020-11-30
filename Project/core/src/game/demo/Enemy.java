@@ -20,9 +20,6 @@ public class Enemy extends GameObj {
 
     public Explosion explosion;
 
-    private int score;
-    public boolean isDead = false;
-
     public Enemy(float x_c, float y_c, int Id, int Wave) {
         x = x_c;
         x_b = x_c;
@@ -45,10 +42,11 @@ public class Enemy extends GameObj {
         batch = new SpriteBatch();
     }
 
-    public static void render() {
+    public static void render(Vector<PixelCoord> Sonar) {
         for (int i = 0; i < enemy_arr.size(); i++) {
             if (enemy_arr.elementAt(i).State) {
                 enemy_arr.elementAt(i).setMove();
+                enemy_arr.elementAt(i).setHitbox(Sonar);
                 enemy_arr.elementAt(i).renders();
             }
         }
@@ -59,7 +57,22 @@ public class Enemy extends GameObj {
     public boolean isDed() {
         return !State;
     }
+    public void ChangeTextureValue(){
+        this.Texture_Height=Assets.texture_enemy.getHeight();
+        this.Texture_Width=Assets.texture_enemy.getWidth();
+    }
 
+    public void Colixong(Vector<PixelCoord> Aaar){
+        loop:  for(int i=0;i<Pixel.size();i++){
+            for(int j=0;j<Aaar.size();j++){
+                if(Pixel.elementAt(i).VicinityBullet(Aaar.elementAt(j))){
+                    Bullet.bullet_arr.elementAt(Aaar.elementAt(j).location_Bullet).Execute();
+                    this.Execute();
+                    break loop;
+                }
+            }
+        }
+    }
     public boolean isExecuted() {
         if ((value<0)&&State){
             State=false;
@@ -78,13 +91,11 @@ public class Enemy extends GameObj {
         System.out.println(id);
 
         batch.begin();
-        batch.draw(Assets.texture_enemy, (int)(x- (Assets.texture_enemy.getWidth()*scale)),(int)(y- (Assets.texture_enemy.getHeight()*scale)),Assets.texture_enemy.getWidth(),Assets.texture_enemy.getHeight());
+        batch.draw(Assets.texture_enemy, (int)(x- (Assets.texture_enemy.getWidth()/2)),(int)(y- (Assets.texture_enemy.getHeight()/2)));
         batch.end();
         y += y_move;
         x += x_move;
         explosion.setPos(x,y);
-//        if(!State)
-//            explosion.draw(x,y);
     }
 
     public static void fire(){
@@ -151,8 +162,9 @@ public class Enemy extends GameObj {
         if(explosion.isDone)
         {
             State=false;
+            Item.drop(x,y,id);
             id=0;
-            GameOverScreen.score +=1;
+            MyGdxGame.point +=1;
         }
     }
 
@@ -163,7 +175,7 @@ public class Enemy extends GameObj {
                     (Math.sqrt(Math.pow((double)Bullet.bullet_arr.elementAt(i).getX()-x,2.0)+
                             Math.pow((double)Bullet.bullet_arr.elementAt(i).getY()-y,2.0))<
                             (double)Bullet.bullet_arr.elementAt(i).hitboxRadius+hitboxRadius)){
-                value-=Bullet.bullet_arr.elementAt(i).getValue();
+                value-=Bullet.bullet_arr.elementAt(i).getValue()- Player.power;
                 Bullet.bullet_arr.elementAt(i).Execute();
             }
         }
@@ -214,18 +226,18 @@ public class Enemy extends GameObj {
         switch (id) {
             case 1:
                 if ((System.currentTimeMillis() - t) > 1000 - Wave * 10) {
-                    Bullet.Bullet_Reallo(x, y, -X / (float) D, -Y / (float) D, 1);
-                    Bullet.Bullet_Reallo(x - 10, y, -X / (float) D, -Y / (float) D, 1);
-                    Bullet.Bullet_Reallo(x + 10, y, -X / (float) D, -Y / (float) D, 1);
+                    Bullet.Bullet_Reallo(x, y, -X / (float) D, -Y / (float) D, 1,2);
+                    Bullet.Bullet_Reallo(x - 10, y, -X / (float) D, -Y / (float) D, 1,2);
+                    Bullet.Bullet_Reallo(x + 10, y, -X / (float) D, -Y / (float) D, 1,2);
                     t = System.currentTimeMillis();
                 }
                 break;
             case 2:
             case 3:
                 if ((System.currentTimeMillis() - t) > 1000) {
-                    Bullet.Bullet_Reallo(x, y, -X / (float) D, -Y / (float) D, 1);
-                    Bullet.Bullet_Reallo(x - 20, y, -(X - 20) / (float) D, -Y / (float) D, 1);
-                    Bullet.Bullet_Reallo(x + 20, y, -(X + 20) / (float) D, -Y / (float) D, 1);
+                    Bullet.Bullet_Reallo(x, y, -X / (float) D, -Y / (float) D, 1,2);
+                    Bullet.Bullet_Reallo(x - 20, y, -(X - 20) / (float) D, -Y / (float) D, 1,2);
+                    Bullet.Bullet_Reallo(x + 20, y, -(X + 20) / (float) D, -Y / (float) D, 1,2);
                     t=System.currentTimeMillis();
                 }
                 break;

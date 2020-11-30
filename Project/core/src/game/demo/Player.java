@@ -13,13 +13,15 @@ public class Player extends GameObj{
     private int loaded=0;
     private long t=System.currentTimeMillis()-200;
     private long rapidity;
-    private double power;
+    public static double power;
 
-    public void create(){
+    public void create(int width, int height){
         scale = 0.4f;
         batch = new SpriteBatch();
         hitboxRadius=10;
         State=true;
+        Texture_Width=width;
+        Texture_Height=height;
         setId(1);
     }
 
@@ -53,6 +55,17 @@ public class Player extends GameObj{
         }
         input();
 
+    }
+    public void Collision(Vector<PixelCoord> Hail,Vector<Bullet> Barr){
+        loop:  for(int i=0;i<Pixel.size();i++){
+            for(int j=0;j<Hail.size();j++){
+                if(Pixel.elementAt(i).VicinityBullet(Hail.elementAt(j))){
+                    Barr.elementAt(Hail.elementAt(j).location_Bullet).Execute();
+                    this.Execute();
+                    break loop;
+                }
+            }
+        }
     }
     public void dispose () {
         batch.dispose();
@@ -122,29 +135,29 @@ public class Player extends GameObj{
         switch (Math.abs(id)) {
             case 0:
             {
-                Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -2);
-                Bullet.Bullet_Reallo(getX(), getY(), 0, -30, -2);
-                Bullet.Bullet_Reallo(getX(), getY(), 30, 0, -2);
-                Bullet.Bullet_Reallo(getX(), getY(), -30, 0, -2);
+                Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -2,1);
+                Bullet.Bullet_Reallo(getX(), getY(), 0, -30, -2,1);
+                Bullet.Bullet_Reallo(getX(), getY(), 30, 0, -2,1);
+                Bullet.Bullet_Reallo(getX(), getY(), -30, 0, -2,1);
                 break;
             }
             case 1:
                 /*     bullet_arr.addElement(new Bullet(getX(), getY(), 0, 30, 1));*/
             {
                 if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -3);
-                    Bullet.Bullet_Reallo(getX(), getY(), -5, 29, -3);
-                    Bullet.Bullet_Reallo(getX(), getY(), 5, 29, -3);
-                    Bullet.Bullet_Reallo(getX(), getY(), 0, 25, -3);
-                    Bullet.Bullet_Reallo(getX(), getY(), -10, 28, -3);
-                    Bullet.Bullet_Reallo(getX(), getY(), 10, 28, -3);
+                    Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), -5, 29, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), 5, 29, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), 0, 25, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), -10, 28, -3,1);
+                    Bullet.Bullet_Reallo(getX(), getY(), 10, 28, -3,1);
                 }
                 else {
-                    Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -1);
-                    Bullet.Bullet_Reallo(getX()-3, getY(), -2, 29, -1);
-                    Bullet.Bullet_Reallo(getX()+3, getY(), 2, 29, -1);
-                    Bullet.Bullet_Reallo(getX()-5, getY(), -5, 28, -1);
-                    Bullet.Bullet_Reallo(getX()+5, getY(), 5, 28, -1);
+                    Bullet.Bullet_Reallo(getX(), getY(), 0, 30, -1,1);
+                    Bullet.Bullet_Reallo(getX()-3, getY(), -2, 29, -1,1);
+                    Bullet.Bullet_Reallo(getX()+3, getY(), 2, 29, -1,1);
+                    Bullet.Bullet_Reallo(getX()-5, getY(), -5, 28, -1,1);
+                    Bullet.Bullet_Reallo(getX()+5, getY(), 5, 28, -1,1);
                 }
             }
             break;
